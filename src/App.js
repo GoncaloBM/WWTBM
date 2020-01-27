@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./styles.css";
 import { initialQuestion, shuffle, Question } from "./components/Question";
+import decode from "./components/DecodingFunction";
+import Button from "@material-ui/core/Button";
+import { logo } from "./components/logo";
 
 class App extends Component {
   constructor(props) {
@@ -9,10 +12,24 @@ class App extends Component {
   }
 
   getQuestionAndAnswers = () => {
+    let url = "";
+
+    if (this.state.activeQuestion < 5) {
+      url =
+        "https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple";
+    } else if (
+      this.state.activeQuestion > 4 &&
+      this.state.activeQuestion < 10
+    ) {
+      url =
+        "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple";
+    } else if (this.state.activeQuestion > 9) {
+      url =
+        "https://opentdb.com/api.php?amount=1&difficulty=hard&type=multiple";
+    }
+
     this.setState({ isLoaded: false }, () => {
-      fetch(
-        "https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple"
-      )
+      fetch(url)
         .then(response => response.json())
         .then(data => {
           let answersArray = [];
@@ -45,6 +62,10 @@ class App extends Component {
   };
 
   getNextState = input => {
+    this.setState({
+      questionAnswered: true,
+      selectedAnswer: this.state.answers[input]
+    });
     let selectedAnswer = this.state.answers[input];
     console.log(selectedAnswer);
     let questionRight = this.checkVictory(input);
@@ -58,36 +79,47 @@ class App extends Component {
   };
 
   render() {
-    if (this.state.question === null) {
-      return null;
-    } else {
-      return (
-        <div className="App">
-          <h1>Hello CodeSandbox</h1>
-          <h2>Start editing to see some magic happen!</h2>
-          <button
-            onClick={() => {
-              this.getQuestionAndAnswers();
-            }}
-          >
-            Clica aqui
-          </button>
-          <div>Question number: {this.state.activeQuestion}</div>
-          <div id="question-screen">
-            <div id="question">{this.state.question}</div>
-
-            <Question
-              answers={this.state.answers}
-              clickCallback={index => {
-                this.getNextState(index);
-              }}
-            />
-
-            <div>Correct : {this.state.correctAnswer}</div>
+    return (
+      <div className="principal-screen">
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => {
+            this.getQuestionAndAnswers();
+            this.setState({
+              questionHidden: false
+            });
+          }}
+        >
+          Start Game
+        </Button>
+        {/* <logo /> */}
+        <div>Question number: {this.state.activeQuestion}</div>
+        <div
+          id="question-screen"
+          className={
+            this.state.questionHidden ? "question-hidden" : "questions-show"
+          }
+        >
+          <div id="question-line">
+            {this.state.question ? <div className="arrow-left"></div> : ""}
+            <div id="question">{decode(this.state.question)}</div>
+            {this.state.question ? <div className="arrow-right"></div> : ""}
           </div>
+
+          <Question
+            state={this.state}
+            questionAnswered={this.state.questionAnswered}
+            answers={this.state.answers}
+            clickCallback={index => {
+              this.getNextState(index);
+            }}
+          />
+
+          <div>Correct : {this.state.correctAnswer}</div>
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
 

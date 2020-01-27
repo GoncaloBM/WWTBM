@@ -1,4 +1,5 @@
 import React from "react";
+import decoding from "./DecodingFunction";
 
 export const initialQuestion = () => {
   return {
@@ -7,7 +8,28 @@ export const initialQuestion = () => {
     answers: [],
     question: "",
     correctAnswer: "",
-    isLoaded: false
+    questionAnswered: false,
+    answerClicked: "",
+    selectedAnswer: "",
+    isLoaded: false,
+    questionAmmout: {
+      1: "25€",
+      2: "50€",
+      3: "125€",
+      4: "250€",
+      5: "500€",
+      6: "750€",
+      7: "1 500€",
+      8: "2 500€",
+      9: "5 000€",
+      10: "10 000€",
+      11: "16 000€",
+      12: "32 000€",
+      13: "64 000€",
+      14: "125 000€",
+      15: "250 000 €"
+    },
+    questionHidden : true
   };
 };
 
@@ -35,11 +57,19 @@ export const checkVictory = (input, state) => {
 
 export const Question = props => {
   return (
-    <div id="answers">
+    <div
+      id="answers"
+    >
       {props.answers.map((item, index) => {
         return (
           <div
-            className="answer"
+            className={
+              props.selectedAnswer !== props.answers[index]
+                ? "answer"
+                : props.questionAnswered === false
+                ? "answered"
+                : "answer"
+            }
             key={index}
             //onClick={index => {
             //this.getNextState(index);
@@ -47,7 +77,7 @@ export const Question = props => {
               props.clickCallback(index);
             }}
           >
-            {item}
+            {decoding(item)}
           </div>
         );
       })}
