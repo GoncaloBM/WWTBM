@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import "./styles.css";
-import { initialQuestion, shuffle, Question } from "./components/Question";
+import {
+  initialQuestion,
+  shuffle,
+  Question,
+  checkMessage
+} from "./components/Question";
 import decode from "./components/DecodingFunction";
 import Button from "@material-ui/core/Button";
-import { logo } from "./components/logo";
 
 class App extends Component {
   constructor(props) {
@@ -45,7 +49,8 @@ class App extends Component {
             question: data.results[0].question,
             correctAnswer: data.results[0].correct_answer,
             answers: randomAnswers,
-            isLoaded: true
+            isLoaded: true,
+            questionHidden: false
           });
         });
     });
@@ -61,50 +66,67 @@ class App extends Component {
     }
   };
 
-  getNextState = input => {
+  answerClicked = input => {
     this.setState({
       questionAnswered: true,
       selectedAnswer: this.state.answers[input]
     });
+
     let selectedAnswer = this.state.answers[input];
     console.log(selectedAnswer);
     let questionRight = this.checkVictory(input);
+
+    let messageToDisplay = checkMessage(this.state);
+
     if (questionRight) {
-      this.getQuestionAndAnswers();
+      this.setState({
+        questionHidden: true,
+        messageHidden: false,
+        messagem: messageToDisplay
+      });
+      setTimeout(() => this.getNextState(), 3000);
     } else {
       this.setState({
+        questionHidden: true,
+        messageHidden: false,
         messagem: "Perdeste!"
       });
     }
   };
 
+  getNextState = () => {
+    this.getQuestionAndAnswers();
+    this.setState({
+      messageHidden: true
+    });
+  };
+
   render() {
     return (
       <div className="principal-screen">
-        <Button
-          variant="outlined"
-          color="secondary"
+        <div
+          id="start-line" className= {this.state.startGameHidden ? 'start-hidden' : 'start-show'}
           onClick={() => {
             this.getQuestionAndAnswers();
-            this.setState({
-              questionHidden: false
-            });
           }}
         >
-          Start Game
-        </Button>
+          <div className="arrow-left-start"></div>
+          <div className="start-game-button">Start Game</div>
+          <div className="arrow-right-start"></div>
+        </div>
         {/* <logo /> */}
-        <div>Question number: {this.state.activeQuestion}</div>
         <div
-          id="question-screen"
-          className={
-            this.state.questionHidden ? "question-hidden" : "questions-show"
-          }
+          className={`question-screen ${
+            this.state.questionHidden === false
+              ? "questions-show"
+              : "questions-hidden"
+          }`}
         >
+          <div>Question number: {this.state.activeQuestion}</div>
           <div id="question-line">
-            {this.state.question ? <div className="arrow-left"></div> : ""}
+            {this.state.question ? <div className="arrow-left" /> : ""}
             <div id="question">{decode(this.state.question)}</div>
-            {this.state.question ? <div className="arrow-right"></div> : ""}
+            {this.state.question ? <div className="arrow-right" /> : ""}
           </div>
 
           <Question
@@ -112,11 +134,18 @@ class App extends Component {
             questionAnswered={this.state.questionAnswered}
             answers={this.state.answers}
             clickCallback={index => {
-              this.getNextState(index);
+              this.answerClicked(index);
             }}
           />
 
           <div>Correct : {this.state.correctAnswer}</div>
+        </div>
+        <div
+          className={`message-screen
+            ${this.state.messageHidden ? "hidden-message" : "show-message"}
+          `}
+        >
+          {this.state.messagem}
         </div>
       </div>
     );

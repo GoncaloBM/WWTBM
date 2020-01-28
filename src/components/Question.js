@@ -12,25 +12,37 @@ export const initialQuestion = () => {
     answerClicked: "",
     selectedAnswer: "",
     isLoaded: false,
-    questionAmmout: {
-      1: "25€",
-      2: "50€",
-      3: "125€",
-      4: "250€",
-      5: "500€",
-      6: "750€",
-      7: "1 500€",
-      8: "2 500€",
-      9: "5 000€",
-      10: "10 000€",
-      11: "16 000€",
-      12: "32 000€",
-      13: "64 000€",
-      14: "125 000€",
-      15: "250 000 €"
-    },
-    questionHidden : true
+    questionAmmout: [
+      "25€",
+      "50€",
+      "125€",
+      "250€",
+      "500€",
+      "750€",
+      "1 500€",
+      "2 500€",
+      "5 000€",
+      "10 000€",
+      "16 000€",
+      "32 000€",
+      "64 000€",
+      "125 000€",
+      "250 000 €"
+    ],
+    questionHidden: true,
+    messageHidden: true,
+    startGameHidden : false,
   };
+};
+
+export const checkMessage = state => {
+  let currentState = { ...state };
+
+  for (let i = 0; i < currentState.activeQuestion; i++) {
+    if (currentState.activeQuestion === i + 1) {
+      return currentState.questionAmmout[i+1];
+    }
+  }
 };
 
 export const shuffle = arr => {
@@ -57,9 +69,7 @@ export const checkVictory = (input, state) => {
 
 export const Question = props => {
   return (
-    <div
-      id="answers"
-    >
+    <div id="answers">
       {props.answers.map((item, index) => {
         return (
           <div
