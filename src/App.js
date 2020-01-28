@@ -7,7 +7,7 @@ import {
   checkMessage
 } from "./components/Question";
 import decode from "./components/DecodingFunction";
-import Button from "@material-ui/core/Button";
+import { Logo } from "./components/logo";
 
 class App extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class App extends Component {
         "https://opentdb.com/api.php?amount=1&difficulty=hard&type=multiple";
     }
 
-    this.setState({ isLoaded: false }, () => {
+    this.setState({ isLoaded: false, startGameHidden: true }, () => {
       fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -79,12 +79,16 @@ class App extends Component {
     let messageToDisplay = checkMessage(this.state);
 
     if (questionRight) {
-      this.setState({
-        questionHidden: true,
-        messageHidden: false,
-        messagem: messageToDisplay
-      });
-      setTimeout(() => this.getNextState(), 3000);
+      setTimeout(
+        () =>
+          this.setState({
+            questionHidden: true,
+            messageHidden: false,
+            messagem: messageToDisplay
+          }),
+        2000
+      );
+      setTimeout(() => this.getNextState(), 5000);
     } else {
       this.setState({
         questionHidden: true,
@@ -104,17 +108,18 @@ class App extends Component {
   render() {
     return (
       <div className="principal-screen">
+        <Logo />
         <div
-          id="start-line" className= {this.state.startGameHidden ? 'start-hidden' : 'start-show'}
+          id="start-line"
+          className={this.state.startGameHidden ? "start-hidden" : "start-show"}
           onClick={() => {
             this.getQuestionAndAnswers();
           }}
         >
-          <div className="arrow-left-start"></div>
+          <div className="arrow-left-start" />
           <div className="start-game-button">Start Game</div>
-          <div className="arrow-right-start"></div>
+          <div className="arrow-right-start" />
         </div>
-        {/* <logo /> */}
         <div
           className={`question-screen ${
             this.state.questionHidden === false

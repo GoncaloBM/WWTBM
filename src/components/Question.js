@@ -31,7 +31,7 @@ export const initialQuestion = () => {
     ],
     questionHidden: true,
     messageHidden: true,
-    startGameHidden : false,
+    startGameHidden: false
   };
 };
 
@@ -40,7 +40,7 @@ export const checkMessage = state => {
 
   for (let i = 0; i < currentState.activeQuestion; i++) {
     if (currentState.activeQuestion === i + 1) {
-      return currentState.questionAmmout[i+1];
+      return currentState.questionAmmout[i + 1];
     }
   }
 };
@@ -73,13 +73,7 @@ export const Question = props => {
       {props.answers.map((item, index) => {
         return (
           <div
-            className={
-              props.selectedAnswer !== props.answers[index]
-                ? "answer"
-                : props.questionAnswered === false
-                ? "answered"
-                : "answer"
-            }
+            className="answer-line"
             key={index}
             //onClick={index => {
             //this.getNextState(index);
@@ -87,7 +81,29 @@ export const Question = props => {
               props.clickCallback(index);
             }}
           >
-            {decoding(item)}
+            <div
+              className={
+                props.state.answers[index] === props.state.selectedAnswer
+                  ? "arrow-left-answered"
+                  : "arrow-left-answer"
+              }
+            />
+            <div
+              className={
+                props.state.answers[index] === props.state.selectedAnswer
+                  ? "answered"
+                  : "answer"
+              }
+            >
+              {decoding(item)}
+            </div>
+            <div
+              className={
+                props.state.answers[index] === props.state.selectedAnswer
+                  ? "arrow-right-answered"
+                  : "arrow-right-answer"
+              }
+            />
           </div>
         );
       })}

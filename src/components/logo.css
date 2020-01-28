@@ -1,27 +1,4 @@
-/* * {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  background: #425ca9;
-  font-family: Arial;
-}
-
-.wrapper {
-  width: 100%;
-  height: 100%;
-}
-
-section {
-}
-
+/*
 .logo {
   width: 500px;
   height: 500px;
@@ -50,28 +27,7 @@ section {
       transform: rotate(($i * 20) + deg);
     }
   }
-  .curved-top {
-    transform: rotate(-87deg);
-    font-size: 25px;
-    position: absolute;
-    top: 260px;
-    left: 0;
-    font-weight: bold;
-    color: #fff;
-    span {
-      height: 250px;
-      position: absolute;
-      width: 25px;
-      left: 0;
-      top: 0;
-      transform-origin: bottom center;
-    }
-    @for $i from 1 through 100 {
-      .char#{$i} {
-        transform: rotate(($i * 10) + deg);
-      }
-    }
-  }
+
   .inner-circle {
     width: 380px;
     height: 380px;
@@ -96,34 +52,88 @@ section {
     text-align: center;
     top: 215px;
   }
-  .curved-bottom {
-    transform: rotate(-85deg);
-    font-size: 25px;
+}
+
+*/
+
+.wrapper {
     position: absolute;
-    bottom: 260px;
+    top: 30%;
+    transform: translateX(-150px);
+  }
+  .logo {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(-45deg, #000 10%, #425ca9 90%);
+    border-radius: 50%;
+    position: absolute;
+    margin: auto;
+    top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+    border: 5px solid #c9def3;
+    text-shadow: 5px 5px 0px #000;
+  }
+  .logo .elipse {
+    width: 50px;
+    height: 240px;
+    position: absolute;
+    border: 1.5px solid #9db7d2;
+    border-radius: 50% 100%;
+    z-index: 5;
+    left: 120px;
+    top: 30px;
+  }
+  .logo .elipse1 {
+    transform: rotate(20deg);
+  }
+  .logo .elipse2 {
+    transform: rotate(40deg);
+  }
+  .logo .elipse3 {
+    transform: rotate(60deg);
+  }
+  .logo .elipse4 {
+    transform: rotate(80deg);
+  }
+  .logo .elipse5 {
+    transform: rotate(100deg);
+  }
+  .logo .elipse6 {
+    transform: rotate(120deg);
+  }
+  .logo .elipse7 {
+    transform: rotate(140deg);
+  }
+  .logo .elipse8 {
+    transform: rotate(160deg);
+  }
+  .logo .elipse9 {
+    transform: rotate(180deg);
+  }
+  .logo .inner-circle {
+    width: 220px;
+    height: 220px;
+    position: absolute;
+    background: #001621;
+    border: 5px solid #d2e4fa;
+    border-radius: 50%;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+  }
+  .logo .title {
+    font-size: 45px;
+    width: 300px;
+    z-index: 10;
+    position: absolute;
     font-weight: bold;
     color: #fff;
-    span {
-      height: 250px;
-      position: absolute;
-      width: 25px;
-      left: 0;
-      top: 0;
-      transform-origin: bottom center;
-    }
-    @for $i from 1 through 100 {
-      .char#{$i} {
-        transform: rotate(-($i * 10) + deg);
-      }
-    }
+    text-align: center;
+    top: 120px;
   }
-} */
-
-#wwtbm-logo {
-    width: 400px;
-    height: 400px;
-    background-image: url('Images/who-wants-to-be-a-millionaire-logo-png-transparent.png');
-    background-position: center;
-    background-repeat: no-repeat;
-  }
+  
