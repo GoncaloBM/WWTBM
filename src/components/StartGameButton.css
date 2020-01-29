@@ -1,0 +1,46 @@
+#start-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 8rem;
+  position: absolute;
+  transition: 0.5s all;
+  width: 50%;
+}
+
+.start-hidden {
+  bottom: -50%;
+}
+
+.start-show {
+  bottom: 10%;
+}
+
+.start-game-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #032f82;
+  height: 100%;
+  font-size: 3rem;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+}
+
+.arrow-right-start {
+  width: 0;
+  height: 0;
+  border-top: 4rem solid transparent;
+  border-bottom: 4rem solid transparent;
+  border-left: 4rem solid #032f82;
+}
+
+.arrow-left-start {
+  width: 0;
+  height: 0;
+  border-top: 4rem solid transparent;
+  border-bottom: 4rem solid transparent;
+  border-right: 4rem solid #032f82;
+}

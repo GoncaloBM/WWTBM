@@ -3,10 +3,12 @@ import "./styles.css";
 import {
   initialQuestion,
   shuffle,
-  Question,
+  Answers,
   checkMessage
-} from "./components/Question";
-import decode from "./components/DecodingFunction";
+} from "./components/Answers";
+import { Question } from "./components/Question";
+import { Message } from "./components/Message";
+import { StartGameButton } from "./components/StartGameButton";
 import { Logo } from "./components/logo";
 
 class App extends Component {
@@ -109,17 +111,14 @@ class App extends Component {
     return (
       <div className="principal-screen">
         <Logo />
-        <div
-          id="start-line"
-          className={this.state.startGameHidden ? "start-hidden" : "start-show"}
-          onClick={() => {
+
+        <StartGameButton
+          state={this.state}
+          clickCallback={() => {
             this.getQuestionAndAnswers();
           }}
-        >
-          <div className="arrow-left-start" />
-          <div className="start-game-button">Start Game</div>
-          <div className="arrow-right-start" />
-        </div>
+        />
+
         <div
           className={`question-screen ${
             this.state.questionHidden === false
@@ -127,14 +126,9 @@ class App extends Component {
               : "questions-hidden"
           }`}
         >
-          <div>Question number: {this.state.activeQuestion}</div>
-          <div id="question-line">
-            {this.state.question ? <div className="arrow-left" /> : ""}
-            <div id="question">{decode(this.state.question)}</div>
-            {this.state.question ? <div className="arrow-right" /> : ""}
-          </div>
+          <Question state={this.state} />
 
-          <Question
+          <Answers
             state={this.state}
             questionAnswered={this.state.questionAnswered}
             answers={this.state.answers}
@@ -145,13 +139,7 @@ class App extends Component {
 
           <div>Correct : {this.state.correctAnswer}</div>
         </div>
-        <div
-          className={`message-screen
-            ${this.state.messageHidden ? "hidden-message" : "show-message"}
-          `}
-        >
-          {this.state.messagem}
-        </div>
+        <Message state={this.state} />
       </div>
     );
   }

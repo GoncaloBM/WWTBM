@@ -1,0 +1,13 @@
+.message-screen {
+  position: absolute;
+  width: 100%;
+  transition: 0.5s all;
+}
+
+.show-message {
+  bottom: 20%;
+}
+
+.hidden-message {
+  bottom: -50%;
+}

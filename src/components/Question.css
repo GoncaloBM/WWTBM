@@ -1,108 +1,40 @@
-.screen-question {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+#component {
+width: 100%;
 }
 
-.answers {
+#question-line {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  height: 3rem;
+}
+
+#question {
+  display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.full-question {
-  display: flex;
-  width: 100%;
-}
-
-.question {
+  height: 3rem;
   background-color: #032f82;
-  border-top: 3px solid #585553;
-  border-bottom: 3px solid #585553;
   color: white;
   margin-bottom: 2px;
   width: 100%;
   text-align: center;
-}
-
-.full-answer {
-  display: flex;
-  width: 50%;
-}
-
-.question-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-}
-
-.answer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  background-color: #032f82;
-  border-top: 3px solid #585553;
-  border-bottom: 3px solid #585553;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 2px;
-}
-
-.answer:hover {
-  background-color: #f98700;
-  color: black;
-  border: 0;
-}
-
-.answered {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  background-color: #f98700;
-  border: 0;
-  color: black;
-  cursor: pointer;
-  margin-bottom: 2px;
-}
-
-.correct {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  background-color: green;
-  border: 0;
-  color: black;
-  cursor: pointer;
-  margin-bottom: 2px;
-}
-
-.full-answer:hover .arrow-right {
-  border-left: 1rem solid #f98700;
-}
-
-.full-answer:hover .arrow-left {
-  border-right: 1rem solid #f98700;
+  transition: all 1s;
 }
 
 .arrow-right {
   width: 0;
   height: 0;
-  border-top: 1rem solid transparent;
-  border-bottom: 1rem solid transparent;
-  border-left: 1rem solid #032f82;
-  margin-bottom: 2px;
+  border-top: 1.5rem solid transparent;
+  border-bottom: 1.5rem solid transparent;
+  border-left: 1.5rem solid #032f82;
 }
 
 .arrow-left {
   width: 0;
   height: 0;
-  border-top: 1rem solid transparent;
-  border-bottom: 1rem solid transparent;
-  border-right: 1rem solid #032f82;
+  border-top: 1.5rem solid transparent;
+  border-bottom: 1.5rem solid transparent;
+  border-right: 1.5rem solid #032f82;
 }
