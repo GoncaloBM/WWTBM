@@ -32,7 +32,8 @@ export const initialQuestion = () => {
     ],
     questionHidden: true,
     messageHidden: true,
-    startGameHidden: false
+    startGameHidden: false,
+    showingCorrectAnswer: false
   };
 };
 
@@ -91,7 +92,9 @@ export const Answers = props => {
             />
             <div
               className={
-                props.state.answers[index] === props.state.selectedAnswer
+                props.checkCorrectAnswer() === index && props.checkCorrectAnswer
+                  ? "corrected"
+                  : props.state.answers[index] === props.state.selectedAnswer
                   ? "answered"
                   : "answer"
               }

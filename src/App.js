@@ -68,6 +68,28 @@ class App extends Component {
     }
   };
 
+  checkRightAnswer = () => {
+    let correctIndex;
+    for (let i = 0; i < this.state.answers; i++) {
+      if (this.state.answers[i] === this.state.correctAnswer) {
+        correctIndex = i;
+      }
+    }
+    return correctIndex;
+  };
+
+  changeGreenClass = () => {
+    for (let i = 0; i < 10; i++) {
+      setTimeout(
+        () =>
+          this.setState({
+            showingCorrectAnswer: !showingCorrectAnswer
+          }),
+        500
+      );
+    }
+  };
+
   answerClicked = input => {
     this.setState({
       questionAnswered: true,
@@ -79,6 +101,12 @@ class App extends Component {
     let questionRight = this.checkVictory(input);
 
     let messageToDisplay = checkMessage(this.state);
+
+    this.setState({
+      showingCorrectAnswer: true
+    });
+
+    changeGreenClass();
 
     if (questionRight) {
       setTimeout(
@@ -134,6 +162,9 @@ class App extends Component {
             answers={this.state.answers}
             clickCallback={index => {
               this.answerClicked(index);
+            }}
+            checkCorrectAnswer={() => {
+              this.checkRightAnswer();
             }}
           />
 
