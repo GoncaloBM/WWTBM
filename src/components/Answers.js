@@ -69,41 +69,68 @@ export const checkVictory = (input, state) => {
   }
 };
 
+const letterAnswer = input => {
+  let letter = "";
+
+  if (input === 0) {
+    letter = "A";
+  } else if (input === 1) {
+    letter = "B";
+  } else if (input === 2) {
+    letter = "C";
+  } else if (input === 3) {
+    letter = "D";
+  }
+
+  return letter;
+};
+
 export const Answers = props => {
   return (
     <div id="answers">
+      <div id="line-1" />
+      <div id="line-2" />
       {props.answers.map((item, index) => {
         return (
           <div
             className="answer-line"
             key={index}
-            //onClick={index => {
-            //this.getNextState(index);
             onClick={() => {
               props.clickCallback(index);
             }}
           >
             <div
+              id="arrow-left"
               className={
-                props.state.answers[index] === props.state.selectedAnswer
+                props.state.answers[index] === props.state.correctAnswer &&
+                props.state.showingCorrectAnswer
+                  ? "arrow-left-correct"
+                  : props.state.answers[index] === props.state.selectedAnswer
                   ? "arrow-left-answered"
                   : "arrow-left-answer"
               }
             />
             <div
+              id="answer"
               className={
-                props.checkCorrectAnswer() === index && props.checkCorrectAnswer
-                  ? "corrected"
+                // props.checkRightAnswer(index) === { index } &&
+                props.state.answers[index] === props.state.correctAnswer &&
+                props.state.showingCorrectAnswer
+                  ? "correct"
                   : props.state.answers[index] === props.state.selectedAnswer
                   ? "answered"
                   : "answer"
               }
             >
-              {decoding(item)}
+              <span>{letterAnswer(index)}:</span> {decoding(item)}
             </div>
             <div
+              id="arrow-right"
               className={
-                props.state.answers[index] === props.state.selectedAnswer
+                props.state.answers[index] === props.state.correctAnswer &&
+                props.state.showingCorrectAnswer
+                  ? "arrow-right-correct"
+                  : props.state.answers[index] === props.state.selectedAnswer
                   ? "arrow-right-answered"
                   : "arrow-right-answer"
               }

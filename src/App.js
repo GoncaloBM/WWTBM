@@ -68,28 +68,6 @@ class App extends Component {
     }
   };
 
-  checkRightAnswer = () => {
-    let correctIndex;
-    for (let i = 0; i < this.state.answers; i++) {
-      if (this.state.answers[i] === this.state.correctAnswer) {
-        correctIndex = i;
-      }
-    }
-    return correctIndex;
-  };
-
-  changeGreenClass = () => {
-    for (let i = 0; i < 10; i++) {
-      setTimeout(
-        () =>
-          this.setState({
-            showingCorrectAnswer: !showingCorrectAnswer
-          }),
-        500
-      );
-    }
-  };
-
   answerClicked = input => {
     this.setState({
       questionAnswered: true,
@@ -102,11 +80,13 @@ class App extends Component {
 
     let messageToDisplay = checkMessage(this.state);
 
-    this.setState({
-      showingCorrectAnswer: true
-    });
-
-    changeGreenClass();
+    setTimeout(
+      () =>
+        this.setState({
+          showingCorrectAnswer: !this.state.showingCorrectAnswer
+        }),
+      2000
+    );
 
     if (questionRight) {
       setTimeout(
@@ -116,22 +96,25 @@ class App extends Component {
             messageHidden: false,
             messagem: messageToDisplay
           }),
-        2000
+        4000
       );
-      setTimeout(() => this.getNextState(), 5000);
+      setTimeout(() => this.getNextState(), 7000);
     } else {
-      this.setState({
-        questionHidden: true,
-        messageHidden: false,
-        messagem: "Perdeste!"
-      });
+      setTimeout(() => {
+        this.setState({
+          questionHidden: true,
+          messageHidden: false,
+          messagem: "Perdeste!"
+        });
+      }, 4000);
     }
   };
 
   getNextState = () => {
     this.getQuestionAndAnswers();
     this.setState({
-      messageHidden: true
+      messageHidden: true,
+      showingCorrectAnswer: !this.state.showingCorrectAnswer
     });
   };
 
@@ -163,7 +146,7 @@ class App extends Component {
             clickCallback={index => {
               this.answerClicked(index);
             }}
-            checkCorrectAnswer={() => {
+            checkRightAnswer={() => {
               this.checkRightAnswer();
             }}
           />

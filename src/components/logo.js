@@ -1,7 +1,7 @@
 import React from "react";
 import "./logo.css";
 
-export const Logo = (props) => {
+export const Logo = props => {
   return (
     <div className="wrapper">
       <div className="logo">
