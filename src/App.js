@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import "./styles.css";
-import {
-  initialQuestion,
-  shuffle,
-  Answers,
-  checkMessage
-} from "./components/Answers";
+import { initialQuestion, shuffle, Answers } from "./components/Answers";
 import { Question } from "./components/Question";
-import { Message } from "./components/Message";
+import {
+  Message,
+  checkWinMessage,
+  CheckLoseMessage
+} from "./components/Message";
 import { StartGameButton } from "./components/StartGameButton";
 import { Logo } from "./components/logo";
+import { PyramidQuestions } from "./components/PyramidQuestions";
+import { Help5050, answersToRemove5050 } from "./components/Helps/50-50";
 
 class App extends Component {
   constructor(props) {
@@ -76,9 +77,12 @@ class App extends Component {
 
     let selectedAnswer = this.state.answers[input];
     console.log(selectedAnswer);
+
     let questionRight = this.checkVictory(input);
 
-    let messageToDisplay = checkMessage(this.state);
+    let messageToDisplayWin = checkWinMessage(this.state);
+
+    let messageToDisplayLose = CheckLoseMessage(this.state);
 
     setTimeout(
       () =>
@@ -94,7 +98,7 @@ class App extends Component {
           this.setState({
             questionHidden: true,
             messageHidden: false,
-            messagem: messageToDisplay
+            messagem: messageToDisplayWin
           }),
         4000
       );
@@ -104,7 +108,7 @@ class App extends Component {
         this.setState({
           questionHidden: true,
           messageHidden: false,
-          messagem: "Perdeste!"
+          messagem: messageToDisplayLose
         });
       }, 4000);
     }
@@ -118,42 +122,62 @@ class App extends Component {
     });
   };
 
+  click5050 = (answersToRemove5050,index) => {
+    
+  };
+
   render() {
     return (
-      <div className="principal-screen">
-        <Logo />
+      <div className="App">
+        <div className="principal-screen">
+          <Logo />
 
-        <StartGameButton
-          state={this.state}
-          clickCallback={() => {
-            this.getQuestionAndAnswers();
-          }}
-        />
-
-        <div
-          className={`question-screen ${
-            this.state.questionHidden === false
-              ? "questions-show"
-              : "questions-hidden"
-          }`}
-        >
-          <Question state={this.state} />
-
-          <Answers
+          <StartGameButton
             state={this.state}
-            questionAnswered={this.state.questionAnswered}
-            answers={this.state.answers}
-            clickCallback={index => {
-              this.answerClicked(index);
-            }}
-            checkRightAnswer={() => {
-              this.checkRightAnswer();
+            clickCallback={() => {
+              this.getQuestionAndAnswers();
             }}
           />
 
-          <div>Correct : {this.state.correctAnswer}</div>
+          <div
+            className={`question-screen ${
+              this.state.questionHidden === false
+                ? "questions-show"
+                : "questions-hidden"
+            }`}
+          >
+            <Question state={this.state} />
+
+            <Answers
+              key={this.state.activeQuestion}
+              state={this.state}
+              questionAnswered={this.state.questionAnswered}
+              answers={this.state.answers}
+              clickCallback={index => {
+                this.answerClicked(index);
+              }}
+              checkRightAnswer={() => {
+                this.checkRightAnswer();
+              }}
+            />
+
+            <div>Correct : {this.state.correctAnswer}</div>
+          </div>
+          <Message state={this.state} />
         </div>
-        <Message state={this.state} />
+
+        <div className="drawer-screen">
+          <div id="image"></div>
+          <div id="helps">
+            <Help5050 />
+          </div>
+          <div id="question-pyramid">
+            <PyramidQuestions
+              questionAmmount={this.state.questionAmmout}
+              activeQuestion={this.state.activeQuestion}
+            />
+          </div>
+        </div>
       </div>
     );
   }

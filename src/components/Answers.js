@@ -33,18 +33,9 @@ export const initialQuestion = () => {
     questionHidden: true,
     messageHidden: true,
     startGameHidden: false,
-    showingCorrectAnswer: false
+    showingCorrectAnswer: false,
+    activated5050 : false
   };
-};
-
-export const checkMessage = state => {
-  let currentState = { ...state };
-
-  for (let i = 0; i < currentState.activeQuestion; i++) {
-    if (currentState.activeQuestion === i + 1) {
-      return currentState.questionAmmout[i + 1];
-    }
-  }
 };
 
 export const shuffle = arr => {

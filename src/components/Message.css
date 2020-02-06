@@ -1,7 +1,11 @@
 .message-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 8rem;
   position: absolute;
-  width: 100%;
   transition: 0.5s all;
+  width: 50%;
 }
 
 .show-message {
@@ -10,4 +14,79 @@
 
 .hidden-message {
   bottom: -50%;
+}
+
+#message-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 8rem;
+  position: absolute;
+  transition: 0.5s all;
+  width: 50%;
+  cursor: pointer;
+}
+
+.start-hidden {
+  bottom: -50%;
+}
+
+.start-show {
+  bottom: 10%;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: black;
+  height: 7rem;
+  font-size: 3rem;
+  color: white;
+  width: 100%;
+  border-bottom: #708fbf 0.5rem solid;
+  border-top: #708fbf 0.5rem solid;
+}
+
+.arrow-right-message {
+  width: 0;
+  height: 0;
+  border-top: 4rem solid transparent;
+  border-bottom: 4rem solid transparent;
+  border-left: 4rem solid #708fbf;
+  position: relative;
+}
+
+.arrow-right-message:before {
+  content: "";
+  width: 0;
+  height: 0;
+  left: -4rem;
+  top: -3.5rem;
+  border-top: 3.5rem solid transparent;
+  border-bottom: 3.5rem solid transparent;
+  border-left: 3.5rem solid black;
+  position: absolute;
+}
+
+.arrow-left-message {
+  width: 0;
+  height: 0;
+  border-top: 4rem solid transparent;
+  border-bottom: 4rem solid transparent;
+  border-right: 4rem solid #708fbf;
+  position: relative;
+}
+
+.arrow-left-message:before {
+  content: "";
+  width: 0;
+  height: 0;
+  right: -4rem;
+  top: -3.5rem;
+  border-top: 3.5rem solid transparent;
+  border-bottom: 3.5rem solid transparent;
+  border-right: 3.5rem solid black;
+  position: absolute;
 }
