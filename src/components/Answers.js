@@ -1,5 +1,6 @@
 import React from "react";
 import decoding from "./DecodingFunction";
+import { firstAnswersToRemove5050, secondAnswerToRemove } from "./Helps/50-50";
 import "./Answers.css";
 
 export const initialQuestion = () => {
@@ -34,7 +35,9 @@ export const initialQuestion = () => {
     messageHidden: true,
     startGameHidden: false,
     showingCorrectAnswer: false,
-    activated5050 : false
+    activated5050: false,
+    answersToRemove: [],
+    help5050done: false
   };
 };
 
@@ -89,6 +92,14 @@ export const Answers = props => {
             onClick={() => {
               props.clickCallback(index);
             }}
+            style={{
+              pointerEvents:
+                props.state.activated5050 &&
+                (index === props.state.answersToRemove[0] ||
+                  index === props.state.answersToRemove[1])
+                  ? "none"
+                  : ""
+            }}
           >
             <div
               id="arrow-left"
@@ -112,8 +123,28 @@ export const Answers = props => {
                   ? "answered"
                   : "answer"
               }
+              style={{
+                color:
+                  props.state.activated5050 &&
+                  (index === props.state.answersToRemove[0] ||
+                    index === props.state.answersToRemove[1])
+                    ? "transparent"
+                    : ""
+              }}
             >
-              <span>{letterAnswer(index)}:</span> {decoding(item)}
+              <span
+                style={{
+                  color:
+                    props.state.activated5050 &&
+                    (index === props.state.answersToRemove[0] ||
+                      index === props.state.answersToRemove[1])
+                      ? "transparent"
+                      : ""
+                }}
+              >
+                {letterAnswer(index)}:
+              </span>{" "}
+              {decoding(item)}
             </div>
             <div
               id="arrow-right"

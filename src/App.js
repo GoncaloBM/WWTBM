@@ -10,7 +10,7 @@ import {
 import { StartGameButton } from "./components/StartGameButton";
 import { Logo } from "./components/logo";
 import { PyramidQuestions } from "./components/PyramidQuestions";
-import { Help5050, answersToRemove5050 } from "./components/Helps/50-50";
+import { Help5050, firstAnswersToRemove5050 } from "./components/Helps/50-50";
 
 class App extends Component {
   constructor(props) {
@@ -117,13 +117,19 @@ class App extends Component {
   getNextState = () => {
     this.getQuestionAndAnswers();
     this.setState({
+      activated5050: false,
       messageHidden: true,
       showingCorrectAnswer: !this.state.showingCorrectAnswer
     });
   };
 
-  click5050 = (answersToRemove5050,index) => {
-    
+  click5050 = () => {
+    this.setState({
+      activated5050: true,
+      answersToRemove: firstAnswersToRemove5050(this.state),
+      help5050done: true
+    });
+    console.log(this.state.answersToRemove);
   };
 
   render() {
@@ -169,7 +175,13 @@ class App extends Component {
         <div className="drawer-screen">
           <div id="image"></div>
           <div id="helps">
-            <Help5050 />
+            <Help5050
+              state={this.state}
+              activated5050={this.state.activated5050}
+              click5050={() => {
+                this.click5050();
+              }}
+            />
           </div>
           <div id="question-pyramid">
             <PyramidQuestions
