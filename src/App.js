@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./styles.css";
-import { initialQuestion, shuffle, Answers } from "./components/Answers";
+import { shuffle, Answers } from "./components/Answers";
 import { Question } from "./components/Question";
 import {
   Message,
@@ -11,12 +11,57 @@ import { StartGameButton } from "./components/StartGameButton";
 import { Logo } from "./components/logo";
 import { PyramidQuestions } from "./components/PyramidQuestions";
 import { Help5050, firstAnswersToRemove5050 } from "./components/Helps/50-50";
+import Phone from "./components/Helps/Phone";
+import { PhoneMenu } from "./components/Helps/PhoneMenu";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = initialQuestion();
+    //this.state = initialQuestion();
+    this.state = {
+      activeQuestion: 0,
+      messagem: "",
+      answers: [],
+      question: "",
+      correctAnswer: "",
+      questionAnswered: false,
+      answerClicked: "",
+      selectedAnswer: "",
+      isLoaded: false,
+      questionAmmout: [
+        "25€",
+        "50€",
+        "125€",
+        "250€",
+        "500€",
+        "750€",
+        "1 500€",
+        "2 500€",
+        "5 000€",
+        "10 000€",
+        "16 000€",
+        "32 000€",
+        "64 000€",
+        "125 000€",
+        "250 000 €"
+      ],
+      questionHidden: true,
+      messageHidden: true,
+      startGameHidden: false,
+      showingCorrectAnswer: false,
+      activated5050: false,
+      answersToRemove: [],
+      help5050done: false,
+      phoneHelpState: {}
+    };
   }
+
+  handlePhone = state => {
+    this.setState({
+      phoneHelpState: state
+    });
+  };
+  
 
   getQuestionAndAnswers = () => {
     let url = "";
@@ -170,10 +215,14 @@ class App extends Component {
             <div>Correct : {this.state.correctAnswer}</div>
           </div>
           <Message state={this.state} />
+          <PhoneMenu
+            state={this.state}
+            helperClick={index => this.helperClick(index)}
+          />
         </div>
 
         <div className="drawer-screen">
-          <div id="image"></div>
+          <div id="image" />
           <div id="helps">
             <Help5050
               state={this.state}
@@ -182,6 +231,7 @@ class App extends Component {
                 this.click5050();
               }}
             />
+            <Phone handlePhone={this.handlePhone} />
           </div>
           <div id="question-pyramid">
             <PyramidQuestions

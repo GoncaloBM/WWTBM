@@ -1,6 +1,6 @@
 import React from "react";
 import decoding from "./DecodingFunction";
-import { firstAnswersToRemove5050, secondAnswerToRemove } from "./Helps/50-50";
+//import { firstAnswersToRemove5050, secondAnswerToRemove } from "./Helps/50-50";
 import "./Answers.css";
 
 export const initialQuestion = () => {
