@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import "./Phone.css";
+import "./cross.css";
 
 class Phone extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      helperShow: false,
       helpersLoaded: "",
       HelperNames: [],
       HelperChoose: "",
       HelperClicked: false,
-      HelperAnswer: ""
+      HelperAnswer: "",
+      helperActivated: false
     };
   }
 
@@ -19,6 +22,7 @@ class Phone extends Component {
   };
 
   getHelpers = () => {
+    console.log("Hey");
     let url = "https://randomuser.me/api/?results=4";
 
     this.setState({ helpersLoaded: false }, () => {
@@ -37,10 +41,10 @@ class Phone extends Component {
               data.results[1].picture.medium,
               data.results[2].picture.medium,
               data.results[3].picture.medium
-            ],
-            helpersLoaded: true
+            ]
           });
-        });
+        })
+        .then(this.setState({ helpersLoaded: true }));
     });
   };
 
@@ -51,38 +55,128 @@ class Phone extends Component {
     });
   };
 
-  helperAnswer = props => {
-    let activeQuestion = 1;
-    //let correctAnswer = props.state.correctAnswer;
-    let correctAnswer = "C";
+  checkCorrectAnswer = props => {
+    let correctAnswer = this.props.state.correctAnswer;
+    let answers = this.props.state.answers;
+    let count = 0;
+    let correctIndex;
+
+    for (let i = 0; i < answers.length; i++) {
+      if (answers[i] !== correctAnswer) {
+        count++;
+      } else {
+        if (count === 0) {
+          correctIndex = "A";
+        } else if (count === 1) {
+          correctIndex = "B";
+        } else if (count === 2) {
+          correctIndex = "C";
+        } else if (count === 3) {
+          correctIndex = "D";
+        }
+        return correctIndex;
+      }
+    }
+  };
+
+  helperAnswer = () => {
+    let activeQuestion = this.props.state.activeQuestion;
+    let correctAnswer = this.checkCorrectAnswer();
     let answersArrayEasy = [
-      `Que burro! É a ${correctAnswer}`,
-      `Não há que enganar. É a ${correctAnswer}`,
-      `É ${correctAnswer}`,
-      `Vai com tudo para a ${correctAnswer}`
+      `Que burro! É a ${correctAnswer}!`,
+      `Não há que enganar. É a ${correctAnswer}!`,
+      `É a ${correctAnswer}!`,
+      `Vai com tudo para a ${correctAnswer}!`
     ];
 
-    let answersArrayMedium = [];
-    let answersArrayHard = [];
+    let answersArrayMedium = [
+      `I don't know for sure, but I guess it's ${correctAnswer}`,
+      `Sorry, I don't know`,
+      `It's ${correctAnswer}!`,
+      `I guess it's A`,
+      `Go for B, you can trust me!`
+    ];
+    let answersArrayHard = [
+      `Try A. I dont know.`,
+      `Sorry, I don't know`,
+      `It's ${correctAnswer}. Thank God you called me for this!`,
+      `I guess it's D`,
+      `You should called to another friend. Try C, I guess.`
+    ];
 
     if (activeQuestion < 5) {
       this.setState({
         HelperAnswer:
-          answersArrayEasy[Math.floor(Math.random() * answersArrayEasy.length)]
+          answersArrayEasy[Math.floor(Math.random() * answersArrayEasy.length)],
+        helperShow: true,
+        helperActivated: true
+      });
+    } else if (activeQuestion > 4 && activeQuestion < 10) {
+      this.setState({
+        HelperAnswer:
+          answersArrayMedium[
+            Math.floor(Math.random() * answersArrayMedium.length)
+          ],
+        helperShow: true,
+        helperActivated: true
+      });
+    } else if (activeQuestion > 9) {
+      this.setState({
+        HelperAnswer:
+          answersArrayHard[Math.floor(Math.random() * answersArrayHard.length)],
+        helperShow: true,
+        helperActivated: true
       });
     }
+
+    setTimeout(() => this.stateToApp(), 1000);
   };
 
   render() {
     return (
-      <div
-        className="phone-icon"
-        onClick={() => {
-          this.getHelpers();
-          this.helperAnswer();
-          this.stateToApp();
-        }}
-      />
+      <div id="help">
+        <div
+          className={
+            "cross" +
+            " " +
+            (!this.props.state.phoneHelpState.helperActivated
+              ? "help-to-activate"
+              : "help-activated")
+          }
+          id="right"
+          onClick={() => {
+            this.getHelpers();
+            this.helperAnswer();
+          }}
+          style={{
+            pointerEvents: this.props.state.phoneHelpState.helperActivated
+              ? "none"
+              : ""
+          }}
+        />
+        <div
+          className={
+            "cross" +
+            " " +
+            (!this.props.state.phoneHelpState.helperActivated
+              ? "help-to-activate"
+              : "help-activated")
+          }
+          id="left"
+        />
+        <div
+          className="phone-icon"
+          onClick={() => {
+            this.getHelpers();
+            this.helperAnswer();
+          }}
+          style={{
+            pointerEvents: this.props.state.phoneHelpState.helperActivated
+              ? "none"
+              : ""
+          }}
+        />
+      </div>
     );
   }
 }

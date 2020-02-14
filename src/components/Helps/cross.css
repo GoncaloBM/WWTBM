@@ -1,0 +1,27 @@
+#help {
+  position: relative;
+  height: 70%;
+}
+
+.cross {
+  position: absolute;
+  top: 50%;
+  width: 70%;
+  left: 15%;
+}
+
+#left {
+  transform: rotate(30deg);
+}
+
+#right {
+  transform: rotate(-30deg);
+}
+
+.help-activated {
+  border-bottom: 5px solid red;
+}
+
+.help-to-activate {
+  display: none;
+}

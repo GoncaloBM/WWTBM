@@ -52,7 +52,7 @@ class App extends Component {
       activated5050: false,
       answersToRemove: [],
       help5050done: false,
-      phoneHelpState: {}
+      phoneHelpState: { }
     };
   }
 
@@ -61,7 +61,6 @@ class App extends Component {
       phoneHelpState: state
     });
   };
-  
 
   getQuestionAndAnswers = () => {
     let url = "";
@@ -177,6 +176,23 @@ class App extends Component {
     console.log(this.state.answersToRemove);
   };
 
+  helperClick = input => {
+    console.log("Hey carregaste!");
+    this.setState({
+      phoneHelpState: {
+        ...this.state.phoneHelpState,
+        HelperChoose: input,
+        HelperClicked: !this.state.phoneHelpState.HelperClicked
+      }
+    });
+  };
+
+  phoneHelperGone = () => {
+    this.setState({
+      phoneHelpState: { ...this.state.phoneHelpState, helperShow: false }
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -192,7 +208,9 @@ class App extends Component {
 
           <div
             className={`question-screen ${
-              this.state.questionHidden === false
+              this.state.phoneHelpState.helperShow
+                ? "questions-hidden-helps"
+                : this.state.questionHidden === false
                 ? "questions-show"
                 : "questions-hidden"
             }`}
@@ -217,7 +235,12 @@ class App extends Component {
           <Message state={this.state} />
           <PhoneMenu
             state={this.state}
-            helperClick={index => this.helperClick(index)}
+            helperClick={index => {
+              this.helperClick(index);
+            }}
+            phoneHelperGone={() => {
+              this.phoneHelperGone();
+            }}
           />
         </div>
 
@@ -231,7 +254,7 @@ class App extends Component {
                 this.click5050();
               }}
             />
-            <Phone handlePhone={this.handlePhone} />
+            <Phone handlePhone={this.handlePhone} state={this.state} />
           </div>
           <div id="question-pyramid">
             <PyramidQuestions
