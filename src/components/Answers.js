@@ -100,6 +100,9 @@ export const Answers = props => {
                   ? "none"
                   : ""
             }}
+            style={{
+              pointerEvents: props.state.questionAnswered ? "none" : ""
+            }}
           >
             <div
               id="arrow-left"

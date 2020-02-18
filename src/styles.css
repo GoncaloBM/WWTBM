@@ -8,6 +8,7 @@ body {
 }
 
 .principal-screen {
+  position: relative;
   font-family: sans-serif;
   text-align: center;
   /* background-color: #425ca9; */
@@ -72,8 +73,6 @@ body {
   justify-content: center;
   height: 5rem;
   width: 100%;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
   margin-top: 15%;
   z-index: 1;
 }

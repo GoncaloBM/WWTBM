@@ -13,11 +13,10 @@ export const StartGameButton = props => {
       <div className="arrow-left-start" />
       <div className="start-game-button">Start Game</div>
       <div className="arrow-right-start" />
-      <div id='lines'>
-      <div id="left-line" />
-      <div id="right-line" />
+      <div id="lines">
+        <div id="left-line" />
+        <div id="right-line" />
       </div>
-      
     </div>
   );
 };

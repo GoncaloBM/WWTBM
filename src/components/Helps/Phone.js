@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Phone.css";
 import "./cross.css";
+import {checkCorrectAnswer} from './checkCorrectAnswer'
 
 class Phone extends Component {
   constructor(props) {
@@ -55,33 +56,9 @@ class Phone extends Component {
     });
   };
 
-  checkCorrectAnswer = props => {
-    let correctAnswer = this.props.state.correctAnswer;
-    let answers = this.props.state.answers;
-    let count = 0;
-    let correctIndex;
-
-    for (let i = 0; i < answers.length; i++) {
-      if (answers[i] !== correctAnswer) {
-        count++;
-      } else {
-        if (count === 0) {
-          correctIndex = "A";
-        } else if (count === 1) {
-          correctIndex = "B";
-        } else if (count === 2) {
-          correctIndex = "C";
-        } else if (count === 3) {
-          correctIndex = "D";
-        }
-        return correctIndex;
-      }
-    }
-  };
-
-  helperAnswer = () => {
+  helperAnswer = (props) => {
     let activeQuestion = this.props.state.activeQuestion;
-    let correctAnswer = this.checkCorrectAnswer();
+    let correctAnswer = checkCorrectAnswer(this.props.state);
     let answersArrayEasy = [
       `Que burro! É a ${correctAnswer}!`,
       `Não há que enganar. É a ${correctAnswer}!`,
@@ -91,13 +68,11 @@ class Phone extends Component {
 
     let answersArrayMedium = [
       `I don't know for sure, but I guess it's ${correctAnswer}`,
-      `Sorry, I don't know`,
       `It's ${correctAnswer}!`,
       `I guess it's A`,
       `Go for B, you can trust me!`
     ];
     let answersArrayHard = [
-      `Try A. I dont know.`,
       `Sorry, I don't know`,
       `It's ${correctAnswer}. Thank God you called me for this!`,
       `I guess it's D`,

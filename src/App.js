@@ -8,17 +8,21 @@ import {
   CheckLoseMessage
 } from "./components/Message";
 import { StartGameButton } from "./components/StartGameButton";
-import { Logo } from "./components/logo";
+import LogoApp from "./components/LogoApp";
 import { PyramidQuestions } from "./components/PyramidQuestions";
 import { Help5050, firstAnswersToRemove5050 } from "./components/Helps/50-50";
 import Phone from "./components/Helps/Phone";
 import { PhoneMenu } from "./components/Helps/PhoneMenu";
+import Public from "./components/Helps/Public";
+import { AudienceGraph } from "./components/Helps/AudienceGraph";
+import { ButtonDrawer } from "./components/buttonDrawer";
 
 class App extends Component {
   constructor(props) {
     super(props);
     //this.state = initialQuestion();
     this.state = {
+      counterTime: 0,
       activeQuestion: 0,
       messagem: "",
       answers: [],
@@ -46,19 +50,29 @@ class App extends Component {
         "250 000 €"
       ],
       questionHidden: true,
+      gameStart: false,
       messageHidden: true,
       startGameHidden: false,
       showingCorrectAnswer: false,
       activated5050: false,
       answersToRemove: [],
       help5050done: false,
-      phoneHelpState: { }
+      phoneHelpState: {},
+      publicHelpState: {},
+      publicHelpActivated: false,
+      drawerActivated: true
     };
   }
 
   handlePhone = state => {
     this.setState({
       phoneHelpState: state
+    });
+  };
+
+  handlePublic = state => {
+    this.setState({
+      publicHelpState: state
     });
   };
 
@@ -97,7 +111,8 @@ class App extends Component {
             correctAnswer: data.results[0].correct_answer,
             answers: randomAnswers,
             isLoaded: true,
-            questionHidden: false
+            questionHidden: false,
+            gameStart: true
           });
         });
     });
@@ -163,7 +178,9 @@ class App extends Component {
     this.setState({
       activated5050: false,
       messageHidden: true,
-      showingCorrectAnswer: !this.state.showingCorrectAnswer
+      showingCorrectAnswer: !this.state.showingCorrectAnswer,
+      publicHelpActivated: false,
+      questionAnswered: false
     });
   };
 
@@ -193,11 +210,21 @@ class App extends Component {
     });
   };
 
+  publicClick = () => {
+    this.setState({
+      publicHelpActivated: !this.state.publicHelpActivated
+    });
+  };
+
   render() {
     return (
       <div className="App">
         <div className="principal-screen">
-          <Logo />
+          <ButtonDrawer />
+          <LogoApp state={this.state} />
+
+          {/* <PublicGraph state={this.state} /> */}
+          <AudienceGraph state={this.state} />
 
           <StartGameButton
             state={this.state}
@@ -215,6 +242,24 @@ class App extends Component {
                 : "questions-hidden"
             }`}
           >
+            <div id="helps">
+              <Help5050
+                state={this.state}
+                activated5050={this.state.activated5050}
+                click5050={() => {
+                  this.click5050();
+                }}
+              />
+              <Phone handlePhone={this.handlePhone} state={this.state} />
+              <Public
+                handlePublic={this.handlePublic}
+                state={this.state}
+                publicClick={() => {
+                  this.publicClick();
+                }}
+              />
+            </div>
+
             <Question state={this.state} />
 
             <Answers
@@ -255,6 +300,13 @@ class App extends Component {
               }}
             />
             <Phone handlePhone={this.handlePhone} state={this.state} />
+            <Public
+              handlePublic={this.handlePublic}
+              state={this.state}
+              publicClick={() => {
+                this.publicClick();
+              }}
+            />
           </div>
           <div id="question-pyramid">
             <PyramidQuestions

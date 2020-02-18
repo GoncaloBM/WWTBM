@@ -1,0 +1,46 @@
+.drawer-button {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+}
+
+.bar-button {
+  border-bottom: 3px solid white;
+  width: 100%;
+  transition: 0.2s all;
+}
+
+#bar1 {
+    transform: translateY(-10px);
+}
+
+#bar3 {
+    transform: translateY(10px);
+}
+
+.drawer-button:hover .bar-button {
+  margin: 0px;
+}
+
+.drawer-button:hover #bar2 {
+    opacity: 0;
+}
+
+.drawer-button:hover #bar1 {
+    transform: translateY(0);
+    transform-origin: left;
+    transform: rotate(-25deg);
+}
+
+.drawer-button:hover #bar3 {
+    transform: translateY(0);
+    transform-origin: left;
+    transform: rotate(25deg);
+}

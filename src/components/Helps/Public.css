@@ -1,0 +1,30 @@
+.public-icon {
+  height: 100%;
+  width: 125px;
+  border-radius: 50%;
+  border: 3px solid #4482c7;
+  background: url("https://i.ya-webdesign.com/images/group-vector-student-1.png")
+    black;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.graph {
+  position: absolute;
+  width: 50%;
+  transition: 0.5s all;
+}
+.graph-hidden {
+  bottom: 100%;
+  transition: 0.5s all;
+}
+
+.graph-showing {
+  bottom: 35%;
+  transition: 0.5s all;
+}

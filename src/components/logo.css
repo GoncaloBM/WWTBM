@@ -55,11 +55,23 @@
 }
 
 */
+
 .wrapper {
   position: absolute;
   top: 30%;
   transform: translateX(-150px);
+  opacity: 1;
+  transition: 0.5s all;
 }
+
+.wrapper-hidden {
+  position: absolute;
+  top: 100%;
+  transform: translateX(-150px);
+  opacity: 0;
+  transition: 0.5s all;
+}
+
 .logo {
   width: 300px;
   height: 300px;
@@ -134,4 +146,95 @@
   color: #fff;
   text-align: center;
   top: 120px;
+}
+
+.estrellas {
+  position: relative;
+  width: 500px;
+  height: 300px;
+  margin: 0 auto;
+  font-size: 1rem;
+  z-index: 99;
+}
+.estrellas span {
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  width: 70px;
+  height: 150px;
+  margin-left: -35px;
+  line-height: 260px; /* height*2 - font-size */
+  text-align: center;
+  transform-origin: top center;
+  color: white;
+}
+
+.inverso {
+  font-weight: bold;
+}
+.inverso span {
+  line-height: 30px;
+  transform-origin: bottom center; /* Only for seeing trick */
+}
+
+
+.estrellas span:nth-of-type(1)  {
+  transform: rotate(79.4deg);
+}
+.estrellas span:nth-of-type(2)  {
+  transform: rotate(68.6deg);
+}
+.estrellas span:nth-of-type(3)  {
+  transform: rotate(58.2deg);
+}
+.estrellas span:nth-of-type(4)  {
+  transform: rotate(47.6deg);
+}
+.estrellas span:nth-of-type(5)  {
+  transform: rotate(37deg);
+}
+.estrellas span:nth-of-type(6)  {
+  transform: rotate(26.4deg);
+}
+.estrellas span:nth-of-type(7)  {
+  transform: rotate(15.8deg);
+}
+
+.estrellas span:nth-of-type(8)  {
+  transform: rotate(5.2deg);
+}
+.estrellas span:nth-of-type(9)  {
+  transform: rotate(-5.4deg);
+}
+
+.estrellas span:nth-of-type(10)  {
+  transform: rotate(-16deg);
+}
+
+.estrellas span:nth-of-type(11)  {
+  transform: rotate(-26.6deg);
+}
+
+.estrellas span:nth-of-type(12)  {
+  transform: rotate(-37.2deg);
+}
+
+.estrellas span:nth-of-type(13)  {
+  transform: rotate(-47.8deg);
+}
+
+.estrellas span:nth-of-type(14)  {
+  transform: rotate(-58.4deg);
+}
+
+.estrellas span:nth-of-type(15)  {
+  transform: rotate(-69deg);
+}
+
+.estrellas span:nth-of-type(16)  {
+  transform: rotate(-79.6deg);
+}
+
+.estrellas span:nth-of-type(17)  {
+  transform: rotate(-85deg);
 }
