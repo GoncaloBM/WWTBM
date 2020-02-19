@@ -22,6 +22,7 @@ class App extends Component {
     super(props);
     //this.state = initialQuestion();
     this.state = {
+      drawerHidden: false,
       counterTime: 0,
       activeQuestion: 0,
       messagem: "",
@@ -59,8 +60,7 @@ class App extends Component {
       help5050done: false,
       phoneHelpState: {},
       publicHelpState: {},
-      publicHelpActivated: false,
-      drawerActivated: true
+      publicHelpActivated: false
     };
   }
 
@@ -216,11 +216,30 @@ class App extends Component {
     });
   };
 
+  hideShowDrawer = () => {
+    let currentDrawer = this.state.drawerHidden;
+
+    this.setState({
+      ...this.state,
+      drawerHidden: !currentDrawer
+    });
+  };
+
   render() {
     return (
       <div className="App">
-        <div className="principal-screen">
-          <ButtonDrawer />
+        <div
+          className={`principal-screen ${
+            this.state.drawerHidden === false
+              ? "principal-screen-small"
+              : "principal-screen-big"
+          }`}
+        >
+          <ButtonDrawer
+            hideShowDrawer={() => {
+              this.hideShowDrawer();
+            }}
+          />
           <LogoApp state={this.state} />
 
           {/* <PublicGraph state={this.state} /> */}
@@ -242,7 +261,11 @@ class App extends Component {
                 : "questions-hidden"
             }`}
           >
-            <div id="helps">
+            <div
+              className={`helps ${
+                this.state.drawerHidden ? "helps-showing" : "helps-hidden"
+              }`}
+            >
               <Help5050
                 state={this.state}
                 activated5050={this.state.activated5050}
@@ -289,9 +312,15 @@ class App extends Component {
           />
         </div>
 
-        <div className="drawer-screen">
+        <div
+          className={`drawer-screen ${
+            this.state.drawerHidden === false
+              ? "drawer-screen-showing"
+              : "drawer-screen-hidden"
+          }`}
+        >
           <div id="image" />
-          <div id="helps">
+          <div className="helps">
             <Help5050
               state={this.state}
               activated5050={this.state.activated5050}

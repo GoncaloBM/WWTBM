@@ -1,46 +1,67 @@
 .drawer-button {
   position: absolute;
-  top: 10%;
+  top: 40%;
   right: 5%;
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: black;
+  /* background-color: black; */
+  overflow: hidden;
 }
 
-.bar-button {
-  border-bottom: 3px solid white;
-  width: 100%;
-  transition: 0.2s all;
+.bar-button1 {
+  position: absolute;
+  border-bottom: 5px solid white;
+  width: 35%;
+  left: 35%;
+  transition: 0.5s all;
+  opacity: 1;
 }
 
-#bar1 {
-    transform: translateY(-10px);
+ #bar1 {
+  position: absolute;
+  transform-origin: left;
+  transform: rotate(-35deg);
+  top: 48%;
 }
 
-#bar3 {
-    transform: translateY(10px);
+ #bar2 {
+  transform-origin: left;
+  transform: rotate(35deg);
+  bottom: 48%;
 }
 
-.drawer-button:hover .bar-button {
-  margin: 0px;
-}
-
-.drawer-button:hover #bar2 {
+.bar-button2 {
+    position: absolute;
+    border-bottom: 5px solid white;
+    width: 35%;
+    left: -40%;
+    transition: 0.5s all;
     opacity: 0;
-}
+  }
+  
+   #bar3 {
+    position: absolute;
+    transform-origin: right;
+    transform: rotate(-35deg);
+    top: 48%;
+  }
+  
+   #bar4 {
+    transform-origin: right;
+    transform: rotate(35deg);
+    bottom: 49%;
+  }
 
-.drawer-button:hover #bar1 {
-    transform: translateY(0);
-    transform-origin: left;
-    transform: rotate(-25deg);
-}
+  .drawer-button:hover .bar-button1 {
+    left: 135%;
+    opacity: 0;
+  }
 
-.drawer-button:hover #bar3 {
-    transform: translateY(0);
-    transform-origin: left;
-    transform: rotate(25deg);
-}
+  .drawer-button:hover .bar-button2 {
+    left: 35%;
+    opacity: 1;
+  }

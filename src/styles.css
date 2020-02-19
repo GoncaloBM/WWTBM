@@ -5,12 +5,14 @@ body {
 .App {
   display: flex;
   height: 100vh;
+  width: 100%;
 }
 
 .principal-screen {
   position: relative;
   font-family: sans-serif;
   text-align: center;
+  left: 0;
   /* background-color: #425ca9; */
   background-color: #0f1d46;
   display: flex;
@@ -19,9 +21,38 @@ body {
   justify-content: center;
   margin: 0 auto;
   height: 100%;
-  width: 70%;
-  position: relative;
+  width: 100%;
+  left: 0;
   overflow: hidden;
+  transition: 0.5s all;
+}
+
+.principal-screen-small {
+  margin-right: 30%;
+  transition: 0.5s all;
+}
+
+.principal-screen-big {
+  margin-right: 0;
+}
+
+.drawer-screen {
+  height: 100%;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  right: -30;
+  transition: 0.5s all;
+}
+
+.drawer-screen-hidden {
+  right: -30%;
+}
+
+.drawer-screen-showing {
+  right: 0;
 }
 
 .questions-show {
@@ -43,17 +74,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 80%;
   transition: 0.5s all;
-}
-
-.drawer-screen {
-  height: 100%;
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+  width: 80%;
 }
 
 #image {
@@ -67,7 +89,7 @@ body {
   z-index: 0;
 }
 
-#helps {
+.helps {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,6 +97,20 @@ body {
   width: 100%;
   margin-top: 15%;
   z-index: 1;
+}
+
+.helps-showing {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  transition: 0.5s all;
+}
+
+.helps-hidden {
+  position: absolute;
+  bottom: 100%;
+  left: -1500px;
+  transition: 0.5s all;
 }
 
 #question-pyramid {
