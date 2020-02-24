@@ -1,0 +1,68 @@
+.give-up-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+  height: 5rem;
+  z-index: 1;
+}
+
+.give-up-icon {
+  width: 40%;
+  height: 100%;
+  border: 3px solid #4482c7;
+  border-radius: 50%;
+  background: url("https://cdn1.iconfinder.com/data/icons/sign-3/500/sign_outline-06-512.png")
+    black;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.give-message-line {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  transition: 0.5s all;
+}
+
+.give-message-hidden {
+  opacity: 0;
+  top: 100%;
+}
+
+.give-message-show {
+  opacity: 1;
+  top: 75%;
+}
+
+.yes-no-line {
+  display: flex;
+}
+
+.give-question {
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #4482c7;
+  width: 50%;
+  font-size: 2rem;
+  color: white;
+  background-color: black;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 70%;
+  border: 2px solid #4482c7;
+  height: 2rem;
+  width: 50px;
+  margin: 5px;
+  background-color: black;
+  color: white;
+}

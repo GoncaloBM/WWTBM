@@ -16,9 +16,9 @@
   position: absolute;
   border-bottom: 5px solid white;
   width: 35%;
-  left: 35%;
   transition: 0.5s all;
-  opacity: 1;
+  /* left: 35%;
+  opacity: 1; */
 }
 
  #bar1 {
@@ -38,9 +38,9 @@
     position: absolute;
     border-bottom: 5px solid white;
     width: 35%;
-    left: -40%;
     transition: 0.5s all;
-    opacity: 0;
+    /* left: -40%;
+    opacity: 0; */
   }
   
    #bar3 {
@@ -56,7 +56,17 @@
     bottom: 49%;
   }
 
-  .drawer-button:hover .bar-button1 {
+  .bar-button-hidden {
+    left: 135%;
+    opacity: 0;
+  }
+
+  .bar-button-show {
+    left: 35%;
+    opacity: 1;
+  }
+
+  /* .drawer-button:hover .bar-button1 {
     left: 135%;
     opacity: 0;
   }
@@ -64,4 +74,4 @@
   .drawer-button:hover .bar-button2 {
     left: 35%;
     opacity: 1;
-  }
+  } */

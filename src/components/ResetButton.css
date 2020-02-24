@@ -1,0 +1,74 @@
+#reset-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  position: absolute;
+  transition: 0.5s all;
+  width: 30%;
+  cursor: pointer;
+}
+
+.reset-hidden {
+  bottom: -50%;
+}
+
+.reset-show {
+  bottom: 5%;
+}
+
+.reset-game-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: black;
+  height: 3rem;
+  font-size: 1.5rem;
+  color: white;
+  width: 100%;
+  border-bottom: #708fbf 0.5rem solid;
+  border-top: #708fbf 0.5rem solid;
+}
+
+.arrow-right-reset {
+  width: 0;
+  height: 0;
+  border-top: 2rem solid transparent;
+  border-bottom: 2rem solid transparent;
+  border-left: 2rem solid #708fbf;
+  position: relative;
+}
+
+.arrow-right-reset:before {
+  content: "";
+  width: 0;
+  height: 0;
+  left: -2rem;
+  top: -1.5rem;
+  border-top: 1.5rem solid transparent;
+  border-bottom: 1.5rem solid transparent;
+  border-left: 1.5rem solid black;
+  position: absolute;
+}
+
+.arrow-left-reset {
+  width: 0;
+  height: 0;
+  border-top: 2rem solid transparent;
+  border-bottom: 2rem solid transparent;
+  border-right: 2rem solid #708fbf;
+  position: relative;
+}
+
+.arrow-left-reset:before {
+  content: "";
+  width: 0;
+  height: 0;
+  right: -2rem;
+  top: -1.5rem;
+  border-top: 1.5rem solid transparent;
+  border-bottom: 1.5rem solid transparent;
+  border-right: 1.5rem solid black;
+  position: absolute;
+}

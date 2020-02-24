@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 8rem;
+  height: 6rem;
   position: absolute;
   transition: 0.5s all;
   width: 50%;
@@ -14,7 +14,7 @@
 }
 
 .start-show {
-  bottom: 10%;
+  bottom: 20%;
 }
 
 .start-game-button {
@@ -23,7 +23,7 @@
   justify-content: center;
   text-align: center;
   background-color: black;
-  height: 7rem;
+  height: 5rem;
   font-size: 3rem;
   color: white;
 
@@ -35,9 +35,9 @@
 .arrow-right-start {
   width: 0;
   height: 0;
-  border-top: 4rem solid transparent;
-  border-bottom: 4rem solid transparent;
-  border-left: 4rem solid #708fbf;
+  border-top: 3rem solid transparent;
+  border-bottom: 3rem solid transparent;
+  border-left: 3rem solid #708fbf;
   position: relative;
 }
 
@@ -45,20 +45,20 @@
   content: "";
   width: 0;
   height: 0;
-  left: -4rem;
-  top: -3.5rem;
-  border-top: 3.5rem solid transparent;
-  border-bottom: 3.5rem solid transparent;
-  border-left: 3.5rem solid black;
+  left: -3rem;
+  top: -2.5rem;
+  border-top: 2.5rem solid transparent;
+  border-bottom: 2.5rem solid transparent;
+  border-left: 2.5rem solid black;
   position: absolute;
 }
 
 .arrow-left-start {
   width: 0;
   height: 0;
-  border-top: 4rem solid transparent;
-  border-bottom: 4rem solid transparent;
-  border-right: 4rem solid #708fbf;
+  border-top: 3rem solid transparent;
+  border-bottom: 3rem solid transparent;
+  border-right: 3rem solid #708fbf;
   position: relative;
 }
 
@@ -66,11 +66,11 @@
   content: "";
   width: 0;
   height: 0;
-  right: -4rem;
-  top: -3.5rem;
-  border-top: 3.5rem solid transparent;
-  border-bottom: 3.5rem solid transparent;
-  border-right: 3.5rem solid black;
+  right: -3rem;
+  top: -2.5rem;
+  border-top: 2.5rem solid transparent;
+  border-bottom: 2.5rem solid transparent;
+  border-right: 2.5rem solid black;
   position: absolute;
 }
 

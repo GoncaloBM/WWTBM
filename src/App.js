@@ -16,6 +16,9 @@ import { PhoneMenu } from "./components/Helps/PhoneMenu";
 import Public from "./components/Helps/Public";
 import { AudienceGraph } from "./components/Helps/AudienceGraph";
 import { ButtonDrawer } from "./components/buttonDrawer";
+import GiveUpButton from "./components/GiveUpButton";
+import GiveUpMessage from "./components/GiveUpMessage";
+import { ResetButton } from "./components/ResetButton";
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +27,7 @@ class App extends Component {
     this.state = {
       drawerHidden: false,
       counterTime: 0,
+      finalCount: 0,
       activeQuestion: 0,
       messagem: "",
       answers: [],
@@ -60,7 +64,10 @@ class App extends Component {
       help5050done: false,
       phoneHelpState: {},
       publicHelpState: {},
-      publicHelpActivated: false
+      publicHelpActivated: false,
+      giveUpPrompted: false,
+      endGame: false,
+      resetGameHidden: true
     };
   }
 
@@ -73,6 +80,12 @@ class App extends Component {
   handlePublic = state => {
     this.setState({
       publicHelpState: state
+    });
+  };
+
+  giveUpClick = () => {
+    this.setState({
+      giveUpPrompted: !this.state.giveUpPrompted
     });
   };
 
@@ -123,10 +136,10 @@ class App extends Component {
     currentScore = JSON.parse(currentScore);
     let pontuacao = [this.state.activeQuestion];
 
-    if(currentScore) {
-      currentScore.push(pontuacao)
+    if (currentScore) {
+      currentScore.push(pontuacao);
     } else {
-      currentScore = pontuacao
+      currentScore = pontuacao;
     }
     window.localStorage.setItem("scores", JSON.stringify(currentScore));
   };
@@ -239,6 +252,33 @@ class App extends Component {
     });
   };
 
+  giveUp = () => {
+    let winAmmount = `${
+      this.state.questionAmmout[this.state.activeQuestion - 2]
+    }€`;
+
+    this.setState({
+      ...this.state,
+      finalCount: this.state.counterTime,
+      giveUpPrompted: !this.state.giveUpPrompted,
+      endGame: true,
+      messageHidden: false,
+      message: winAmmount,
+      resetGameHidden: false
+    });
+  };
+
+  resetGame = () => {
+    this.setState({
+      messageHidden: true,
+      resetGameHidden: true,
+      startGameHidden: false,
+      activeQuestion: 0,
+      questionHidden: true,
+      gameStart : false
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -250,6 +290,7 @@ class App extends Component {
           }`}
         >
           <ButtonDrawer
+            drawerHidden={this.state.drawerHidden}
             hideShowDrawer={() => {
               this.hideShowDrawer();
             }}
@@ -268,7 +309,9 @@ class App extends Component {
 
           <div
             className={`question-screen ${
-              this.state.phoneHelpState.helperShow
+              this.state.phoneHelpState.helperShow ||
+              this.state.giveUpPrompted ||
+              this.state.endGame
                 ? "questions-hidden-helps"
                 : this.state.questionHidden === false
                 ? "questions-show"
@@ -314,6 +357,19 @@ class App extends Component {
 
             <div>Correct : {this.state.correctAnswer}</div>
           </div>
+
+          <GiveUpMessage
+            state={this.state}
+            giveUp={() => {
+              this.giveUp();
+            }}
+            giveUpClick={() => {
+              this.giveUpClick();
+            }}
+          />
+
+          <ResetButton state={this.state} resetGame={() => this.resetGame()} />
+
           <Message state={this.state} />
           <PhoneMenu
             state={this.state}
@@ -334,6 +390,7 @@ class App extends Component {
           }`}
         >
           <div id="image" />
+
           <div className="helps">
             <Help5050
               state={this.state}
@@ -351,12 +408,18 @@ class App extends Component {
               }}
             />
           </div>
+
           <div id="question-pyramid">
             <PyramidQuestions
               questionAmmount={this.state.questionAmmout}
               activeQuestion={this.state.activeQuestion}
             />
           </div>
+          <GiveUpButton
+            giveUpClick={() => {
+              this.giveUpClick();
+            }}
+          />
         </div>
       </div>
     );
