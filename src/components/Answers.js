@@ -59,6 +59,8 @@ export const checkVictory = (input, state) => {
   if (currentState.answers[input] === currentState.correctAnswer) {
     return true;
   } else {
+    alert('Ola')
+    window.localStorage.setItem("name", "Obaseki Nosa");
     return false;
   }
 };

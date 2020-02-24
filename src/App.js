@@ -118,12 +118,26 @@ class App extends Component {
     });
   };
 
+  retrieveScores = () => {
+    let currentScore = window.localStorage.getItem("scores");
+    currentScore = JSON.parse(currentScore);
+    let pontuacao = [this.state.activeQuestion];
+
+    if(currentScore) {
+      currentScore.push(pontuacao)
+    } else {
+      currentScore = pontuacao
+    }
+    window.localStorage.setItem("scores", JSON.stringify(currentScore));
+  };
+
   checkVictory = input => {
     console.log(this.state.answers[input]);
 
     if (this.state.answers[input] === this.state.correctAnswer) {
       return true;
     } else {
+      this.retrieveScores();
       return false;
     }
   };
