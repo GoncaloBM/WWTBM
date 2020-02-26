@@ -19,6 +19,9 @@ import { ButtonDrawer } from "./components/buttonDrawer";
 import GiveUpButton from "./components/GiveUpButton";
 import GiveUpMessage from "./components/GiveUpMessage";
 import { ResetButton } from "./components/ResetButton";
+import { ScoreBoardButton } from "./components/ScoreBoardButton";
+import ScoreBoard from "./components/ScoreBoard";
+import LoosingName from "./components/LoosingName";
 
 class App extends Component {
   constructor(props) {
@@ -27,6 +30,7 @@ class App extends Component {
     this.state = {
       drawerHidden: false,
       counterTime: 0,
+      name: "",
       finalCount: 0,
       activeQuestion: 0,
       messagem: "",
@@ -67,7 +71,9 @@ class App extends Component {
       publicHelpActivated: false,
       giveUpPrompted: false,
       endGame: false,
-      resetGameHidden: true
+      resetGameHidden: true,
+      ScoreButtonHidden: false,
+      scores: this.currentScoreBoard()
     };
   }
 
@@ -106,41 +112,80 @@ class App extends Component {
         "https://opentdb.com/api.php?amount=1&difficulty=hard&type=multiple";
     }
 
-    this.setState({ isLoaded: false, startGameHidden: true }, () => {
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          let answersArray = [];
-          answersArray.push(data.results[0].correct_answer);
-          answersArray.push(data.results[0].incorrect_answers[0]);
-          answersArray.push(data.results[0].incorrect_answers[1]);
-          answersArray.push(data.results[0].incorrect_answers[2]);
+    this.setState(
+      { isLoaded: false, startGameHidden: true, ScoreButtonHidden: true },
+      () => {
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            let answersArray = [];
+            answersArray.push(data.results[0].correct_answer);
+            answersArray.push(data.results[0].incorrect_answers[0]);
+            answersArray.push(data.results[0].incorrect_answers[1]);
+            answersArray.push(data.results[0].incorrect_answers[2]);
 
-          let randomAnswers = shuffle(answersArray);
+            let randomAnswers = shuffle(answersArray);
 
-          this.setState({
-            activeQuestion: this.state.activeQuestion + 1,
-            question: data.results[0].question,
-            correctAnswer: data.results[0].correct_answer,
-            answers: randomAnswers,
-            isLoaded: true,
-            questionHidden: false,
-            gameStart: true
+            this.setState({
+              activeQuestion: this.state.activeQuestion + 1,
+              question: data.results[0].question,
+              correctAnswer: data.results[0].correct_answer,
+              answers: randomAnswers,
+              isLoaded: true,
+              questionHidden: false,
+              gameStart: true
+            });
           });
-        });
+      }
+    );
+  };
+
+  counterFromChild = count => {
+    this.setState({
+      ...this.state,
+      counterTime: count
     });
+  };
+
+  nameFromChild = nameChild => {
+    this.setState({
+      ...this.state,
+      name: nameChild
+    });
+    setTimeout(() => this.retrieveScores(), 1000);
+  };
+
+  currentScoreBoard = () => {
+    let currentScore = window.localStorage.getItem("scores");
+    currentScore = JSON.parse(currentScore);
+
+    return currentScore;
   };
 
   retrieveScores = () => {
     let currentScore = window.localStorage.getItem("scores");
     currentScore = JSON.parse(currentScore);
-    let pontuacao = [this.state.activeQuestion];
+    let pontuacao = {
+      name: this.state.name,
+      question: this.state.activeQuestion,
+      time: this.state.counterTime
+    };
 
     if (currentScore) {
       currentScore.push(pontuacao);
+
+      currentScore.sort(function(a, b) {
+        return a.question - b.question;
+      });
     } else {
-      currentScore = pontuacao;
+      currentScore = [pontuacao];
     }
+
+    this.setState({
+      ...this.state,
+      scores: currentScore
+    });
+
     window.localStorage.setItem("scores", JSON.stringify(currentScore));
   };
 
@@ -150,7 +195,6 @@ class App extends Component {
     if (this.state.answers[input] === this.state.correctAnswer) {
       return true;
     } else {
-      this.retrieveScores();
       return false;
     }
   };
@@ -194,7 +238,8 @@ class App extends Component {
         this.setState({
           questionHidden: true,
           messageHidden: false,
-          messagem: messageToDisplayLose
+          messagem: messageToDisplayLose,
+          endGame: true
         });
       }, 4000);
     }
@@ -275,11 +320,12 @@ class App extends Component {
       startGameHidden: false,
       activeQuestion: 0,
       questionHidden: true,
-      gameStart : false
+      gameStart: false
     });
   };
 
   render() {
+    // localStorage.clear();
     return (
       <div className="App">
         <div
@@ -295,10 +341,15 @@ class App extends Component {
               this.hideShowDrawer();
             }}
           />
-          <LogoApp state={this.state} />
+          <LogoApp state={this.state} countToApp={this.counterFromChild} />
 
           {/* <PublicGraph state={this.state} /> */}
           <AudienceGraph state={this.state} />
+          <ScoreBoard
+            activeQuestion={this.state.activeQuestion}
+            counterTime={this.state.counterTime}
+            scoreState={this.state.scores}
+          />
 
           <StartGameButton
             state={this.state}
@@ -306,6 +357,8 @@ class App extends Component {
               this.getQuestionAndAnswers();
             }}
           />
+
+          <ScoreBoardButton ScoreButtonHidden={this.state.ScoreButtonHidden} />
 
           <div
             className={`question-screen ${
@@ -371,6 +424,11 @@ class App extends Component {
           <ResetButton state={this.state} resetGame={() => this.resetGame()} />
 
           <Message state={this.state} />
+
+          <LoosingName
+            endGame={this.state.endGame}
+            nameFromChild={this.nameFromChild}
+          />
           <PhoneMenu
             state={this.state}
             helperClick={index => {

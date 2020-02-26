@@ -1,0 +1,32 @@
+import React, { Component } from "react";
+import "./LoosingName.css";
+
+class LoosingName extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { name: "" };
+  }
+
+  handleChange = e => {
+    this.setState({ name: e.target.value });
+  };
+
+  render() {
+    return (
+      <div
+        className={
+          this.props.endGame ? "loosing-line-show" : "loosing-line-hidden"
+        }
+      >
+        <input type="text" onChange={this.handleChange} />
+        <input
+          type="button"
+          value="Submit"
+          onClick={() => this.props.nameFromChild(this.state.name)}
+        />
+      </div>
+    );
+  }
+}
+
+export default LoosingName;

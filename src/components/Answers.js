@@ -5,6 +5,9 @@ import "./Answers.css";
 
 export const initialQuestion = () => {
   return {
+    drawerHidden: false,
+    counterTime: 0,
+    finalCount: 0,
     activeQuestion: 0,
     messagem: "",
     answers: [],
@@ -32,12 +35,19 @@ export const initialQuestion = () => {
       "250 000 €"
     ],
     questionHidden: true,
+    gameStart: false,
     messageHidden: true,
     startGameHidden: false,
     showingCorrectAnswer: false,
     activated5050: false,
     answersToRemove: [],
-    help5050done: false
+    help5050done: false,
+    phoneHelpState: {},
+    publicHelpState: {},
+    publicHelpActivated: false,
+    giveUpPrompted: false,
+    endGame: false,
+    resetGameHidden: true
   };
 };
 
@@ -59,7 +69,7 @@ export const checkVictory = (input, state) => {
   if (currentState.answers[input] === currentState.correctAnswer) {
     return true;
   } else {
-    alert('Ola')
+    alert("Ola");
     window.localStorage.setItem("name", "Obaseki Nosa");
     return false;
   }

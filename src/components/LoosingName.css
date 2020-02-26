@@ -1,0 +1,8 @@
+.loosing-line-show {
+    position: absolute;
+    bottom: 10%;
+}
+
+.loosing-line-hidden {
+    display: none;
+}

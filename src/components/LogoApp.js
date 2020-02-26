@@ -50,6 +50,7 @@ class LogoApp extends Component {
           minutesToShow: minutesToShow
         });
       }
+      this.props.countToApp(this.state.counter);
     }, 1000);
     this.setState({
       counterDone: true
@@ -62,7 +63,9 @@ class LogoApp extends Component {
 
   render() {
     {
-      this.props.state.gameStart && !this.state.counterDone && this.counterTime();
+      this.props.state.gameStart &&
+        !this.state.counterDone &&
+        this.counterTime();
     }
     return (
       <div>
