@@ -26,9 +26,22 @@ class ScoreBoard extends Component {
 
   render() {
     return (
-      <div className="table">
-        <table>
-          <tbody>{this.table()}</tbody>
+      <div
+        className={`scoreboard
+          ${
+            this.props.showScoreBoard
+              ? "scoreboard-showing"
+              : "scoreboard-hidden"
+          }
+        `}
+      >
+        <table id="scoreboard-table">
+          <tr id='top-line'>
+            <th>Name</th>
+            <th>Question</th>
+            <th>Time</th>
+          </tr>
+          {this.table()}
         </table>
       </div>
     );

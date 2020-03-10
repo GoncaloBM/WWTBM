@@ -2,9 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 30px;
   width: 100%;
-  height: 5rem;
+  height: 4rem;
   z-index: 1;
 }
 
@@ -13,10 +13,14 @@
   height: 100%;
   border: 3px solid #4482c7;
   border-radius: 50%;
-  background: url("https://cdn1.iconfinder.com/data/icons/sign-3/500/sign_outline-06-512.png")
-    black;
+  /* background: url("https://cdn1.iconfinder.com/data/icons/sign-3/500/sign_outline-06-512.png")
+    black; */
+  background-color: black;
   background-size: cover;
   background-repeat: no-repeat;
+  text-align: center;
+  color: white;
+  font-size: 2rem;
 }
 
 .give-message-line {

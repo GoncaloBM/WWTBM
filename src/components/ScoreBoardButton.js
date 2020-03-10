@@ -6,9 +6,12 @@ export const ScoreBoardButton = props => {
     <div
       id="score-line"
       className={!props.ScoreButtonHidden ? "score-show" : "score-hidden"}
+      onClick={() => props.showScoreBoard()}
     >
       <div className="arrow-left-score" />
-      <div className="score-game-button">ScoreBoard</div>
+      <div className="score-game-button">
+        {!props.showScoreBoardState ? "ScoreBoard" : "Back"}
+      </div>
       <div className="arrow-right-score" />
     </div>
   );

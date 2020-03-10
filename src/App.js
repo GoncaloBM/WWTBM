@@ -27,8 +27,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     //this.state = initialQuestion();
-    this.state = {
-      drawerHidden: false,
+    this.state = this.initialState();
+  }
+
+  initialState = () => {
+    return {
+      initialScreen: true,
+      drawerHidden: true,
       counterTime: 0,
       name: "",
       finalCount: 0,
@@ -73,9 +78,13 @@ class App extends Component {
       endGame: false,
       resetGameHidden: true,
       ScoreButtonHidden: false,
-      scores: this.currentScoreBoard()
+      showScoreBoard: false,
+      scores: this.currentScoreBoard(),
+      loosingNameInputHidden: true,
+      counter0: 0,
+      lost: false
     };
-  }
+  };
 
   handlePhone = state => {
     this.setState({
@@ -97,6 +106,13 @@ class App extends Component {
 
   getQuestionAndAnswers = () => {
     let url = "";
+
+    if (this.state.activeQuestion === 0) {
+      this.setState({
+        ...this.state,
+        drawerHidden: false
+      });
+    }
 
     if (this.state.activeQuestion < 5) {
       url =
@@ -133,7 +149,8 @@ class App extends Component {
               answers: randomAnswers,
               isLoaded: true,
               questionHidden: false,
-              gameStart: true
+              gameStart: true,
+              initialScreen: false
             });
           });
       }
@@ -150,9 +167,19 @@ class App extends Component {
   nameFromChild = nameChild => {
     this.setState({
       ...this.state,
-      name: nameChild
+      name: nameChild,
+      resetGameHidden: false,
+      loosingNameInputHidden: true,
+      showScoreBoard: true
     });
     setTimeout(() => this.retrieveScores(), 1000);
+  };
+
+  showScoreBoard = () => {
+    this.setState({
+      ...this.state,
+      showScoreBoard: !this.state.showScoreBoard
+    });
   };
 
   currentScoreBoard = () => {
@@ -167,7 +194,15 @@ class App extends Component {
     currentScore = JSON.parse(currentScore);
     let pontuacao = {
       name: this.state.name,
-      question: this.state.activeQuestion,
+      question: !this.state.lost
+        ? this.state.activeQuestion
+        : this.state.activeQuestion < 5
+        ? 0
+        : this.state.activeQuestion > 4 && this.state.activeQuestion < 10
+        ? 5
+        : this.state.activeQuestion > 9
+        ? 10
+        : "",
       time: this.state.counterTime
     };
 
@@ -175,7 +210,7 @@ class App extends Component {
       currentScore.push(pontuacao);
 
       currentScore.sort(function(a, b) {
-        return a.question - b.question;
+        return b.question - a.question || b.time - a.time;
       });
     } else {
       currentScore = [pontuacao];
@@ -235,12 +270,19 @@ class App extends Component {
       setTimeout(() => this.getNextState(), 7000);
     } else {
       setTimeout(() => {
-        this.setState({
-          questionHidden: true,
-          messageHidden: false,
-          messagem: messageToDisplayLose,
-          endGame: true
-        });
+        this.setState(
+          {
+            questionHidden: true,
+            messageHidden: false,
+            messagem: messageToDisplayLose,
+            loosingNameInputHidden: false,
+            finalCount: this.state.counterTime,
+            lost: true
+          },
+          () => {
+            this.setState({ endGame: true });
+          }
+        );
       }, 4000);
     }
   };
@@ -309,19 +351,12 @@ class App extends Component {
       endGame: true,
       messageHidden: false,
       message: winAmmount,
-      resetGameHidden: false
+      loosingNameInputHidden: false
     });
   };
 
   resetGame = () => {
-    this.setState({
-      messageHidden: true,
-      resetGameHidden: true,
-      startGameHidden: false,
-      activeQuestion: 0,
-      questionHidden: true,
-      gameStart: false
-    });
+    this.state = this.initialState();
   };
 
   render() {
@@ -330,17 +365,23 @@ class App extends Component {
       <div className="App">
         <div
           className={`principal-screen ${
+            this.state.initialScreen
+              ? "principal-screen-startGame"
+              : "principal-screen-game"
+          } ${
             this.state.drawerHidden === false
               ? "principal-screen-small"
               : "principal-screen-big"
           }`}
         >
           <ButtonDrawer
+            startGame={this.state.gameStart}
             drawerHidden={this.state.drawerHidden}
             hideShowDrawer={() => {
               this.hideShowDrawer();
             }}
           />
+
           <LogoApp state={this.state} countToApp={this.counterFromChild} />
 
           {/* <PublicGraph state={this.state} /> */}
@@ -349,6 +390,7 @@ class App extends Component {
             activeQuestion={this.state.activeQuestion}
             counterTime={this.state.counterTime}
             scoreState={this.state.scores}
+            showScoreBoard={this.state.showScoreBoard}
           />
 
           <StartGameButton
@@ -358,7 +400,11 @@ class App extends Component {
             }}
           />
 
-          <ScoreBoardButton ScoreButtonHidden={this.state.ScoreButtonHidden} />
+          <ScoreBoardButton
+            showScoreBoard={() => this.showScoreBoard()}
+            ScoreButtonHidden={this.state.ScoreButtonHidden}
+            showScoreBoardState={this.state.showScoreBoard}
+          />
 
           <div
             className={`question-screen ${
@@ -375,6 +421,7 @@ class App extends Component {
               className={`helps ${
                 this.state.drawerHidden ? "helps-showing" : "helps-hidden"
               }`}
+              style={{ height: this.state.drawerHidden ? "5rem" : "" }}
             >
               <Help5050
                 state={this.state}
@@ -428,6 +475,7 @@ class App extends Component {
           <LoosingName
             endGame={this.state.endGame}
             nameFromChild={this.nameFromChild}
+            loosingNameInputHidden={this.state.loosingNameInputHidden}
           />
           <PhoneMenu
             state={this.state}

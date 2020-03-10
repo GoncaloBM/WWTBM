@@ -39,7 +39,8 @@ class Logo extends Component {
     return (
       <div
         className={
-          props.stateFromApp.publicHelpActivated
+          props.stateFromApp.publicHelpActivated ||
+          props.stateFromApp.showScoreBoard
             ? "wrapper-hidden "
             : "wrapper"
         }

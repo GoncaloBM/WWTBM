@@ -79,7 +79,7 @@ class Public extends Component {
 
   render() {
     return (
-      <div id="help">
+      <div id="help" style={{ width: this.props.state.drawerHidden ? "125px" : "" }}>
         <div
           className={
             "cross" +

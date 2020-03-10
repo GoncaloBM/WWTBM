@@ -26,7 +26,7 @@ export const firstAnswersToRemove5050 = state => {
 
 export const Help5050 = props => {
   return (
-    <div id="help">
+    <div id="help" style={{ width: props.state.drawerHidden ? "125px" : "" }}>
       <div
         className={
           "cross" +

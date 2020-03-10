@@ -15,7 +15,7 @@ class GiveUpButton extends Component {
           onClick={() => {
             this.props.giveUpClick();
           }}
-        />
+        >I Give Up</div>
       </div>
     );
   }

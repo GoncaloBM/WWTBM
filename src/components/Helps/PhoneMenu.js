@@ -46,9 +46,14 @@ export const PhoneMenu = props => {
                     : item}
                 </div>
                 {props.state.phoneHelpState.HelperClicked === true && (
-                  <button onClick={() => props.phoneHelperGone()}>
-                    Thanks!
-                  </button>
+                  <div
+                    className="thanks"
+                    onClick={() => props.phoneHelperGone()}
+                  >
+                    <div className="arrow-left-thanks" />
+                    <div className="phone-help-question">Thanks!</div>
+                    <div className="arrow-right-thanks" />
+                  </div>
                 )}
               </div>
             );

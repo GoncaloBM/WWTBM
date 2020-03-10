@@ -15,7 +15,9 @@ class LoosingName extends Component {
     return (
       <div
         className={
-          this.props.endGame ? "loosing-line-show" : "loosing-line-hidden"
+          !this.props.loosingNameInputHidden
+            ? "loosing-line-show"
+            : "loosing-line-hidden"
         }
       >
         <input type="text" onChange={this.handleChange} />

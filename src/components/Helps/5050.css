@@ -1,6 +1,6 @@
 .help5050 {
   height: 100%;
-  width: 125px;
+  width: 100%;
   border-radius: 50%;
   border: 3px solid #4482c7;
   background-color: black;
@@ -13,6 +13,7 @@
 }
 
 #help {
+  width: 30%;
   position: relative;
 }
 

@@ -1,3 +1,7 @@
+.drawer-button-start {
+  display: none;
+}
+
 .drawer-button {
   position: absolute;
   top: 40%;
@@ -10,6 +14,7 @@
   justify-content: center;
   /* background-color: black; */
   overflow: hidden;
+  z-index: 100;
 }
 
 .bar-button1 {

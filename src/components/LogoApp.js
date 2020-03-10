@@ -4,16 +4,21 @@ import Logo from "./logo";
 class LogoApp extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.initialLogoState();
+  }
+
+  initialLogoState = () => {
+    return {
       counter: 0,
       seconds: 0,
       minutes: 1,
       secondsToShow: "00",
       minutesToShow: "00",
-      gameStart: props.state.gameStart,
-      counterDone: false
+      gameStart: this.props.state.gameStart,
+      counterDone: false,
+      showScoreBoard: this.props.state.showScoreBoard
     };
-  }
+  };
 
   counterTime = () => {
     this.timer = setInterval(() => {
@@ -59,10 +64,16 @@ class LogoApp extends Component {
 
   stopTime = () => {
     clearInterval(this.timer);
+
+    if (this.state.counterDone) {
+      this.state = this.initialLogoState();
+    }
   };
 
   render() {
     {
+      this.props.state.initialScreen === true && this.stopTime();
+
       this.props.state.gameStart &&
         !this.state.counterDone &&
         this.counterTime();

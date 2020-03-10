@@ -1,13 +1,16 @@
 #help {
   position: relative;
   height: 70%;
+  width: 30%;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .cross {
   position: absolute;
   top: 50%;
-  width: 70%;
-  left: 15%;
+  width: 100%;
+  left: 2%;
 }
 
 #left {
