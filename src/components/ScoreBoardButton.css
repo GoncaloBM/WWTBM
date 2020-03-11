@@ -18,6 +18,7 @@
 }
 
 .score-game-button {
+  font-family: Conduit-ITC;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,4 +72,10 @@
   border-bottom: 1.5rem solid transparent;
   border-right: 1.5rem solid black;
   position: absolute;
+}
+
+@media screen and (max-width: 400px) {
+  .score-game-button {
+    font-size: 1rem;
+  }
 }

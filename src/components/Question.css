@@ -25,6 +25,7 @@
 }
 
 #question {
+  font-family: Conduit-ITC;
   display: flex;
   align-items: center;
   justify-content: center;

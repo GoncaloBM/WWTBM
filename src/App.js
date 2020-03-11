@@ -107,7 +107,7 @@ class App extends Component {
   getQuestionAndAnswers = () => {
     let url = "";
 
-    if (this.state.activeQuestion === 0) {
+    if (this.state.activeQuestion === 0 && window.innerWidth > 400) {
       this.setState({
         ...this.state,
         drawerHidden: false

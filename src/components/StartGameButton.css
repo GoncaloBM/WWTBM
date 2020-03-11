@@ -18,6 +18,7 @@
 }
 
 .start-game-button {
+  font-family: Conduit-ITC;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,4 +82,14 @@
   border-bottom: #708fbf;
   height: 50%;
   width: 500px;
+}
+
+@media screen and (max-width: 400px) {
+  #start-line {
+    width: 80%;
+  }
+
+  .start-game-button {
+  font-size: 2rem;
+  }
 }

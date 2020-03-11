@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './styles.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import './fonts/Conduit_ITC_Light.ttf';
+import './fonts/Copperplate_Gothic_Condensed_Regular.otf'
+import './fonts/Copperplate_Gothic_Regular.otf'
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

@@ -38,6 +38,7 @@
 }
 
 #answer {
+  font-family: Conduit-ITC;
   display: flex;
   align-items: center;
   width: 100%;
@@ -192,4 +193,3 @@
   color: orange;
   margin-right: 5px;
 }
-

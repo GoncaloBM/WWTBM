@@ -156,6 +156,7 @@ export const Answers = props => {
                       ? "transparent"
                       : ""
                 }}
+                style={{ fontFamily: "Copperplate-Gothic-Condensed" }}
               >
                 {letterAnswer(index)}:
               </span>{" "}

@@ -35,3 +35,9 @@
   font-weight: bold;
   border-bottom: 5px solid #6f8fbf;
 }
+
+@media screen and (max-width: 400px) {
+  .scoreboard-hidden {
+    top: -65%;
+  }
+}

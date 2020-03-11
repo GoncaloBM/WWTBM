@@ -1,4 +1,5 @@
 .help5050 {
+  font-family: Conduit-ITC;
   height: 100%;
   width: 100%;
   border-radius: 50%;
@@ -8,8 +9,9 @@
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 3rem;
+  font-size: 2rem;
   cursor: pointer;
+  overflow: hidden;
 }
 
 #help {
@@ -37,5 +39,11 @@
 }
 
 .help-to-activate {
-    display: none;
+  display: none;
+}
+
+@media screen and (max-width: 400px) {
+  .help5050 {
+    font-size: 1.5rem;
   }
+}
