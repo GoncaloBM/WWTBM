@@ -10,10 +10,10 @@ export const PyramidQuestions = props => {
           bottom: `${props.activeQuestion * 2 - 2}rem`,
           transition: "0.5s all"
         }}
-      ></div>
+      />
       {props.questionAmmount.map((ammount, index) => {
         return (
-          <div className="ammount-line">
+          <div className="ammount-line" key={index}>
             <div
               className="question-number"
               style={{
@@ -25,7 +25,7 @@ export const PyramidQuestions = props => {
             <div className="question-answered">
               <div
                 className={props.activeQuestion > index ? "square-rot" : ""}
-              ></div>
+              />
             </div>
             <div
               className="ammount"

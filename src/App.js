@@ -26,12 +26,12 @@ import LoosingName from "./components/LoosingName";
 class App extends Component {
   constructor(props) {
     super(props);
-    //this.state = initialQuestion();
     this.state = this.initialState();
   }
 
   initialState = () => {
     return {
+      isMobile: this.isMobile(),
       initialScreen: true,
       drawerHidden: true,
       counterTime: 0,
@@ -86,15 +86,25 @@ class App extends Component {
     };
   };
 
-  handlePhone = state => {
+  isMobile = () => {
+    return window.innerWidth > 450 ? true : false;
+  };
+
+  phoneHelpCallback = state => {
     this.setState({
       phoneHelpState: state
     });
   };
 
-  handlePublic = state => {
+  publickHelpCallback = state => {
     this.setState({
       publicHelpState: state
+    });
+  };
+
+  publicClick = () => {
+    this.setState({
+      publicHelpActivated: !this.state.publicHelpActivated
     });
   };
 
@@ -107,7 +117,7 @@ class App extends Component {
   getQuestionAndAnswers = () => {
     let url = "";
 
-    if (this.state.activeQuestion === 0 && window.innerWidth > 400) {
+    if (this.state.activeQuestion === 0 && this.state.isMobile) {
       this.setState({
         ...this.state,
         drawerHidden: false
@@ -164,10 +174,10 @@ class App extends Component {
     });
   };
 
-  nameFromChild = nameChild => {
+  submitLoosingName = loosingName => {
     this.setState({
       ...this.state,
-      name: nameChild,
+      name: loosingName,
       resetGameHidden: false,
       loosingNameInputHidden: true,
       showScoreBoard: true
@@ -225,8 +235,6 @@ class App extends Component {
   };
 
   checkVictory = input => {
-    console.log(this.state.answers[input]);
-
     if (this.state.answers[input] === this.state.correctAnswer) {
       return true;
     } else {
@@ -239,9 +247,6 @@ class App extends Component {
       questionAnswered: true,
       selectedAnswer: this.state.answers[input]
     });
-
-    let selectedAnswer = this.state.answers[input];
-    console.log(selectedAnswer);
 
     let questionRight = this.checkVictory(input);
 
@@ -304,11 +309,9 @@ class App extends Component {
       answersToRemove: firstAnswersToRemove5050(this.state),
       help5050done: true
     });
-    console.log(this.state.answersToRemove);
   };
 
   helperClick = input => {
-    console.log("Hey carregaste!");
     this.setState({
       phoneHelpState: {
         ...this.state.phoneHelpState,
@@ -321,12 +324,6 @@ class App extends Component {
   phoneHelperGone = () => {
     this.setState({
       phoneHelpState: { ...this.state.phoneHelpState, helperShow: false }
-    });
-  };
-
-  publicClick = () => {
-    this.setState({
-      publicHelpActivated: !this.state.publicHelpActivated
     });
   };
 
@@ -356,7 +353,7 @@ class App extends Component {
   };
 
   resetGame = () => {
-    this.state = this.initialState();
+    this.setState(this.initialState());
   };
 
   render() {
@@ -384,8 +381,8 @@ class App extends Component {
 
           <LogoApp state={this.state} countToApp={this.counterFromChild} />
 
-          {/* <PublicGraph state={this.state} /> */}
           <AudienceGraph state={this.state} />
+          
           <ScoreBoard
             activeQuestion={this.state.activeQuestion}
             counterTime={this.state.counterTime}
@@ -430,9 +427,12 @@ class App extends Component {
                   this.click5050();
                 }}
               />
-              <Phone handlePhone={this.handlePhone} state={this.state} />
+              <Phone
+                phoneHelpCallback={this.phoneHelpCallback}
+                state={this.state}
+              />
               <Public
-                handlePublic={this.handlePublic}
+                publickHelpCallback={this.publickHelpCallback}
                 state={this.state}
                 publicClick={() => {
                   this.publicClick();
@@ -447,7 +447,7 @@ class App extends Component {
               state={this.state}
               questionAnswered={this.state.questionAnswered}
               answers={this.state.answers}
-              clickCallback={index => {
+              answerClicked={index => {
                 this.answerClicked(index);
               }}
               checkRightAnswer={() => {
@@ -474,7 +474,7 @@ class App extends Component {
 
           <LoosingName
             endGame={this.state.endGame}
-            nameFromChild={this.nameFromChild}
+            submitLoosingName={this.submitLoosingName}
             loosingNameInputHidden={this.state.loosingNameInputHidden}
           />
           <PhoneMenu
@@ -505,9 +505,12 @@ class App extends Component {
                 this.click5050();
               }}
             />
-            <Phone handlePhone={this.handlePhone} state={this.state} />
+            <Phone
+              phoneHelpCallback={this.phoneHelpCallback}
+              state={this.state}
+            />
             <Public
-              handlePublic={this.handlePublic}
+              publickHelpCallback={this.publickHelpCallback}
               state={this.state}
               publicClick={() => {
                 this.publicClick();

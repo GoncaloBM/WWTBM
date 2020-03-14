@@ -66,18 +66,15 @@ class LogoApp extends Component {
     clearInterval(this.timer);
 
     if (this.state.counterDone) {
-      this.state = this.initialLogoState();
+      this.setState(this.initialLogoState());
     }
   };
 
   render() {
-    {
-      this.props.state.initialScreen === true && this.stopTime();
+    this.props.state.initialScreen === true && this.stopTime();
 
-      this.props.state.gameStart &&
-        !this.state.counterDone &&
-        this.counterTime();
-    }
+    this.props.state.gameStart && !this.state.counterDone && this.counterTime();
+
     return (
       <div>
         <Logo

@@ -38,6 +38,7 @@
   border-top: #708fbf solid 0.2rem;
   border-bottom: #708fbf solid 0.2rem;
   z-index: 1;
+  overflow: scroll;
 }
 
 .arrow-right {
@@ -80,4 +81,10 @@
   border-top: 1.3rem solid transparent;
   border-bottom: 1.3rem solid transparent;
   border-right: 1.3rem solid black;
+}
+
+@media screen and (max-width: 450px) {
+  #question {
+    font-size: 0.8rem;
+  }
 }

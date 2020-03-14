@@ -24,7 +24,7 @@ class LoosingName extends Component {
         <input
           type="button"
           value="Submit"
-          onClick={() => this.props.nameFromChild(this.state.name)}
+          onClick={() => this.props.submitLoosingName(this.state.name)}
         />
       </div>
     );

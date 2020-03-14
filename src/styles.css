@@ -30,8 +30,6 @@ body {
   position: relative;
   font-family: sans-serif;
   text-align: center;
-  /* background-color: #425ca9; */
-  /* background-color: #0f1d46; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,6 +69,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   position: fixed;
   transition: 0.5s all;
 }
@@ -151,9 +150,9 @@ body {
   z-index: 1;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   .questions-show {
-    bottom: 5%;
+    bottom: 1%;
   }
 
   .question-screen {

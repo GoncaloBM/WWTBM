@@ -214,9 +214,12 @@ img {
   position: absolute;
 }
 
-
-@media screen and (max-width : 750px) {
+@media screen and (max-width: 750px) {
   .helpers {
     width: 80%;
+  }
+
+  .phone-help-question {
+    font-size: 1.5rem;
   }
 }

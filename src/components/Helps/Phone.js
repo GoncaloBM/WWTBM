@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Phone.css";
 import "./cross.css";
-import {checkCorrectAnswer} from './checkCorrectAnswer'
+import { checkCorrectAnswer } from "./checkCorrectAnswer";
 
 class Phone extends Component {
   constructor(props) {
@@ -19,11 +19,10 @@ class Phone extends Component {
 
   stateToApp = () => {
     let currentState = this.state;
-    this.props.handlePhone(currentState);
+    this.props.phoneHelpCallback(currentState);
   };
 
   getHelpers = () => {
-    console.log("Hey");
     let url = "https://randomuser.me/api/?results=4";
 
     this.setState({ helpersLoaded: false }, () => {
@@ -56,7 +55,7 @@ class Phone extends Component {
     });
   };
 
-  helperAnswer = (props) => {
+  helperAnswer = props => {
     let activeQuestion = this.props.state.activeQuestion;
     let correctAnswer = checkCorrectAnswer(this.props.state);
     let answersArrayEasy = [
@@ -109,7 +108,10 @@ class Phone extends Component {
 
   render() {
     return (
-      <div id="help" style={{ width: this.props.state.drawerHidden ? "125px" : "" }}>
+      <div
+        id="help"
+        style={{ width: this.props.state.drawerHidden ? "125px" : "" }}
+      >
         <div
           className={
             "cross" +

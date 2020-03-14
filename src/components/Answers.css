@@ -193,3 +193,9 @@
   color: orange;
   margin-right: 5px;
 }
+
+@media screen and (max-width: 450px) {
+  #answers {
+    font-size: 0.8rem;
+  }
+}

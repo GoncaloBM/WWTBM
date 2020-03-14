@@ -36,12 +36,14 @@ class ScoreBoard extends Component {
         `}
       >
         <table id="scoreboard-table">
-          <tr id='top-line'>
-            <th>Name</th>
-            <th>Question</th>
-            <th>Time</th>
-          </tr>
-          {this.table()}
+          <tbody>
+            <tr id="top-line">
+              <th>Name</th>
+              <th>Question</th>
+              <th>Time</th>
+            </tr>
+            {this.table()}
+          </tbody>
         </table>
       </div>
     );

@@ -102,18 +102,17 @@ export const Answers = props => {
             className="answer-line"
             key={index}
             onClick={() => {
-              props.clickCallback(index);
+              props.answerClicked(index);
             }}
             style={{
               pointerEvents:
-                props.state.activated5050 &&
-                (index === props.state.answersToRemove[0] ||
-                  index === props.state.answersToRemove[1])
+                (props.state.activated5050 &&
+                  (index === props.state.answersToRemove[0] ||
+                    index === props.state.answersToRemove[1])) ||
+                props.state.questionAnswered
                   ? "none"
-                  : ""
-            }}
-            style={{
-              pointerEvents: props.state.questionAnswered ? "none" : ""
+                  : "",
+              fontSize: props.state.isMobile ? "1rem" : ""
             }}
           >
             <div
@@ -130,7 +129,6 @@ export const Answers = props => {
             <div
               id="answer"
               className={
-                // props.checkRightAnswer(index) === { index } &&
                 props.state.answers[index] === props.state.correctAnswer &&
                 props.state.showingCorrectAnswer
                   ? "correct"
@@ -154,9 +152,9 @@ export const Answers = props => {
                     (index === props.state.answersToRemove[0] ||
                       index === props.state.answersToRemove[1])
                       ? "transparent"
-                      : ""
+                      : "",
+                  fontFamily: "Copperplate-Gothic-Condensed"
                 }}
-                style={{ fontFamily: "Copperplate-Gothic-Condensed" }}
               >
                 {letterAnswer(index)}:
               </span>{" "}

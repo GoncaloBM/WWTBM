@@ -59,3 +59,9 @@
   font-family: Copperplate_Gothic_Regular;
   color: orange;
 }
+
+@media screen and (max-height: 600px) {
+  .ammount-line {
+    height: 1.8rem;
+  }
+}

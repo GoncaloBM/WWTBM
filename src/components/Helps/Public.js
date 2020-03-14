@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import checkCorrectAnswer from "./checkCorrectAnswer";
 import "./Public.css";
 import "./cross.css";
 
@@ -14,13 +13,12 @@ class Public extends Component {
 
   stateToApp = () => {
     let currentState = this.state;
-    this.props.handlePublic(currentState);
+    this.props.publickHelpCallback(currentState);
     this.props.publicClick();
   };
 
   publicAnswer = () => {
     let props = this.props;
-    let activeQuestion = 1; //props.state.activeQuestion
     let correctAnswer = props.state.correctAnswer;
     let percentageCorrectAnswer;
 
@@ -79,7 +77,10 @@ class Public extends Component {
 
   render() {
     return (
-      <div id="help" style={{ width: this.props.state.drawerHidden ? "125px" : "" }}>
+      <div
+        id="help"
+        style={{ width: this.props.state.drawerHidden ? "125px" : "" }}
+      >
         <div
           className={
             "cross" +
@@ -120,7 +121,7 @@ class Public extends Component {
               ? "none"
               : ""
           }}
-        ></div>
+        />
       </div>
     );
   }

@@ -5,7 +5,6 @@ import "./Question.css";
 export const Question = props => {
   return (
     <div id="component">
-      <div>Question number: {props.state.activeQuestion}</div>
       <div id="question-line">
         <div id="line" />
         {props.state.question ? <div className="arrow-left" /> : ""}

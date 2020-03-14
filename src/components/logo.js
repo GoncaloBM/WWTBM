@@ -88,7 +88,7 @@ class Logo extends Component {
               : `${props.minutesToShow}:${props.secondsToShow}`}
           </div>
 
-          <div class="estrellas">
+          <div className="estrellas">
             <span>W</span>
             <span>H</span>
             <span>O</span>
@@ -108,7 +108,7 @@ class Logo extends Component {
             <span>A</span>
           </div>
 
-          <div class="estrellas inverso" style={{ top: "-450px" }}>
+          <div className="estrellas inverso" style={{ top: "-450px" }}>
             <span>A</span>
             <span> </span>
             <span>E</span>
