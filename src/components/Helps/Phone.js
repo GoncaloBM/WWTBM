@@ -13,7 +13,8 @@ class Phone extends Component {
       HelperChoose: "",
       HelperClicked: false,
       HelperAnswer: "",
-      helperActivated: false
+      helperActivated: false,
+      loadError: false
     };
   }
 
@@ -44,7 +45,10 @@ class Phone extends Component {
             ]
           });
         })
-        .then(this.setState({ helpersLoaded: true }));
+        .then(this.setState({ helpersLoaded: true }))
+        .catch(err => {
+          this.setState({ ...this.state, loadError: true });
+        });
     });
   };
 

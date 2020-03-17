@@ -220,7 +220,7 @@ class App extends Component {
       currentScore.push(pontuacao);
 
       currentScore.sort(function(a, b) {
-        return b.question - a.question || b.time - a.time;
+        return b.question - a.question || a.time - b.time;
       });
     } else {
       currentScore = [pontuacao];

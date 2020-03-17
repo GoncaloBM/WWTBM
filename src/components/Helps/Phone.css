@@ -175,9 +175,9 @@ img {
 .arrow-right-thanks {
   width: 0;
   height: 0;
-  border-top: 2rem solid transparent;
+  border-top: 1.5rem solid transparent;
   border-bottom: 1rem solid transparent;
-  border-left: 2rem solid #4482c7;
+  border-left: 1.5rem solid #4482c7;
   position: relative;
 }
 
@@ -185,20 +185,20 @@ img {
   content: "";
   width: 0;
   height: 0;
-  left: -2.25rem;
-  top: -1.75rem;
-  border-top: 1.5rem solid transparent;
-  border-bottom: 0.5rem solid transparent;
-  border-left: 1rem solid black;
+  left: -1.75rem;
+  top: -1.25rem;
+  border-top: 1.2rem solid transparent;
+  border-bottom: 0.75rem solid transparent;
+  border-left: 1.25rem solid black;
   position: absolute;
 }
 
 .arrow-left-thanks {
   width: 0;
   height: 0;
-  border-top: 2.5rem solid transparent;
-  border-bottom: 2rem solid transparent;
-  border-right: 2.5rem solid #708fbf;
+  border-top: 1.5rem solid transparent;
+  border-bottom: 1rem solid transparent;
+  border-right: 1.5rem solid #708fbf;
   position: relative;
 }
 
@@ -206,11 +206,11 @@ img {
   content: "";
   width: 0;
   height: 0;
-  right: -2.75rem;
-  top: -2.25rem;
-  border-top: 2.2rem solid transparent;
-  border-bottom: 1.75rem solid transparent;
-  border-right: 2.5rem solid black;
+  right: -1.75rem;
+  top: -1.25rem;
+  border-top: 1.2rem solid transparent;
+  border-bottom: 0.75rem solid transparent;
+  border-right: 1.25rem solid black;
   position: absolute;
 }
 

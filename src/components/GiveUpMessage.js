@@ -16,7 +16,11 @@ class GiveUpMessage extends Component {
             : "give-message-hidden"
         }`}
       >
-        <div className="give-question">Are You Sure?</div>
+        <div className="give">
+          <div className="arrow-left-give"></div>
+          <div className="give-question">Are You Sure?</div>
+          <div className="arrow-right-give"></div>
+        </div>
         <div className="yes-no-line">
           <div className="button" onClick={() => this.props.giveUp()}>
             Yes

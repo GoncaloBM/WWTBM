@@ -14,7 +14,7 @@ class ScoreBoard extends Component {
       return this.props.scoreState.map((score, index) => {
         const { name, question, time } = score;
         return (
-          <tr key={name}>
+          <tr key={index}>
             <td>{name}</td>
             <td>{question}</td>
             <td>{time}</td>
