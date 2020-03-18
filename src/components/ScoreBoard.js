@@ -4,7 +4,7 @@ import "./ScoreBoard.css";
 class ScoreBoard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = { // since you don't set the state, you don't need to have the constructor
       scores: this.props.scoreState
     };
   }

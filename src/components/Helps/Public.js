@@ -48,7 +48,7 @@ class Public extends Component {
       percentageAnswer3
     ];
 
-    let percentageArray = { ...this.state.percentageAnswer };
+    let percentageArray = { ...this.state.percentageAnswer }; // this doesn't seem right. If you want to create a new array from another your should use square brackets
 
     console.log(percentageCorrectAnswer, arrayIncorrectPercentages);
     for (let i = 0; i < props.state.answers.length; i++) {
@@ -79,10 +79,10 @@ class Public extends Component {
     return (
       <div
         id="help"
-        style={{ width: this.props.state.drawerHidden ? "125px" : "" }}
+        style={{ width: this.props.state.drawerHidden ? "125px" : "" }} // if drawerHidden is in the above state, you can style this using CSS only.
       >
         <div
-          className={
+          className={ // classnames :D 
             "cross" +
             " " +
             (!this.props.state.publicHelpState.helperActivated
@@ -90,11 +90,11 @@ class Public extends Component {
               : "help-activated")
           }
           id="right"
-          onClick={() => {
-            this.getHelpers();
-            this.helperAnswer();
+          onClick={() => { // move these two methods into a single method and use the reference here.
+            this.getHelpers(); // this.getHelpers is not defined, right?
+            this.helperAnswer(); // this.helperAnswer is not defined, right?
           }}
-          style={{
+          style={{ // You have the className for "help-activated". You can style this using CSS. 
             pointerEvents: this.props.state.publicHelpState.helperActivated
               ? "none"
               : ""
@@ -108,15 +108,16 @@ class Public extends Component {
               ? "help-to-activate"
               : "help-activated")
           }
-          id="left"
+          id="left" // you use a whole lot of similar ids. This can be an issue as they shouldn't be replicated.
         />
 
         <div
           className="public-icon"
           onClick={() => {
-            this.publicAnswer();
+            this.publicAnswer(); // no need for the new function here
           }}
-          style={{
+          style={{ // Instead of disabling with CSS, you can do the check inside the onClick handler.
+            //  If `this.props.state.publicHelpState.helperActivated` is true, do an early return, effectively not doing anything :P 
             pointerEvents: this.props.state.publicHelpState.helperActivated
               ? "none"
               : ""

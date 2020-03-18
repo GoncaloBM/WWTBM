@@ -6,7 +6,7 @@ export const ResetButton = props => {
     <div
       id="reset-line"
       className={props.state.resetGameHidden ? "reset-hidden" : "reset-show"}
-      onClick={() => {
+      onClick={() => { // No need to create a new function here.
         props.resetGame();
       }}
     >

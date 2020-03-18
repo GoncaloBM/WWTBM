@@ -63,7 +63,7 @@ class Phone extends Component {
     let activeQuestion = this.props.state.activeQuestion;
     let correctAnswer = checkCorrectAnswer(this.props.state);
     let answersArrayEasy = [
-      `Que burro! É a ${correctAnswer}!`,
+      `Que burro! É a ${correctAnswer}!`, // Ahahahah!
       `Não há que enganar. É a ${correctAnswer}!`,
       `É a ${correctAnswer}!`,
       `Vai com tudo para a ${correctAnswer}!`
@@ -82,6 +82,8 @@ class Phone extends Component {
       `You should called to another friend. Try C, I guess.`
     ];
 
+
+    // This block has a lot of duplication. Maybe you can move the value for HelperAnswer into a function? It'll be much smaller.
     if (activeQuestion < 5) {
       this.setState({
         HelperAnswer:
@@ -117,7 +119,7 @@ class Phone extends Component {
         style={{ width: this.props.state.drawerHidden ? "125px" : "" }}
       >
         <div
-          className={
+          className={ // classnames!
             "cross" +
             " " +
             (!this.props.state.phoneHelpState.helperActivated
@@ -126,17 +128,19 @@ class Phone extends Component {
           }
           id="right"
           onClick={() => {
+            // move these two calls into a method itself and call it here.
             this.getHelpers();
             this.helperAnswer();
           }}
           style={{
+            // You can move the pointer-events:none into the help-activated class
             pointerEvents: this.props.state.phoneHelpState.helperActivated
               ? "none"
               : ""
           }}
         />
         <div
-          className={
+          className={ // classnames!
             "cross" +
             " " +
             (!this.props.state.phoneHelpState.helperActivated
@@ -148,10 +152,12 @@ class Phone extends Component {
         <div
           className="phone-icon"
           onClick={() => {
+            // move these two calls into a method itself and call it here.
             this.getHelpers();
             this.helperAnswer();
           }}
           style={{
+            // You can move the pointer-events:none into the help-activated class
             pointerEvents: this.props.state.phoneHelpState.helperActivated
               ? "none"
               : ""

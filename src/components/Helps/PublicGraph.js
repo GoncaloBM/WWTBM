@@ -5,6 +5,7 @@ import CanvasJSReact from './Graph/canvasjs.react';
 // var CanvasJS = CanvasJSReact.CanvasJS;
 const {CanvasJSChart} = CanvasJSReact;
 
+// I believe this is not used anymore. Once this is versioned, you can safely delete it. If you need it, just time travel back!
 export class PublicGraph extends Component {
 	render() {
         let props = this.props
