@@ -78,6 +78,7 @@ export const checkVictory = (input, state) => {
 const letterAnswer = input => {
   let letter = "";
 
+  // You can use an array here to organize it: const letters = ["A", "B", "C", "D"]; return answers[input] || "".
   if (input === 0) {
     letter = "A";
   } else if (input === 1) {
@@ -105,7 +106,7 @@ export const Answers = props => {
               props.answerClicked(index);
             }}
             style={{
-              pointerEvents:
+              pointerEvents: // instead of disabling the pointer-events, to this check in the onClick handler. If you're not supposed to do anything, then return right away
                 (props.state.activated5050 &&
                   (index === props.state.answersToRemove[0] ||
                     index === props.state.answersToRemove[1])) ||

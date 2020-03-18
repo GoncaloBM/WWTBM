@@ -3,6 +3,7 @@ import "./AudienceGraph.css";
 
 export const AudienceGraph = (props) => {
   return (
+    // classnames and use pass down the publicHelpActivated as a prop instead of hiding it in the state
     <div className= {props.state.publicHelpActivated === true ? 'graph-showing graph-wrapper' : 'graph-hidden graph-wrapper'}>
       <div className="percentage-label">
   <div className="percentage"> {props.state.publicHelpActivated === true ? props.state.publicHelpState.percentageAnswer[0] : 0}%</div>

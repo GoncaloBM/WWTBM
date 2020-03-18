@@ -16,7 +16,7 @@ export const PyramidQuestions = props => {
           <div className="ammount-line" key={index}>
             <div
               className="question-number"
-              style={{
+              style={{ // maybe use a className and style it there?
                 color: props.activeQuestion === index + 1 ? "black" : ""
               }}
             >
@@ -29,7 +29,7 @@ export const PyramidQuestions = props => {
             </div>
             <div
               className="ammount"
-              style={{
+              style={{ // maybe use a className and style it there?
                 color: props.activeQuestion === index + 1 ? "black" : ""
               }}
             >

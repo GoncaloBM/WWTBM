@@ -21,7 +21,7 @@ export const checkWinMessage = state => {
 };
 
 export const CheckLoseMessage = state => {
-  let currentState = { ...state };
+  let currentState = { ...state }; // no need to create a copy. You're not changing the object. Can be a constant.
 
   if (currentState.activeQuestion < 5) {
     return "0€";

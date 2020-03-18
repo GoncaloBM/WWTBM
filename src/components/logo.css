@@ -39,6 +39,8 @@
   left: 120px;
   top: 30px;
 }
+
+/* Check this css for unused css. Always double-check your css and remove things that are no longer used */
 .logo .elipse1 {
   transform: rotate(20deg);
 }

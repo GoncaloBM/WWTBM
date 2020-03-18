@@ -18,8 +18,15 @@ class Logo extends Component {
   }
 
   componentDidMount() {
+    /*
+    Whenever you use a setInterval or setTimeout in react, it's always a good practice to clear it before the component unmounts
+    */
     setInterval(() => {
-      let state = this.state;
+      let state = this.state; // Whenever you have a let VARIABLE_NAME = something.VARIABLE_NAME, you can refactor to let { VARIABLE_NAME } = something;
+
+      /**
+       * If you want to dabble in CSS, I believe you can do the rotating ellipsing using only css
+       */
       this.setState({
         rotateElipse1: state.rotateElipse1 + 1,
         rotateElipse2: state.rotateElipse2 + 1,
@@ -35,17 +42,20 @@ class Logo extends Component {
   }
 
   render() {
-    let props = this.props;
+    let props = this.props; // Same as previous
     return (
       <div
         className={
-          props.stateFromApp.publicHelpActivated ||
+          props.stateFromApp.publicHelpActivated || // classnames here? Or move the joint condition for a variable.
           props.stateFromApp.showScoreBoard
             ? "wrapper-hidden "
             : "wrapper"
         }
       >
         <div className="logo">
+          {
+            // This is a bit of repeated code. Let's try to refactor this
+          }
           <div
             className="elipse"
             style={{ transform: `rotate(${this.state.rotateElipse1}deg)` }}
@@ -83,11 +93,15 @@ class Logo extends Component {
             style={{ transform: `rotate(${this.state.rotateElipse9}deg)` }}
           />
           <div className="title">
-            {props.stateFromApp.gameStart === false
+            {props.stateFromApp.gameStart === false // boolean comparing with boolean on a ternary. You can refactor this.
               ? "Millionaire"
               : `${props.minutesToShow}:${props.secondsToShow}`}
           </div>
 
+
+          {
+            // This is a bit of repeated code. Let's try to refactor this and the one below.
+          }
           <div className="estrellas">
             <span>W</span>
             <span>H</span>

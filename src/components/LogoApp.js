@@ -14,19 +14,20 @@ class LogoApp extends Component {
       minutes: 1,
       secondsToShow: "00",
       minutesToShow: "00",
-      gameStart: this.props.state.gameStart,
+      gameStart: this.props.state.gameStart, // this seems odd.
       counterDone: false,
-      showScoreBoard: this.props.state.showScoreBoard
+      showScoreBoard: this.props.state.showScoreBoard // Do you use this?
     };
   };
 
   counterTime = () => {
-    this.timer = setInterval(() => {
+    this.timer = setInterval(() => { // don't forget to clear the interval before the unmout happens
       let counter = this.state.counter;
       let seconds = this.state.seconds;
-      let minutes = this.state.minutes;
+      let minutes = this.state.minutes; // You can rewrite these assignments with object destructuring
       let secondsToShow = "";
       let minutesToShow = "";
+
 
       if (seconds < 10) {
         secondsToShow = `0${seconds.toString()}`;
@@ -39,6 +40,12 @@ class LogoApp extends Component {
       } else {
         minutesToShow = `${minutes.toString()}`;
       }
+
+      /**
+       * You only need the counter. The seconds, secondsToShow and minutes and minutesToShow are all derived from that
+       * Isolate that into a function (or two) that receives the counter and returns the respective formatted seconds/minutes
+       * Then call that/those function(s) where you need to format the values
+       */
 
       if (seconds !== 59) {
         this.setState({
@@ -71,16 +78,16 @@ class LogoApp extends Component {
   };
 
   render() {
-    this.props.state.initialScreen === true && this.stopTime();
+    this.props.state.initialScreen === true && this.stopTime(); // This seems odd. Calling setState on render is a big no-no. Take a look at the componentWillReceiveProps to do this
 
-    this.props.state.gameStart && !this.state.counterDone && this.counterTime();
+    this.props.state.gameStart && !this.state.counterDone && this.counterTime(); // This seems odd. Calling setState on render is a big no-no. Take a look at the componentWillReceiveProps to do this
 
     return (
       <div>
         <Logo
           minutesToShow={this.state.minutesToShow}
           secondsToShow={this.state.secondsToShow}
-          stateFromApp={this.props.state}
+          stateFromApp={this.props.state} // instead of passing the state from component to component, consider using context for this result.
         />
       </div>
     );

@@ -6,7 +6,7 @@ export const StartGameButton = props => {
     <div
       id="start-line"
       className={props.state.startGameHidden ? "start-hidden" : "start-show"}
-      onClick={() => {
+      onClick={() => { // No need to create a new function here
         props.clickCallback();
       }}
     >

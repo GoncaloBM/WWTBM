@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./LoosingName.css";
+import "./LoosingName.css"; // Losing :P
 
-class LoosingName extends Component {
+class LoosingName extends Component { // Losing :P
   constructor(props) {
     super(props);
     this.state = { name: "" };
