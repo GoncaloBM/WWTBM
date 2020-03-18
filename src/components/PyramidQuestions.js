@@ -11,7 +11,7 @@ export const PyramidQuestions = props => {
           transition: "0.5s all"
         }}
       />
-      {props.questionAmmount.map((ammount, index) => {
+      {props.questionAmount.map((ammount, index) => {
         return (
           <div className="ammount-line" key={index}>
             <div

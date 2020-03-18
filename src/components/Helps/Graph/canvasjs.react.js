@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('./node_modules/react');
 var CanvasJS = require('./canvasjs.min');
 CanvasJS = CanvasJS.Chart ? CanvasJS : window.CanvasJS;
 

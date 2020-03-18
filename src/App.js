@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./styles.css";
-// you mix helper functions and components. Try to use 
+import { getQuestionsAndAnswersFromAPI } from "./components/functions/getQuestionsAndAnswers";
+// you mix helper functions and components. Try to use
 import { shuffle, Answers } from "./components/Answers";
 import { Question } from "./components/Question";
 import {
@@ -12,12 +13,11 @@ import { StartGameButton } from "./components/StartGameButton";
 import LogoApp from "./components/LogoApp";
 // You're mixing default exports and named exports. Try to be consistent
 import { PyramidQuestions } from "./components/PyramidQuestions";
-import { Help5050, firstAnswersToRemove5050 } from "./components/Helps/50-50";
-// When naming your folders, try to always use lower-case. This is less error-prone and more compatible (some OS's )
-import Phone from "./components/Helps/Phone";
-import { PhoneMenu } from "./components/Helps/PhoneMenu";
-import Public from "./components/Helps/Public";
-import { AudienceGraph } from "./components/Helps/AudienceGraph";
+import { Help5050, firstAnswersToRemove5050 } from "./components/helps/50-50";
+import Phone from "./components/helps/Phone";
+import { PhoneMenu } from "./components/helps/PhoneMenu";
+import Public from "./components/helps/Public";
+import { AudienceGraph } from "./components/helps/AudienceGraph";
 import { ButtonDrawer } from "./components/buttonDrawer";
 import GiveUpButton from "./components/GiveUpButton";
 import GiveUpMessage from "./components/GiveUpMessage";
@@ -49,7 +49,7 @@ class App extends Component {
       answerClicked: "",
       selectedAnswer: "",
       isLoaded: false,
-      questionAmmout: [ // typo: amount
+      questionAmount: [
         "25€",
         "50€",
         "125€",
@@ -118,30 +118,28 @@ class App extends Component {
   };
 
   getQuestionAndAnswers = () => {
-    let url = "";
+    let url = getQuestionsAndAnswersFromAPI(this.state.activeQuestion);
 
     if (this.state.activeQuestion === 0 && this.state.isMobile) {
       this.setState({
-        // No need to set the same state again. If you change drawerHidden only, you get the same results
-        ...this.state,
         drawerHidden: false
       });
       // maybe you could move the drawerHidden directly to the setState below? And have its value equal to the negation of the condition of entry here?
     }
 
-    if (this.state.activeQuestion < 5) {
-      url =
-        "https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple";
-    } else if (
-      this.state.activeQuestion > 4 &&
-      this.state.activeQuestion < 10
-    ) {
-      url =
-        "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple";
-    } else if (this.state.activeQuestion > 9) {
-      url =
-        "https://opentdb.com/api.php?amount=1&difficulty=hard&type=multiple";
-    }
+    // if (this.state.activeQuestion < 5) {
+    //   url =
+    //     "https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple";
+    // } else if (
+    //   this.state.activeQuestion > 4 &&
+    //   this.state.activeQuestion < 10
+    // ) {
+    //   url =
+    //     "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple";
+    // } else if (this.state.activeQuestion > 9) {
+    //   url =
+    //     "https://opentdb.com/api.php?amount=1&difficulty=hard&type=multiple";
+    // }
     // this block of code could live in a pure function.
 
     this.setState(
@@ -182,7 +180,8 @@ class App extends Component {
     });
   };
 
-  submitLoosingName = loosingName => { // losing name, not loosing :P
+  submitLoosingName = loosingName => {
+    // losing name, not loosing :P
     this.setState({
       ...this.state, // this line is not necessary
       name: loosingName,
@@ -193,14 +192,16 @@ class App extends Component {
     setTimeout(() => this.retrieveScores(), 1000);
   };
 
-  showScoreBoard = () => { // this is more of a toggle than a show
+  showScoreBoard = () => {
+    // this is more of a toggle than a show
     this.setState({
       ...this.state, // this line is not necessary
       showScoreBoard: !this.state.showScoreBoard
     });
   };
 
-  currentScoreBoard = () => { // this seems like a pure function. You can move it out of the class and/or the file if you want
+  currentScoreBoard = () => {
+    // this seems like a pure function. You can move it out of the class and/or the file if you want
     let currentScore = window.localStorage.getItem("scores");
     currentScore = JSON.parse(currentScore);
 
@@ -211,7 +212,8 @@ class App extends Component {
     let currentScore = window.localStorage.getItem("scores");
     currentScore = JSON.parse(currentScore);
     // the two above lines are repeated code
-    let pontuacao = { // portuguese? :P
+    let pontuacao = {
+      // portuguese? :P
       name: this.state.name,
       // The line below is very hard to read. Move this to a function (receives the loss state and the active question and returns the next one?)
       question: !this.state.lost
@@ -244,8 +246,10 @@ class App extends Component {
     window.localStorage.setItem("scores", JSON.stringify(currentScore));
   };
 
-  checkVictory = input => { // pedantic. This is not a "victory" but checking if the answer is correct
-    if (this.state.answers[input] === this.state.correctAnswer) { // You can simplify all this method by returning the expression in the if condition
+  checkVictory = input => {
+    // pedantic. This is not a "victory" but checking if the answer is correct
+    if (this.state.answers[input] === this.state.correctAnswer) {
+      // You can simplify all this method by returning the expression in the if condition
       return true;
     } else {
       return false;
@@ -396,26 +400,23 @@ class App extends Component {
           <ButtonDrawer
             startGame={this.state.gameStart}
             drawerHidden={this.state.drawerHidden}
-            hideShowDrawer={() => { // no need to create a new function here. Just pass the reference to it.
+            hideShowDrawer={() => {
+              // no need to create a new function here. Just pass the reference to it.
               this.hideShowDrawer();
             }}
           />
-          {
-            /**
-             * Instead of passing the whole state down the components, try to pass only what the components need, as individual props
-             * That will allow you to re-render only when what you need changes and better identify the dependencies of each component
-             */
-          }
+          {/**
+           * Instead of passing the whole state down the components, try to pass only what the components need, as individual props
+           * That will allow you to re-render only when what you need changes and better identify the dependencies of each component
+           */}
           <LogoApp state={this.state} countToApp={this.counterFromChild} />
 
-          {
-            /**
-             * Instead of passing the whole state down the components, try to pass only what the components need, as individual props
-             * That will allow you to re-render only when what you need changes and better identify the dependencies of each component
-             */
-          }
+          {/**
+           * Instead of passing the whole state down the components, try to pass only what the components need, as individual props
+           * That will allow you to re-render only when what you need changes and better identify the dependencies of each component
+           */}
           <AudienceGraph state={this.state} />
-          
+
           {
             // This is a much better example
           }
@@ -426,15 +427,14 @@ class App extends Component {
             showScoreBoard={this.state.showScoreBoard}
           />
 
-          {
-            /**
-             * Instead of passing the whole state down the components, try to pass only what the components need, as individual props
-             * That will allow you to re-render only when what you need changes and better identify the dependencies of each component
-             */
-          }
+          {/**
+           * Instead of passing the whole state down the components, try to pass only what the components need, as individual props
+           * That will allow you to re-render only when what you need changes and better identify the dependencies of each component
+           */}
           <StartGameButton
             state={this.state}
-            clickCallback={() => { // you can pass the callbackDirectly here
+            clickCallback={() => {
+              // you can pass the callbackDirectly here
               this.getQuestionAndAnswers();
             }}
           />
@@ -445,9 +445,9 @@ class App extends Component {
             showScoreBoardState={this.state.showScoreBoard}
           />
 
-            {
-              // Maybe use classNames here.
-            }
+          {
+            // Maybe use classNames here.
+          }
           <div
             className={`question-screen ${
               this.state.phoneHelpState.helperShow ||
@@ -468,23 +468,25 @@ class App extends Component {
               <Help5050
                 state={this.state} // Try to isolate this state into their own properties
                 activated5050={this.state.activated5050}
-                click5050={() => { // Since we don't change anything, no need to create a new function here.
+                click5050={() => {
+                  // Since we don't change anything, no need to create a new function here.
                   this.click5050();
                 }}
               />
               <Phone
                 phoneHelpCallback={this.phoneHelpCallback}
-                state={this.state} // Try to isolate this state into their own properties 
+                state={this.state} // Try to isolate this state into their own properties
               />
               <Public
-                publickHelpCallback={this.publickHelpCallback} // public, not publick :P 
+                publickHelpCallback={this.publickHelpCallback} // public, not publick :P
                 state={this.state} // Try to isolate the state
-                publicClick={() => { // No ned to create a new function here
+                publicClick={() => {
+                  // No ned to create a new function here
                   this.publicClick();
                 }}
               />
             </div>
-            { 
+            {
               // Try to isolate the props here.
             }
             <Question state={this.state} />
@@ -494,10 +496,12 @@ class App extends Component {
               state={this.state} // Try not to depend on the state. You've already drilled down a few of the props.
               questionAnswered={this.state.questionAnswered}
               answers={this.state.answers}
-              answerClicked={index => { // no need to create a new function here
+              answerClicked={index => {
+                // no need to create a new function here
                 this.answerClicked(index);
               }}
-              checkRightAnswer={() => { // same as above
+              checkRightAnswer={() => {
+                // same as above
                 this.checkRightAnswer();
               }}
             />
@@ -507,7 +511,8 @@ class App extends Component {
 
           <GiveUpMessage
             state={this.state} // try to isolate the state
-            giveUp={() => { // no need to create a new function here
+            giveUp={() => {
+              // no need to create a new function here
               this.giveUp();
             }}
             giveUpClick={() => {
@@ -531,7 +536,8 @@ class App extends Component {
           />
           <PhoneMenu
             state={this.state}
-            helperClick={index => { // no need for the new function here
+            helperClick={index => {
+              // no need for the new function here
               this.helperClick(index);
             }}
             phoneHelperGone={() => {
@@ -540,9 +546,9 @@ class App extends Component {
           />
         </div>
 
-            {
-              // classnames helps!
-            }
+        {
+          // classnames helps!
+        }
         <div
           className={`drawer-screen ${
             this.state.drawerHidden === false
@@ -554,20 +560,22 @@ class App extends Component {
 
           <div className="helps">
             <Help5050
-              state={this.state} // Drill this down! :P 
+              state={this.state} // Drill this down! :P
               activated5050={this.state.activated5050}
-              click5050={() => { // no need for a new function here
+              click5050={() => {
+                // no need for a new function here
                 this.click5050();
               }}
             />
             <Phone
               phoneHelpCallback={this.phoneHelpCallback}
-              state={this.state} // Drill this down! :P 
+              state={this.state} // Drill this down! :P
             />
             <Public
               publickHelpCallback={this.publickHelpCallback}
-              state={this.state} // Drill this down! :P 
-              publicClick={() => { // No need for the new function created during the render
+              state={this.state} // Drill this down! :P
+              publicClick={() => {
+                // No need for the new function created during the render
                 this.publicClick();
               }}
             />
@@ -575,12 +583,13 @@ class App extends Component {
 
           <div id="question-pyramid">
             <PyramidQuestions
-              questionAmmount={this.state.questionAmmout}
+              questionAmount={this.state.questionAmount}
               activeQuestion={this.state.activeQuestion}
             />
           </div>
           <GiveUpButton
-            giveUpClick={() => { // no need for the new function here.
+            giveUpClick={() => {
+              // no need for the new function here.
               this.giveUpClick();
             }}
           />

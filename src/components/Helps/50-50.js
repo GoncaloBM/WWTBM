@@ -36,7 +36,8 @@ export const Help5050 = props => {
     // You're already setting a class if drawer is hidden. If that class is available in a parent, you can do this styling logic in the css
     <div id="help" style={{ width: props.state.drawerHidden ? "125px" : "" }}>
       <div
-        className={ // classnames module will help you a TON.
+        className={
+          // classnames module will help you a TON.
           "cross" +
           " " +
           (props.state.help5050done === false

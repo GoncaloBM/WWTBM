@@ -1,5 +1,5 @@
 /* App.js */
-import React, { Component } from "react";
+import React, { Component } from "./node_modules/react";
 import CanvasJSReact from './Graph/canvasjs.react';
 //var CanvasJSReact = require('./canvasjs.react');
 // var CanvasJS = CanvasJSReact.CanvasJS;
