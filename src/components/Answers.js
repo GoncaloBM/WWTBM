@@ -76,20 +76,9 @@ export const checkVictory = (input, state) => {
 };
 
 const letterAnswer = input => {
-  let letter = "";
+  const letter = ["A", "B", "C", "D"];
 
-  // You can use an array here to organize it: const letters = ["A", "B", "C", "D"]; return answers[input] || "".
-  if (input === 0) {
-    letter = "A";
-  } else if (input === 1) {
-    letter = "B";
-  } else if (input === 2) {
-    letter = "C";
-  } else if (input === 3) {
-    letter = "D";
-  }
-
-  return letter;
+  return letter[input];
 };
 
 export const Answers = props => {
@@ -106,23 +95,24 @@ export const Answers = props => {
               props.answerClicked(index);
             }}
             style={{
-              pointerEvents: // instead of disabling the pointer-events, to this check in the onClick handler. If you're not supposed to do anything, then return right away
-                (props.state.activated5050 &&
-                  (index === props.state.answersToRemove[0] ||
-                    index === props.state.answersToRemove[1])) ||
-                props.state.questionAnswered
+              // instead of disabling the pointer-events, to this check in the onClick handler. If you're not supposed to do anything, then return right away
+              pointerEvents:
+                (props.activated5050 &&
+                  (index === props.answersToRemove[0] ||
+                    index === props.answersToRemove[1])) ||
+                props.questionAnswered
                   ? "none"
                   : "",
-              fontSize: props.state.isMobile ? "1rem" : ""
+              fontSize: props.isMobile ? "1rem" : ""
             }}
           >
             <div
               id="arrow-left"
               className={
-                props.state.answers[index] === props.state.correctAnswer &&
-                props.state.showingCorrectAnswer
+                props.answers[index] === props.correctAnswer &&
+                props.showingCorrectAnswer
                   ? "arrow-left-correct"
-                  : props.state.answers[index] === props.state.selectedAnswer
+                  : props.answers[index] === props.selectedAnswer
                   ? "arrow-left-answered"
                   : "arrow-left-answer"
               }
@@ -130,18 +120,18 @@ export const Answers = props => {
             <div
               id="answer"
               className={
-                props.state.answers[index] === props.state.correctAnswer &&
-                props.state.showingCorrectAnswer
+                props.answers[index] === props.correctAnswer &&
+                props.showingCorrectAnswer
                   ? "correct"
-                  : props.state.answers[index] === props.state.selectedAnswer
+                  : props.answers[index] === props.selectedAnswer
                   ? "answered"
                   : "answer"
               }
               style={{
                 color:
-                  props.state.activated5050 &&
-                  (index === props.state.answersToRemove[0] ||
-                    index === props.state.answersToRemove[1])
+                  props.activated5050 &&
+                  (index === props.answersToRemove[0] ||
+                    index === props.answersToRemove[1])
                     ? "transparent"
                     : ""
               }}
@@ -149,9 +139,9 @@ export const Answers = props => {
               <span
                 style={{
                   color:
-                    props.state.activated5050 &&
-                    (index === props.state.answersToRemove[0] ||
-                      index === props.state.answersToRemove[1])
+                    props.activated5050 &&
+                    (index === props.answersToRemove[0] ||
+                      index === props.answersToRemove[1])
                       ? "transparent"
                       : "",
                   fontFamily: "Copperplate-Gothic-Condensed"
@@ -164,10 +154,10 @@ export const Answers = props => {
             <div
               id="arrow-right"
               className={
-                props.state.answers[index] === props.state.correctAnswer &&
-                props.state.showingCorrectAnswer
+                props.answers[index] === props.correctAnswer &&
+                props.showingCorrectAnswer
                   ? "arrow-right-correct"
-                  : props.state.answers[index] === props.state.selectedAnswer
+                  : props.answers[index] === props.selectedAnswer
                   ? "arrow-right-answered"
                   : "arrow-right-answer"
               }

@@ -6,7 +6,7 @@ export const ScoreBoardButton = props => {
     <div
       id="score-line"
       className={!props.ScoreButtonHidden ? "score-show" : "score-hidden"}
-      onClick={() => props.showScoreBoard()} // No need to create a new function here
+      onClick={props.showScoreBoard}
     >
       <div className="arrow-left-score" />
       <div className="score-game-button">

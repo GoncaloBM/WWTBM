@@ -23,6 +23,7 @@
 
 .help-activated {
   border-bottom: 5px solid red;
+  pointer-events: none;
 }
 
 .help-to-activate {

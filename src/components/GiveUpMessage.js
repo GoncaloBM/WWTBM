@@ -5,31 +5,27 @@ import "./GiveUpButton.css";
 class GiveUpMessage extends Component {
   constructor(props) {
     super(props);
-    this.state = {}; // no need to use state here.
   }
 
-  render() {
+  render(props) {
+    var classNames = require("classnames");
+    let messageLine = classNames(
+      "give-message-line",
+      { "give-message-show": this.props.giveUpPrompted },
+      { "give-message-hidden": !this.props.giveUpPrompted }
+    );
     return (
-      <div
-        className={`give-message-line ${ // use classnames?
-          this.props.state.giveUpPrompted
-            ? "give-message-show"
-            : "give-message-hidden"
-        }`}
-      >
+      <div className={messageLine}>
         <div className="give">
           <div className="arrow-left-give"></div>
           <div className="give-question">Are You Sure?</div>
           <div className="arrow-right-give"></div>
         </div>
         <div className="yes-no-line">
-          {
-            // for the two below onClicks, no need to create new functions
-          }
-          <div className="button" onClick={() => this.props.giveUp()}>
+          <div className="button" onClick={this.props.giveUp}>
             Yes
           </div>
-          <div className="button" onClick={() => this.props.giveUpClick()}>
+          <div className="button" onClick={this.props.giveUpClick}>
             No
           </div>
         </div>

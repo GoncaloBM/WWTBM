@@ -78,9 +78,9 @@ class LogoApp extends Component {
   };
 
   render() {
-    this.props.state.initialScreen === true && this.stopTime(); // This seems odd. Calling setState on render is a big no-no. Take a look at the componentWillReceiveProps to do this
+    this.props.initialScreen === true && this.stopTime(); // This seems odd. Calling setState on render is a big no-no. Take a look at the componentWillReceiveProps to do this
 
-    this.props.state.gameStart && !this.state.counterDone && this.counterTime(); // This seems odd. Calling setState on render is a big no-no. Take a look at the componentWillReceiveProps to do this
+    this.props.gameStart && !this.state.counterDone && this.counterTime(); // This seems odd. Calling setState on render is a big no-no. Take a look at the componentWillReceiveProps to do this
 
     return (
       <div>

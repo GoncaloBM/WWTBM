@@ -1,15 +1,48 @@
 import React from "react";
 import "./AudienceGraph.css";
 
-export const AudienceGraph = (props) => {
+export const AudienceGraph = props => {
+  var classNames = require("classnames");
+
+  let publicHelpActivated = classNames(
+    {
+      "graph-showing graph-wrapper": props.publicHelpActivated
+    },
+    { "graph-hidden graph-wrapper": !props.publicHelpActivated }
+  );
+
   return (
     // classnames and use pass down the publicHelpActivated as a prop instead of hiding it in the state
-    <div className= {props.state.publicHelpActivated === true ? 'graph-showing graph-wrapper' : 'graph-hidden graph-wrapper'}>
+    <div
+      className={publicHelpActivated}
+    >
       <div className="percentage-label">
-  <div className="percentage"> {props.state.publicHelpActivated === true ? props.state.publicHelpState.percentageAnswer[0] : 0}%</div>
-        <div className="percentage"> {props.state.publicHelpActivated === true ? props.state.publicHelpState.percentageAnswer[1] : 0}%</div>
-        <div className="percentage">{props.state.publicHelpActivated === true ? props.state.publicHelpState.percentageAnswer[2] : 0}%</div>
-        <div className="percentage">{props.state.publicHelpActivated === true ? props.state.publicHelpState.percentageAnswer[3] : 0}%</div>
+        <div className="percentage">
+          {" "}
+          {props.publicHelpActivated === true
+            ? props.publicHelpState.percentageAnswer[0]
+            : 0}
+          %
+        </div>
+        <div className="percentage">
+          {" "}
+          {props.publicHelpActivated === true
+            ? props.publicHelpState.percentageAnswer[1]
+            : 0}
+          %
+        </div>
+        <div className="percentage">
+          {props.publicHelpActivated === true
+            ? props.publicHelpState.percentageAnswer[2]
+            : 0}
+          %
+        </div>
+        <div className="percentage">
+          {props.publicHelpActivated === true
+            ? props.publicHelpState.percentageAnswer[3]
+            : 0}
+          %
+        </div>
       </div>
       <div className="graph">
         <div className="horiz-line" style={{ left: "12.5%" }} />
@@ -28,10 +61,46 @@ export const AudienceGraph = (props) => {
         <div className="vert-line" style={{ bottom: "60%" }} />
         <div className="vert-line" style={{ bottom: "70%" }} />
         <div className="vert-line" style={{ bottom: "80%" }} />
-        <div className="bar" style={{ height: `${props.state.publicHelpActivated === true ? props.state.publicHelpState.percentageAnswer[0] : 0}%` }} />
-        <div className="bar" style={{ height: `${props.state.publicHelpActivated === true ? props.state.publicHelpState.percentageAnswer[1] : 0}%` }} />
-        <div className="bar" style={{ height: `${props.state.publicHelpActivated === true ? props.state.publicHelpState.percentageAnswer[2] : 0}%` }} />
-        <div className="bar" style={{ height: `${props.state.publicHelpActivated === true ? props.state.publicHelpState.percentageAnswer[3] : 0}%`}} />
+        <div
+          className="bar"
+          style={{
+            height: `${
+              props.publicHelpActivated === true
+                ? props.publicHelpState.percentageAnswer[0]
+                : 0
+            }%`
+          }}
+        />
+        <div
+          className="bar"
+          style={{
+            height: `${
+              props.publicHelpActivated === true
+                ? props.publicHelpState.percentageAnswer[1]
+                : 0
+            }%`
+          }}
+        />
+        <div
+          className="bar"
+          style={{
+            height: `${
+              props.publicHelpActivated === true
+                ? props.publicHelpState.percentageAnswer[2]
+                : 0
+            }%`
+          }}
+        />
+        <div
+          className="bar"
+          style={{
+            height: `${
+              props.publicHelpActivated === true
+                ? props.publicHelpState.percentageAnswer[3]
+                : 0
+            }%`
+          }}
+        />
       </div>
       <div className="letters-label">
         <div className="letters">A</div>

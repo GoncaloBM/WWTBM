@@ -82,7 +82,6 @@ class Phone extends Component {
       `You should called to another friend. Try C, I guess.`
     ];
 
-
     // This block has a lot of duplication. Maybe you can move the value for HelperAnswer into a function? It'll be much smaller.
     if (activeQuestion < 5) {
       this.setState({
@@ -112,50 +111,27 @@ class Phone extends Component {
     setTimeout(() => this.stateToApp(), 1000);
   };
 
+  phoneClick = () => {
+    this.getHelpers();
+    this.helperAnswer();
+  };
+
   render() {
+    var classNames = require("classnames");
+
+    let cross = classNames(
+      "cross",
+      { "help-activated": this.props.state.phoneHelpState.helperActivated },
+      { "help-to-activate": !this.props.state.phoneHelpState.helperActivated }
+    );
+
     return (
-      <div
-        id="help"
-        style={{ width: this.props.state.drawerHidden ? "125px" : "" }}
-      >
-        <div
-          className={ // classnames!
-            "cross" +
-            " " +
-            (!this.props.state.phoneHelpState.helperActivated
-              ? "help-to-activate"
-              : "help-activated")
-          }
-          id="right"
-          onClick={() => {
-            // move these two calls into a method itself and call it here.
-            this.getHelpers();
-            this.helperAnswer();
-          }}
-          style={{
-            // You can move the pointer-events:none into the help-activated class
-            pointerEvents: this.props.state.phoneHelpState.helperActivated
-              ? "none"
-              : ""
-          }}
-        />
-        <div
-          className={ // classnames!
-            "cross" +
-            " " +
-            (!this.props.state.phoneHelpState.helperActivated
-              ? "help-to-activate"
-              : "help-activated")
-          }
-          id="left"
-        />
+      <div id="help" style={{ width: this.props.drawerHidden ? "125px" : "" }}>
+        <div className={cross} id="right" onClick={this.phoneClick} />
+        <div className={cross} id="left" />
         <div
           className="phone-icon"
-          onClick={() => {
-            // move these two calls into a method itself and call it here.
-            this.getHelpers();
-            this.helperAnswer();
-          }}
+          onClick={this.phoneClick}
           style={{
             // You can move the pointer-events:none into the help-activated class
             pointerEvents: this.props.state.phoneHelpState.helperActivated

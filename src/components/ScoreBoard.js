@@ -4,7 +4,8 @@ import "./ScoreBoard.css";
 class ScoreBoard extends Component {
   constructor(props) {
     super(props);
-    this.state = { // since you don't set the state, you don't need to have the constructor
+    this.state = {
+      // since you don't set the state, you don't need to have the constructor
       scores: this.props.scoreState
     };
   }
@@ -25,16 +26,14 @@ class ScoreBoard extends Component {
   };
 
   render() {
+    var classNames = require("classnames");
+    let scoreboard = classNames(
+      "scoreboard",
+      { "scoreboard-showing": this.props.showScoreBoard },
+      { "scoreboard-hidden": !this.props.showScoreBoard }
+    );
     return (
-      <div
-        className={`scoreboard
-          ${
-            this.props.showScoreBoard
-              ? "scoreboard-showing"
-              : "scoreboard-hidden"
-          }
-        `}
-      >
+      <div className={scoreboard}>
         <table id="scoreboard-table">
           <tbody>
             <tr id="top-line">

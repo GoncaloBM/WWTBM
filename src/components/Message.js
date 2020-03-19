@@ -2,26 +2,18 @@ import React from "react";
 import decode from "./DecodingFunction";
 import "./Message.css";
 
-// const messageStatus = props => {
-//   let currentMessage = "";
-
-//   currentMessage = props.state.questionAmmout[props.state.activeQuestion + 1];
-
-//   return currentMessage;
-// };
-
 export const checkWinMessage = state => {
   let currentState = { ...state };
 
   for (let i = 0; i < currentState.activeQuestion; i++) {
     if (currentState.activeQuestion === i + 1) {
-      return currentState.questionAmmout[i + 1];
+      return currentState.questionAmount[i + 1];
     }
   }
 };
 
-export const CheckLoseMessage = state => {
-  let currentState = { ...state }; // no need to create a copy. You're not changing the object. Can be a constant.
+export const checkLoseMessage = state => {
+  const currentState = state;
 
   if (currentState.activeQuestion < 5) {
     return "0€";
@@ -39,11 +31,11 @@ export const Message = props => {
   return (
     <div
       className={`message-screen
-      ${props.state.messageHidden ? "hidden-message" : "show-message"}
+      ${props.messageHidden ? "hidden-message" : "show-message"}
     `}
     >
       <div className="arrow-left-message"></div>
-      <div className="message">{decode(props.state.messagem)}</div>
+      <div className="message">{decode(props.messagem)}</div>
       <div className="arrow-right-message"></div>
     </div>
   );

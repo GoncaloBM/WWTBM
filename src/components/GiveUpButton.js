@@ -5,18 +5,14 @@ import "./GiveUpButton.css";
 class GiveUpButton extends Component {
   constructor(props) {
     super(props);
-    this.state = {}; // no need to use state
   }
 
   render() {
     return (
       <div className="give-up-line">
-        <div
-          className="give-up-icon"
-          onClick={() => { // no need for a new function here
-            this.props.giveUpClick();
-          }}
-        >I Give Up</div>
+        <div className="give-up-icon" onClick={this.props.giveUpClick}>
+          I Give Up
+        </div>
       </div>
     );
   }

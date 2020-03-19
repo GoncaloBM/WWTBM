@@ -22,14 +22,14 @@ class Public extends Component {
     let correctAnswer = props.state.correctAnswer;
     let percentageCorrectAnswer;
 
-    if (props.state.activeQuestion < 5) {
+    if (props.activeQuestion < 5) {
       percentageCorrectAnswer = Math.floor(Math.random() * 11) + 90;
     } else if (
-      props.state.activeQuestion > 4 &&
-      props.state.activeQuestion < 10
+      props.activeQuestion > 4 &&
+      props.activeQuestion < 10
     ) {
       percentageCorrectAnswer = Math.floor(Math.random() * 11) + 50;
-    } else if (props.state.activeQuestion > 9) {
+    } else if (props.activeQuestion > 9) {
       percentageCorrectAnswer = Math.floor(Math.random() * 11) + 40;
     }
 
@@ -79,7 +79,7 @@ class Public extends Component {
     return (
       <div
         id="help"
-        style={{ width: this.props.state.drawerHidden ? "125px" : "" }} // if drawerHidden is in the above state, you can style this using CSS only.
+        style={{ width: this.props.drawerHidden ? "125px" : "" }} // if drawerHidden is in the above state, you can style this using CSS only.
       >
         <div
           className={ // classnames :D 
