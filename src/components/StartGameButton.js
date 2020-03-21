@@ -6,12 +6,11 @@ export const StartGameButton = props => {
 
   let startShowing = classNames(
     { "start-hidden": props.startGameHidden },
-    { "start-show": !props.startGameHidden },
+    { "start-show": !props.startGameHidden }
   );
   return (
     <div
       id="start-line"
-      // className={props.startGameHidden ? "start-hidden" : "start-show"}
       className={startShowing}
       onClick={() => {
         props.startGame();
