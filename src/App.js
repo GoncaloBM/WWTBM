@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import "./styles.css";
+import ScoreBoard from "./components/ScoreBoard";
+import LoosingName from "./components/LoosingName";
+import Public from "./components/helps/Public";
+import Phone from "./components/helps/Phone";
+import LogoApp from "./components/LogoApp";
 import { getQuestionsAndAnswersFromAPI } from "./components/functions/getQuestionsAndAnswers";
 import {
   currentScoreBoard,
   whichQuestionLost
 } from "./components/functions/scoreboard_functions/currentScoreBoard";
-// you mix helper functions and components. Try to use
 import { shuffle, Answers } from "./components/Answers";
 import { Question } from "./components/Question";
 import {
@@ -14,21 +18,16 @@ import {
   checkLoseMessage
 } from "./components/Message";
 import { StartGameButton } from "./components/StartGameButton";
-import LogoApp from "./components/LogoApp";
-// You're mixing default exports and named exports. Try to be consistent
 import { PyramidQuestions } from "./components/PyramidQuestions";
 import { Help5050, firstAnswersToRemove5050 } from "./components/helps/50-50";
-import Phone from "./components/helps/Phone";
 import { PhoneMenu } from "./components/helps/PhoneMenu";
-import Public from "./components/helps/Public";
 import { AudienceGraph } from "./components/helps/AudienceGraph";
 import { ButtonDrawer } from "./components/buttonDrawer";
-import GiveUpButton from "./components/GiveUpButton";
-import GiveUpMessage from "./components/GiveUpMessage";
 import { ResetButton } from "./components/ResetButton";
 import { ScoreBoardButton } from "./components/ScoreBoardButton";
-import ScoreBoard from "./components/ScoreBoard";
-import LoosingName from "./components/LoosingName";
+import { GiveUpButton } from "./components/GiveUpButton";
+import { GiveUpMessage } from "./components/GiveUpMessage";
+import { AboutMe } from "./components/AboutMe";
 
 class App extends Component {
   constructor(props) {
@@ -84,17 +83,18 @@ class App extends Component {
       giveUpPrompted: false,
       endGame: false,
       resetGameHidden: true,
-      ScoreButtonHidden: false,
-      showScoreBoard: false,
+      scoreButtonHidden: false,
+      toggleScoreBoard: false,
       scores: currentScoreBoard(),
       loosingNameInputHidden: true,
       counter0: 0,
-      lost: false
+      lost: false,
+      aboutMeToggle: false
     };
   };
 
   isMobile = () => {
-    return window.innerWidth > 450 ? true : false;
+    return window.innerWidth > 450 ? false : true;
   };
 
   phoneHelpCallback = state => {
@@ -103,7 +103,7 @@ class App extends Component {
     });
   };
 
-  publickHelpCallback = state => {
+  publicHelpCallback = state => {
     this.setState({
       publicHelpState: state
     });
@@ -123,17 +123,21 @@ class App extends Component {
 
   getQuestionAndAnswers = () => {
     let url = getQuestionsAndAnswersFromAPI(this.state.activeQuestion);
+    let drawerHidden;
 
-    if (this.state.activeQuestion === 0 && this.state.isMobile) {
-      this.setState({
-        drawerHidden: false
-      });
-      // maybe you could move the drawerHidden directly to the setState below? And have its value equal to the negation of the condition of entry here?
+    if (this.state.activeQuestion === 0) {
+      drawerHidden = this.state.isMobile && true;
+    } else {
+      drawerHidden = this.state.isMobile ? true : false;
     }
 
     this.setState(
-      // if you can avoid using capitalized words in state, it'd be good. Just a stylistic change.
-      { isLoaded: false, startGameHidden: true, ScoreButtonHidden: true },
+      {
+        isLoaded: false,
+        startGameHidden: true,
+        scoreButtonHidden: true,
+        drawerHidden: drawerHidden
+      },
       () => {
         fetch(url)
           .then(response => response.json())
@@ -171,15 +175,14 @@ class App extends Component {
       name: losingName,
       resetGameHidden: false,
       loosingNameInputHidden: true,
-      showScoreBoard: true
+      toggleScoreBoard: true
     });
     setTimeout(() => this.retrieveScores(), 1000);
   };
 
-  showScoreBoard = () => {
-    // this is more of a toggle than a show
+  toggleScoreBoard = () => {
     this.setState({
-      showScoreBoard: !this.state.showScoreBoard
+      toggleScoreBoard: !this.state.toggleScoreBoard
     });
   };
 
@@ -208,74 +211,52 @@ class App extends Component {
     window.localStorage.setItem("scores", JSON.stringify(currentScore));
   };
 
-  checkVictory = input => {
-    // pedantic. This is not a "victory" but checking if the answer is correct
-    if (this.state.answers[input] === this.state.correctAnswer) {
-      // You can simplify all this method by returning the expression in the if condition
-      return true;
-    } else {
-      return false;
-    }
+  checkAnswer = input => {
+    return this.state.answers[input] === this.state.correctAnswer
+      ? true
+      : false;
   };
 
-  answerClicked = input => {
+  answerClicked = async input => {
+    let questionRight = this.checkAnswer(input);
+
+    let messageToDisplayWin = checkWinMessage(this.state);
+
+    let messageToDisplayLose = checkLoseMessage(this.state);
+
+    const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
+
     this.setState({
       questionAnswered: true,
       selectedAnswer: this.state.answers[input]
     });
-
-    let questionRight = this.checkVictory(input);
-
-    let messageToDisplayWin = checkWinMessage(this.state);
-
-    let messageToDisplayLose = checkLoseMessage(this.state); // you can change this method's capitalization
-
-    /**
-     * This whole setTimeout chain is very complex, with a whole lot of moving logic, asynchronous code and all.
-     * Maybe you can simplify readibility by turning this function into an async function and using an helper method like
-     * const timeout = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-     * With it you can write it like this:
-     * doSomething()
-     * await timeout(1000);
-     * doSomethingElse();
-     * await timeout(2000);
-     * await doAnotherTing()
-     */
-    setTimeout(
-      () =>
-        this.setState({
-          showingCorrectAnswer: !this.state.showingCorrectAnswer
-        }),
-      2000
-    );
-
+    await timeout(2000);
+    this.setState({
+      showingCorrectAnswer: !this.state.showingCorrectAnswer
+    });
+    await timeout(2000);
     if (questionRight) {
-      setTimeout(
-        () =>
-          this.setState({
-            questionHidden: true,
-            messageHidden: false,
-            messagem: messageToDisplayWin
-          }),
-        4000
-      );
-      setTimeout(() => this.getNextState(), 7000);
+      this.setState({
+        questionHidden: true,
+        messageHidden: false,
+        messagem: messageToDisplayWin
+      });
+      await timeout(3000);
+      this.getNextState();
     } else {
-      setTimeout(() => {
-        this.setState(
-          {
-            questionHidden: true,
-            messageHidden: false,
-            messagem: messageToDisplayLose,
-            loosingNameInputHidden: false,
-            finalCount: this.state.counterTime,
-            lost: true
-          },
-          () => {
-            this.setState({ endGame: true });
-          }
-        );
-      }, 4000);
+      this.setState(
+        {
+          questionHidden: true,
+          messageHidden: false,
+          messagem: messageToDisplayLose,
+          loosingNameInputHidden: false,
+          finalCount: this.state.counterTime,
+          lost: true
+        },
+        () => {
+          this.setState({ endGame: true });
+        }
+      );
     }
   };
 
@@ -324,7 +305,7 @@ class App extends Component {
   };
 
   giveUp = () => {
-    let winAmmount = `${
+    let winAmount = `${
       this.state.questionAmount[this.state.activeQuestion - 2]
     }€`;
 
@@ -334,13 +315,21 @@ class App extends Component {
       giveUpPrompted: !this.state.giveUpPrompted,
       endGame: true,
       messageHidden: false,
-      message: winAmmount,
+      message: winAmount,
       loosingNameInputHidden: false
     });
   };
 
   resetGame = () => {
     this.setState(this.initialState());
+  };
+
+  showAbout = () => {
+    this.setState({
+      aboutMeToggle: !this.state.aboutMeToggle,
+      startGameHidden: !this.state.startGameHidden,
+      scoreButtonHidden: !this.state.scoreButtonHidden
+    });
   };
 
   render() {
@@ -408,18 +397,20 @@ class App extends Component {
             activeQuestion={this.state.activeQuestion}
             counterTime={this.state.counterTime}
             scoreState={this.state.scores}
-            showScoreBoard={this.state.showScoreBoard}
+            toggleScoreBoard={this.state.toggleScoreBoard}
           />
 
           <StartGameButton
             startGameHidden={this.state.startGameHidden}
             startGame={this.getQuestionAndAnswers}
+            aboutMeToggle={this.state.aboutMeToggle}
           />
 
           <ScoreBoardButton
-            showScoreBoard={this.showScoreBoard}
-            ScoreButtonHidden={this.state.ScoreButtonHidden} // State with CamelCase
-            showScoreBoardState={this.state.showScoreBoard}
+            toggleScoreBoard={this.toggleScoreBoard}
+            scoreButtonHidden={this.state.scoreButtonHidden}
+            toggleScoreBoardState={this.state.toggleScoreBoard}
+            aboutMeToggle={this.state.aboutMeToggle}
           />
 
           <div className={questionScreen}>
@@ -431,19 +422,21 @@ class App extends Component {
                 click5050={this.click5050}
               />
               <Phone
+                activeQuestion={this.state.activeQuestion}
+                correctAnswer={this.state.correctAnswer}
+                answers={this.state.answers}
                 drawerHidden={this.state.drawerHidden}
                 phoneHelpState={this.state.phoneHelpState}
                 phoneHelpCallback={this.phoneHelpCallback}
-                state={this.state} // Try to isolate this state into their own properties
               />
               <Public
                 correctAnswer={this.state.correctAnswer}
                 activeQuestion={this.state.activeQuestion}
                 answers={this.state.answers}
                 drawerHidden={this.state.drawerHidden}
-                publickHelpCallback={this.publickHelpCallback} // public, not publick :P
-                state={this.state} // Try to isolate the state
+                publicHelpCallback={this.publicHelpCallback}
                 publicClick={this.publicClick}
+                publicHelpState={this.state.publicHelpState}
               />
             </div>
 
@@ -453,10 +446,7 @@ class App extends Component {
               key={this.state.activeQuestion}
               questionAnswered={this.state.questionAnswered}
               answers={this.state.answers}
-              answerClicked={index => {
-                // no need to create a new function here
-                this.answerClicked(index);
-              }}
+              answerClicked={this.answerClicked}
               checkRightAnswer={this.checkRightAnswer}
               isMobile={this.state.isMobile}
               answersToRemove={this.state.answersToRemove}
@@ -492,11 +482,15 @@ class App extends Component {
           />
           <PhoneMenu
             state={this.state}
-            helperClick={index => {
-              // no need for the new function here
-              this.helperClick(index);
-            }}
+            phoneHelpState={this.state.phoneHelpState}
+            helperClick={this.helperClick}
             phoneHelperGone={this.phoneHelperGone}
+          />
+
+          <AboutMe
+            aboutMeToggle={this.state.aboutMeToggle}
+            gameStart={this.state.gameStart}
+            clickAbout={this.showAbout}
           />
         </div>
 
@@ -511,19 +505,21 @@ class App extends Component {
               click5050={this.click5050}
             />
             <Phone
+              activeQuestion={this.state.activeQuestion}
+              correctAnswer={this.state.correctAnswer}
+              answers={this.state.answers}
               drawerHidden={this.state.drawerHidden}
               phoneHelpState={this.state.phoneHelpState}
               phoneHelpCallback={this.phoneHelpCallback}
-              state={this.state} // Try to isolate this state into their own properties
             />
             <Public
               correctAnswer={this.state.correctAnswer}
               activeQuestion={this.state.activeQuestion}
               answers={this.state.answers}
               drawerHidden={this.state.drawerHidden}
-              publickHelpCallback={this.publickHelpCallback} // public, not publick :P
-              state={this.state} // Try to isolate the state
+              publicHelpCallback={this.publicHelpCallback}
               publicClick={this.publicClick}
+              publicHelpState={this.state.publicHelpState}
             />
           </div>
 

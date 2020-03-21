@@ -12,7 +12,6 @@ export const AudienceGraph = props => {
   );
 
   return (
-    // classnames and use pass down the publicHelpActivated as a prop instead of hiding it in the state
     <div
       className={publicHelpActivated}
     >

@@ -59,9 +59,10 @@ class Phone extends Component {
     });
   };
 
-  helperAnswer = props => {
-    let activeQuestion = this.props.state.activeQuestion;
-    let correctAnswer = checkCorrectAnswer(this.props.state);
+  helperAnswer = () => {
+    let props = this.props;
+    let activeQuestion = props.activeQuestion;
+    let correctAnswer = checkCorrectAnswer(props.correctAnswer, props.answers);
     let answersArrayEasy = [
       `Que burro! É a ${correctAnswer}!`, // Ahahahah!
       `Não há que enganar. É a ${correctAnswer}!`,
@@ -117,26 +118,24 @@ class Phone extends Component {
   };
 
   render() {
+    let props = this.props;
     var classNames = require("classnames");
 
     let cross = classNames(
       "cross",
-      { "help-activated": this.props.state.phoneHelpState.helperActivated },
-      { "help-to-activate": !this.props.state.phoneHelpState.helperActivated }
+      { "help-activated": props.phoneHelpState.helperActivated },
+      { "help-to-activate": !props.phoneHelpState.helperActivated }
     );
 
     return (
-      <div id="help" style={{ width: this.props.drawerHidden ? "125px" : "" }}>
+      <div id="help" style={{ width: props.drawerHidden ? "125px" : "" }}>
         <div className={cross} id="right" onClick={this.phoneClick} />
         <div className={cross} id="left" />
         <div
           className="phone-icon"
           onClick={this.phoneClick}
           style={{
-            // You can move the pointer-events:none into the help-activated class
-            pointerEvents: this.props.state.phoneHelpState.helperActivated
-              ? "none"
-              : ""
+            pointerEvents: props.phoneHelpState.helperActivated ? "none" : ""
           }}
         />
       </div>

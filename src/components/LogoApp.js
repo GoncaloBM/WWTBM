@@ -15,19 +15,16 @@ class LogoApp extends Component {
       secondsToShow: "00",
       minutesToShow: "00",
       gameStart: this.props.state.gameStart, // this seems odd.
-      counterDone: false,
-      showScoreBoard: this.props.state.showScoreBoard // Do you use this?
+      counterDone: false
     };
   };
 
   counterTime = () => {
-    this.timer = setInterval(() => { // don't forget to clear the interval before the unmout happens
-      let counter = this.state.counter;
-      let seconds = this.state.seconds;
-      let minutes = this.state.minutes; // You can rewrite these assignments with object destructuring
+    this.timer = setInterval(() => {
+      // don't forget to clear the interval before the unmout happens
+      let { counter, seconds, minutes } = this.state;
       let secondsToShow = "";
       let minutesToShow = "";
-
 
       if (seconds < 10) {
         secondsToShow = `0${seconds.toString()}`;
@@ -77,11 +74,13 @@ class LogoApp extends Component {
     }
   };
 
+  componentDidUpdate() {
+    this.props.initialScreen === true && this.stopTime(); 
+
+    this.props.gameStart && !this.state.counterDone && this.counterTime();
+  }
+
   render() {
-    this.props.initialScreen === true && this.stopTime(); // This seems odd. Calling setState on render is a big no-no. Take a look at the componentWillReceiveProps to do this
-
-    this.props.gameStart && !this.state.counterDone && this.counterTime(); // This seems odd. Calling setState on render is a big no-no. Take a look at the componentWillReceiveProps to do this
-
     return (
       <div>
         <Logo

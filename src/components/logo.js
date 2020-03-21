@@ -17,6 +17,75 @@ class Logo extends Component {
     };
   }
 
+  lowerTitle = () => {
+    let lowerTitleArray = [
+      "W",
+      "H",
+      "O",
+      " ",
+      "W",
+      "A",
+      "N",
+      "T",
+      "S",
+      " ",
+      "T",
+      "O",
+      " ",
+      "B",
+      "E",
+      " ",
+      "A"
+    ];
+
+    return lowerTitleArray.map((letter, index) => (
+      <span key={index}>{letter}</span>
+    ));
+  };
+
+  upperTitle = () => {
+    let upperTitleArray = [
+      "A",
+      " ",
+      "E",
+      "B",
+      " ",
+      "O",
+      "T",
+      " ",
+      "S",
+      "T",
+      "N",
+      "A",
+      "W",
+      " ",
+      "O",
+      "H",
+      "W"
+    ];
+    return upperTitleArray.map((letter, index) => (
+      <span key={index}>{letter}</span>
+    ));
+  };
+
+  rotateElipse = () => {
+    let initialPosition = [
+      this.state.rotateElipse1,
+      this.state.rotateElipse2,
+      this.state.rotateElipse3,
+      this.state.rotateElipse4,
+      this.state.rotateElipse5,
+      this.state.rotateElipse6,
+      this.state.rotateElipse7,
+      this.state.rotateElipse8,
+      this.state.rotateElipse9
+    ];
+
+    return initialPosition.map((position, index) => (
+      <div key={index} className="elipse" style={{ transform: `rotate(${position}deg)` }} />
+    ));
+  };
+
   componentDidMount() {
     /*
     Whenever you use a setInterval or setTimeout in react, it's always a good practice to clear it before the component unmounts
@@ -42,104 +111,35 @@ class Logo extends Component {
   }
 
   render() {
-    let props = this.props; // Same as previous
+    let props = this.props;
+    var classNames = require("classnames");
+
+    let wrapper = classNames(
+      {
+        "wrapper-hidden ":
+          props.stateFromApp.publicHelpActivated ||
+          props.stateFromApp.toggleScoreBoard
+      },
+      {
+        wrapper:
+          !props.stateFromApp.publicHelpActivated ||
+          !props.stateFromApp.toggleScoreBoard
+      }
+    );
     return (
-      <div
-        className={
-          props.stateFromApp.publicHelpActivated || // classnames here? Or move the joint condition for a variable.
-          props.stateFromApp.showScoreBoard
-            ? "wrapper-hidden "
-            : "wrapper"
-        }
-      >
+      <div className={wrapper}>
         <div className="logo">
-          {
-            // This is a bit of repeated code. Let's try to refactor this
-          }
-          <div
-            className="elipse"
-            style={{ transform: `rotate(${this.state.rotateElipse1}deg)` }}
-          />
-          <div
-            className="elipse"
-            style={{ transform: `rotate(${this.state.rotateElipse2}deg)` }}
-          />
-          <div
-            className="elipse"
-            style={{ transform: `rotate(${this.state.rotateElipse3}deg)` }}
-          />
-          <div
-            className="elipse"
-            style={{ transform: `rotate(${this.state.rotateElipse4}deg)` }}
-          />
-          <div
-            className="elipse"
-            style={{ transform: `rotate(${this.state.rotateElipse5}deg)` }}
-          />
-          <div
-            className="elipse"
-            style={{ transform: `rotate(${this.state.rotateElipse6}deg)` }}
-          />
-          <div
-            className="elipse"
-            style={{ transform: `rotate(${this.state.rotateElipse7}deg)` }}
-          />
-          <div
-            className="elipse"
-            style={{ transform: `rotate(${this.state.rotateElipse8}deg)` }}
-          />
-          <div
-            className="elipse"
-            style={{ transform: `rotate(${this.state.rotateElipse9}deg)` }}
-          />
+          {this.rotateElipse()}
           <div className="title">
-            {props.stateFromApp.gameStart === false // boolean comparing with boolean on a ternary. You can refactor this.
+            {!props.stateFromApp.gameStart
               ? "Millionaire"
               : `${props.minutesToShow}:${props.secondsToShow}`}
           </div>
 
-
-          {
-            // This is a bit of repeated code. Let's try to refactor this and the one below.
-          }
-          <div className="estrellas">
-            <span>W</span>
-            <span>H</span>
-            <span>O</span>
-            <span> </span>
-            <span>W</span>
-            <span>A</span>
-            <span>N</span>
-            <span>T</span>
-            <span>S</span>
-            <span> </span>
-            <span>T</span>
-            <span>O</span>
-            <span> </span>
-            <span>B</span>
-            <span>E</span>
-            <span> </span>
-            <span>A</span>
-          </div>
+          <div className="estrellas">{this.lowerTitle()}</div>
 
           <div className="estrellas inverso" style={{ top: "-450px" }}>
-            <span>A</span>
-            <span> </span>
-            <span>E</span>
-            <span>B</span>
-            <span> </span>
-            <span>O</span>
-            <span>T</span>
-            <span> </span>
-            <span>S</span>
-            <span>T</span>
-            <span>N</span>
-            <span>A</span>
-            <span>W</span>
-            <span> </span>
-            <span>O</span>
-            <span>H</span>
-            <span>W</span>
+            {this.upperTitle()}
           </div>
 
           <div className="inner-circle" />

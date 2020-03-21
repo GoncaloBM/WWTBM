@@ -15,7 +15,7 @@ class ScoreBoard extends Component {
       return this.props.scoreState.map((score, index) => {
         const { name, question, time } = score;
         return (
-          <tr key={index}>
+          <tr className="player" key={index}>
             <td>{name}</td>
             <td>{question}</td>
             <td>{time}</td>
@@ -29,8 +29,8 @@ class ScoreBoard extends Component {
     var classNames = require("classnames");
     let scoreboard = classNames(
       "scoreboard",
-      { "scoreboard-showing": this.props.showScoreBoard },
-      { "scoreboard-hidden": !this.props.showScoreBoard }
+      { "scoreboard-showing": this.props.toggleScoreBoard },
+      { "scoreboard-hidden": !this.props.toggleScoreBoard }
     );
     return (
       <div className={scoreboard}>

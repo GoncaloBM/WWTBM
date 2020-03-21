@@ -12,7 +12,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* background-color: black; */
   overflow: hidden;
   z-index: 100;
 }
@@ -22,8 +21,6 @@
   border-bottom: 5px solid white;
   width: 35%;
   transition: 0.5s all;
-  /* left: 35%;
-  opacity: 1; */
 }
 
  #bar1 {
@@ -44,8 +41,7 @@
     border-bottom: 5px solid white;
     width: 35%;
     transition: 0.5s all;
-    /* left: -40%;
-    opacity: 0; */
+
   }
   
    #bar3 {
@@ -70,13 +66,3 @@
     left: 35%;
     opacity: 1;
   }
-
-  /* .drawer-button:hover .bar-button1 {
-    left: 135%;
-    opacity: 0;
-  }
-
-  .drawer-button:hover .bar-button2 {
-    left: 35%;
-    opacity: 1;
-  } */

@@ -1,8 +1,5 @@
-export const checkCorrectAnswer = (props) => {
-    let correctAnswer = props.correctAnswer;
-    let answers = props.answers;
+export const checkCorrectAnswer = (correctAnswer,answers) => {
     let count = 0;
-    // if you don't change the reference, prefer using const instead.
     let correctIndex;
 
     for (let i = 0; i < answers.length; i++) {

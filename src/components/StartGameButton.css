@@ -14,7 +14,7 @@
 }
 
 .start-show {
-  bottom: 20%;
+  bottom: 25%;
 }
 
 .start-game-button {
@@ -90,6 +90,6 @@
   }
 
   .start-game-button {
-  font-size: 2rem;
+    font-size: 2rem;
   }
 }

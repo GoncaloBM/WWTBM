@@ -36,6 +36,10 @@
   border-bottom: 5px solid #6f8fbf;
 }
 
+.player {
+  color: white;
+}
+
 @media screen and (max-width: 400px) {
   .scoreboard-hidden {
     top: -65%;

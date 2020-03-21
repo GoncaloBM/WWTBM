@@ -21,9 +21,9 @@ export const checkLoseMessage = state => {
     currentState.activeQuestion > 4 &&
     currentState.activeQuestion < 10
   ) {
-    return currentState.questionAmmout[4];
+    return currentState.questionAmount[4];
   } else if (currentState.activeQuestion > 9) {
-    return currentState.questionAmmout[9];
+    return currentState.questionAmount[9];
   }
 };
 
