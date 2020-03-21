@@ -15,7 +15,7 @@ export const AboutMe = props => {
       onClick={() => props.clickAbout()}
     >
       <h1>About me</h1>
-      <img src={require("./Images/me.png")} />
+      <img src={require("./Images/me.png")} alt="" />
       <h2 className="name">Gonçalo Mira</h2>
       <h3>Wild Code Student</h3>
     </div>
