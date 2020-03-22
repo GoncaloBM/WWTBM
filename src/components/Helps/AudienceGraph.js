@@ -1,8 +1,8 @@
-import React from "react";
+import React from "./node_modules/react";
 import "./AudienceGraph.css";
 
 export const AudienceGraph = props => {
-  var classNames = require("classnames");
+  var classNames = require("./node_modules/classnames");
 
   let publicHelpActivated = classNames(
     {

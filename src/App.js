@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./styles.css";
 import ScoreBoard from "./components/ScoreBoard";
 import LoosingName from "./components/LoosingName";
-import Public from "./components/helps/Public";
-import Phone from "./components/helps/Phone";
+import Public from "./components/Helps/Public";
+import Phone from "./components/Helps/Phone";
 import LogoApp from "./components/LogoApp";
 import { getQuestionsAndAnswersFromAPI } from "./components/functions/getQuestionsAndAnswers";
 import {
@@ -19,9 +19,9 @@ import {
 } from "./components/Message";
 import { StartGameButton } from "./components/StartGameButton";
 import { PyramidQuestions } from "./components/PyramidQuestions";
-import { Help5050, firstAnswersToRemove5050 } from "./components/helps/50-50";
-import { PhoneMenu } from "./components/helps/PhoneMenu";
-import { AudienceGraph } from "./components/helps/AudienceGraph";
+import { Help5050, firstAnswersToRemove5050 } from "./components/Helps/50-50";
+import { PhoneMenu } from "./components/Helps/PhoneMenu";
+import { AudienceGraph } from "./components/Helps/AudienceGraph";
 import { ButtonDrawer } from "./components/buttonDrawer";
 import { ResetButton } from "./components/ResetButton";
 import { ScoreBoardButton } from "./components/ScoreBoardButton";

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "./node_modules/react";
 import "./Phone.css";
 import "./cross.css";
 import { checkCorrectAnswer } from "./checkCorrectAnswer";
@@ -119,7 +119,7 @@ class Phone extends Component {
 
   render() {
     let props = this.props;
-    var classNames = require("classnames");
+    var classNames = require("./node_modules/classnames");
 
     let cross = classNames(
       "cross",

@@ -1,9 +1,9 @@
-import React from "react";
+import React from "./node_modules/react";
 import "./Phone.css";
 
 export const PhoneMenu = props => {
   let { phoneHelpState, phoneHelperGone, helperClick } = props;
-  var classNames = require("classnames");
+  var classNames = require("./node_modules/classnames");
 
   let helperPosition = classNames(
     { "helper-position-activated": phoneHelpState.helperShow },

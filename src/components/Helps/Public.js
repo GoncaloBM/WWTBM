@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "./node_modules/react";
 import "./Public.css";
 import "./cross.css";
 
@@ -73,7 +73,7 @@ class Public extends Component {
 
   render() {
     const props = this.props;
-    var classNames = require("classnames");
+    var classNames = require("./node_modules/classnames");
 
     let cross = classNames(
       "cross",

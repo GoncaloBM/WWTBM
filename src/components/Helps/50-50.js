@@ -1,4 +1,4 @@
-import React from "react";
+import React from "./node_modules/react";
 import "./5050.css";
 
 export const firstAnswersToRemove5050 = state => {
@@ -32,7 +32,7 @@ export const firstAnswersToRemove5050 = state => {
 };
 
 export const Help5050 = props => {
-  var classNames = require("classnames");
+  var classNames = require("./node_modules/classnames");
 
   let cross = classNames(
     "cross",
