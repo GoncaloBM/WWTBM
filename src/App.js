@@ -139,7 +139,8 @@ class App extends Component {
         isLoaded: false,
         startGameHidden: true,
         scoreButtonHidden: true,
-        drawerHidden: drawerHidden
+        drawerHidden: drawerHidden,
+        toggleScoreBoard: false
       },
       () => {
         fetch(url)
@@ -466,7 +467,7 @@ class App extends Component {
               activated5050={this.state.activated5050}
             />
 
-            <div>Correct : {this.state.correctAnswer}</div>
+            {/* <div>Correct : {this.state.correctAnswer}</div> */}
           </div>
 
           <GiveUpMessage
