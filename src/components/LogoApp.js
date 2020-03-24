@@ -75,7 +75,7 @@ class LogoApp extends Component {
   };
 
   componentDidUpdate() {
-    this.props.initialScreen === true && this.stopTime(); 
+    this.props.initialScreen === true && this.stopTime();
 
     this.props.gameStart && !this.state.counterDone && this.counterTime();
   }
@@ -86,7 +86,6 @@ class LogoApp extends Component {
         <Logo
           minutesToShow={this.state.minutesToShow}
           secondsToShow={this.state.secondsToShow}
-          stateFromApp={this.props.state} // instead of passing the state from component to component, consider using context for this result.
         />
       </div>
     );

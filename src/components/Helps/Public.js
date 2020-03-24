@@ -1,4 +1,4 @@
-import React, { Component } from "./node_modules/react";
+import React, { Component } from "react";
 import "./Public.css";
 import "./cross.css";
 
@@ -45,7 +45,7 @@ class Public extends Component {
       percentageAnswer3
     ];
 
-    let percentageArray = { ...this.state.percentageAnswer }; // this doesn't seem right. If you want to create a new array from another your should use square brackets
+    let percentageArray = this.state.percentageAnswer; 
 
     for (let i = 0; i < props.answers.length; i++) {
       if (props.answers[i] === correctAnswer) {
@@ -73,7 +73,7 @@ class Public extends Component {
 
   render() {
     const props = this.props;
-    var classNames = require("./node_modules/classnames");
+    var classNames = require("classnames");
 
     let cross = classNames(
       "cross",
@@ -83,23 +83,12 @@ class Public extends Component {
 
     return (
       <div id="help" style={{ width: props.drawerHidden ? "125px" : "" }}>
-        <div
-          className={cross}
-          id="right"
-          style={{
-            pointerEvents: props.publicHelpState.helperActivated ? "none" : ""
-          }}
-        />
+        <div className={cross} id="right" />
         <div className={cross} id="left" />
 
         <div
           className="public-icon"
-          onClick={this.publicAnswer}
-          style={{
-            // Instead of disabling with CSS, you can do the check inside the onClick handler.
-            //  If `this.props.state.publicHelpState.helperActivated` is true, do an early return, effectively not doing anything :P
-            pointerEvents: props.publicHelpState.helperActivated ? "none" : ""
-          }}
+          onClick={!props.publicHelpState.helperActivated && this.publicAnswer}
         />
       </div>
     );

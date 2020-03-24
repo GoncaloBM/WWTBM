@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { LogoContext } from "./../App";
 import "./logo.css";
 
 class Logo extends Component {
@@ -82,10 +83,13 @@ class Logo extends Component {
     ];
 
     return initialPosition.map((position, index) => (
-      <div key={index} className="elipse" style={{ transform: `rotate(${position}deg)` }} />
+      <div
+        key={index}
+        className="elipse"
+        style={{ transform: `rotate(${position}deg)` }}
+      />
     ));
   };
-
   componentDidMount() {
     /*
     Whenever you use a setInterval or setTimeout in react, it's always a good practice to clear it before the component unmounts
@@ -93,9 +97,6 @@ class Logo extends Component {
     setInterval(() => {
       let state = this.state; // Whenever you have a let VARIABLE_NAME = something.VARIABLE_NAME, you can refactor to let { VARIABLE_NAME } = something;
 
-      /**
-       * If you want to dabble in CSS, I believe you can do the rotating ellipsing using only css
-       */
       this.setState({
         rotateElipse1: state.rotateElipse1 + 1,
         rotateElipse2: state.rotateElipse2 + 1,
@@ -111,40 +112,44 @@ class Logo extends Component {
   }
 
   render() {
-    let props = this.props;
-    var classNames = require("classnames");
-
-    let wrapper = classNames(
-      {
-        "wrapper-hidden ":
-          props.stateFromApp.publicHelpActivated ||
-          props.stateFromApp.toggleScoreBoard
-      },
-      {
-        wrapper:
-          !props.stateFromApp.publicHelpActivated ||
-          !props.stateFromApp.toggleScoreBoard
-      }
-    );
     return (
-      <div className={wrapper}>
-        <div className="logo">
-          {this.rotateElipse()}
-          <div className="title">
-            {!props.stateFromApp.gameStart
-              ? "Millionaire"
-              : `${props.minutesToShow}:${props.secondsToShow}`}
-          </div>
+      <LogoContext.Consumer>
+        {stateApp => {
+          let props = this.props;
+          var classNames = require("classnames");
 
-          <div className="estrellas">{this.lowerTitle()}</div>
+          let wrapper = classNames(
+            {
+              "wrapper-hidden ":
+                stateApp.publicHelpActivated || stateApp.toggleScoreBoard
+            },
+            {
+              wrapper:
+                !stateApp.publicHelpActivated || !stateApp.toggleScoreBoard
+            }
+          );
+          return (
+            <div className={wrapper}>
+              <div className="logo">
+                {this.rotateElipse()}
+                <div className="title">
+                  {!stateApp.gameStart
+                    ? "Millionaire"
+                    : `${props.minutesToShow}:${props.secondsToShow}`}
+                </div>
 
-          <div className="estrellas inverso" style={{ top: "-450px" }}>
-            {this.upperTitle()}
-          </div>
+                <div className="estrellas">{this.lowerTitle()}</div>
 
-          <div className="inner-circle" />
-        </div>
-      </div>
+                <div className="estrellas inverso" style={{ top: "-450px" }}>
+                  {this.upperTitle()}
+                </div>
+
+                <div className="inner-circle" />
+              </div>
+            </div>
+          );
+        }}
+      </LogoContext.Consumer>
     );
   }
 }

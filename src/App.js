@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { createContext } from "react";
 import "./styles.css";
 import ScoreBoard from "./components/ScoreBoard";
 import LoosingName from "./components/LoosingName";
@@ -28,6 +29,8 @@ import { ScoreBoardButton } from "./components/ScoreBoardButton";
 import { GiveUpButton } from "./components/GiveUpButton";
 import { GiveUpMessage } from "./components/GiveUpMessage";
 import { AboutMe } from "./components/AboutMe";
+
+export const LogoContext = createContext(null);
 
 class App extends Component {
   constructor(props) {
@@ -381,12 +384,14 @@ class App extends Component {
             hideShowDrawer={this.hideShowDrawer}
           />
 
-          <LogoApp
-            state={this.state}
-            initialScreen={this.state.initialScreen}
-            gameStart={this.state.gameStart}
-            countToApp={this.counterFromChild}
-          />
+          <LogoContext.Provider value={this.state}>
+            <LogoApp
+              state={this.state}
+              initialScreen={this.state.initialScreen}
+              gameStart={this.state.gameStart}
+              countToApp={this.counterFromChild}
+            />
+          </LogoContext.Provider>
 
           <AudienceGraph
             publicHelpActivated={this.state.publicHelpActivated}
@@ -428,7 +433,10 @@ class App extends Component {
                 drawerHidden={this.state.drawerHidden}
                 phoneHelpState={this.state.phoneHelpState}
                 phoneHelpCallback={this.phoneHelpCallback}
+                help5050done={this.state.help5050done}
+                answersToRemove={this.state.answersToRemove}
               />
+
               <Public
                 correctAnswer={this.state.correctAnswer}
                 activeQuestion={this.state.activeQuestion}
@@ -504,6 +512,7 @@ class App extends Component {
               activated5050={this.state.activated5050}
               click5050={this.click5050}
             />
+            
             <Phone
               activeQuestion={this.state.activeQuestion}
               correctAnswer={this.state.correctAnswer}
@@ -511,6 +520,8 @@ class App extends Component {
               drawerHidden={this.state.drawerHidden}
               phoneHelpState={this.state.phoneHelpState}
               phoneHelpCallback={this.phoneHelpCallback}
+              help5050done={this.state.help5050done}
+              answersToRemove={this.state.answersToRemove}
             />
             <Public
               correctAnswer={this.state.correctAnswer}

@@ -1,4 +1,4 @@
-import React from "./node_modules/react";
+import React from "react";
 import "./5050.css";
 
 export const firstAnswersToRemove5050 = state => {
@@ -32,14 +32,14 @@ export const firstAnswersToRemove5050 = state => {
 };
 
 export const Help5050 = props => {
-  var classNames = require("./node_modules/classnames");
+  var classNames = require("classnames");
 
   let cross = classNames(
     "cross",
     { "help-activated": props.help5050done },
     { "help-to-activate": !props.help5050done }
   );
-  
+
   return (
     // You're already setting a class if drawer is hidden. If that class is available in a parent, you can do this styling logic in the css
     <div id="help" style={{ width: props.drawerHidden ? "125px" : "" }}>
@@ -47,8 +47,7 @@ export const Help5050 = props => {
       <div className={cross} id="left"></div>
       <div
         className="help5050"
-        onClick={props.click5050}
-        style={{ pointerEvents: props.help5050done ? "none" : "" }}
+        onClick={!props.help5050done && props.click5050}
       >
         50-50
       </div>
