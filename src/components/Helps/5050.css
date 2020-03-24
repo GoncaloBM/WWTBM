@@ -9,9 +9,16 @@
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 2rem;
   cursor: pointer;
   overflow: hidden;
+}
+
+.font-on-drawer {
+  font-size: 2rem;
+}
+
+.font-on-question {
+  font-size: 1.2rem;
 }
 
 #help {
@@ -43,7 +50,25 @@
 }
 
 @media screen and (max-width: 400px) {
-  .help5050 {
+  .font-on-drawer {
     font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .font-on-drawer {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .font-on-drawer {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .font-on-drawer {
+    font-size: 0.8rem;
   }
 }

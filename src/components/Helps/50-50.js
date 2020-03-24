@@ -40,13 +40,18 @@ export const Help5050 = props => {
     { "help-to-activate": !props.help5050done }
   );
 
+  let helpButton = classNames(
+    "help5050",
+    { "font-on-question": props.drawerHidden },
+    { "font-on-drawer": !props.drawerHidden }
+  );
+
   return (
-    // You're already setting a class if drawer is hidden. If that class is available in a parent, you can do this styling logic in the css
     <div id="help" style={{ width: props.drawerHidden ? "125px" : "" }}>
       <div className={cross} id="right" onClick={props.click5050}></div>
       <div className={cross} id="left"></div>
       <div
-        className="help5050"
+        className={helpButton}
         onClick={!props.help5050done ? props.click5050 : null}
       >
         50-50
