@@ -21,6 +21,7 @@ class Public extends Component {
     let props = this.props;
     let correctAnswer = props.correctAnswer;
     let percentageCorrectAnswer;
+    let percentageArray = this.state.percentageAnswer;
 
     if (props.activeQuestion < 5) {
       percentageCorrectAnswer = Math.floor(Math.random() * 11) + 90;
@@ -30,39 +31,53 @@ class Public extends Component {
       percentageCorrectAnswer = Math.floor(Math.random() * 11) + 40;
     }
 
-    let percentageAnswer1 = Math.floor(
-      Math.random() * (101 - percentageCorrectAnswer)
-    );
-    let percentageAnswer2 = Math.floor(
-      Math.random() * (101 - percentageCorrectAnswer - percentageAnswer1)
-    );
-    let percentageAnswer3 = Math.floor(
-      100 - percentageCorrectAnswer - percentageAnswer1 - percentageAnswer2
-    );
-    let arrayIncorrectPercentages = [
-      percentageAnswer1,
-      percentageAnswer2,
-      percentageAnswer3
-    ];
+    if (!props.help5050done) {
+      let percentageAnswer1 = Math.floor(
+        Math.random() * (101 - percentageCorrectAnswer)
+      );
+      let percentageAnswer2 = Math.floor(
+        Math.random() * (101 - percentageCorrectAnswer - percentageAnswer1)
+      );
+      let percentageAnswer3 = Math.floor(
+        100 - percentageCorrectAnswer - percentageAnswer1 - percentageAnswer2
+      );
+      let arrayIncorrectPercentages = [
+        percentageAnswer1,
+        percentageAnswer2,
+        percentageAnswer3
+      ];
 
-    let percentageArray = this.state.percentageAnswer; 
-
-    for (let i = 0; i < props.answers.length; i++) {
-      if (props.answers[i] === correctAnswer) {
-        percentageArray[i] = percentageCorrectAnswer;
-      } else {
-        for (let j = 0; j < arrayIncorrectPercentages.length; j++) {
-          if (
-            arrayIncorrectPercentages[j] !== null &&
-            percentageArray[i] === null
-          ) {
-            percentageArray[i] = arrayIncorrectPercentages[j];
-            arrayIncorrectPercentages[j] = null;
+      for (let i = 0; i < props.answers.length; i++) {
+        if (props.answers[i] === correctAnswer) {
+          percentageArray[i] = percentageCorrectAnswer;
+        } else {
+          for (let j = 0; j < arrayIncorrectPercentages.length; j++) {
+            if (
+              arrayIncorrectPercentages[j] !== null &&
+              percentageArray[i] === null
+            ) {
+              percentageArray[i] = arrayIncorrectPercentages[j];
+              arrayIncorrectPercentages[j] = null;
+            }
           }
         }
       }
-    }
+    } else {
+      let percentageAnswer = 100 - percentageCorrectAnswer;
 
+      for (let i = 0; i < props.answers.length; i++) {
+        if (props.answers[i] === correctAnswer) {
+          percentageArray[i] = percentageCorrectAnswer;
+        } else if (i === props.answersToRemove[0]) {
+          percentageArray[i] = 0;
+        } else if (i === props.answersToRemove[1]) {
+          percentageArray[i] = 0;
+        } else {
+          percentageArray[i] = percentageAnswer;
+        }
+      }
+    }
+    console.log(percentageArray);
     this.setState({
       percentageAnswer: percentageArray,
       helperActivated: true
@@ -88,7 +103,9 @@ class Public extends Component {
 
         <div
           className="public-icon"
-          onClick={!props.publicHelpState.helperActivated && this.publicAnswer}
+          onClick={
+            !props.publicHelpState.helperActivated ? this.publicAnswer : null
+          }
         />
       </div>
     );

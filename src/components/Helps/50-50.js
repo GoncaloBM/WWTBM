@@ -47,7 +47,7 @@ export const Help5050 = props => {
       <div className={cross} id="left"></div>
       <div
         className="help5050"
-        onClick={!props.help5050done && props.click5050}
+        onClick={!props.help5050done ? props.click5050 : null}
       >
         50-50
       </div>

@@ -445,6 +445,8 @@ class App extends Component {
                 publicHelpCallback={this.publicHelpCallback}
                 publicClick={this.publicClick}
                 publicHelpState={this.state.publicHelpState}
+                help5050done={this.state.help5050done}
+                answersToRemove={this.state.answersToRemove}
               />
             </div>
 
@@ -512,7 +514,7 @@ class App extends Component {
               activated5050={this.state.activated5050}
               click5050={this.click5050}
             />
-            
+
             <Phone
               activeQuestion={this.state.activeQuestion}
               correctAnswer={this.state.correctAnswer}
@@ -531,6 +533,8 @@ class App extends Component {
               publicHelpCallback={this.publicHelpCallback}
               publicClick={this.publicClick}
               publicHelpState={this.state.publicHelpState}
+              help5050done={this.state.help5050done}
+              answersToRemove={this.state.answersToRemove}
             />
           </div>
 

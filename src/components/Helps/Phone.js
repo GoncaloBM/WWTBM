@@ -84,6 +84,8 @@ class Phone extends Component {
         return "C";
       case 3:
         return "D";
+      default:
+        break;
     }
   };
 
@@ -165,12 +167,16 @@ class Phone extends Component {
         <div
           className={cross}
           id="right"
-          onClick={!props.phoneHelpState.helperActivated && this.phoneClick}
+          onClick={
+            !props.phoneHelpState.helperActivated ? this.phoneClick : null
+          }
         />
         <div className={cross} id="left" />
         <div
           className="phone-icon"
-          onClick={!props.phoneHelpState.helperActivated && this.phoneClick}
+          onClick={
+            !props.phoneHelpState.helperActivated ? this.phoneClick : null
+          }
         />
       </div>
     );
