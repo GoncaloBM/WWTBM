@@ -159,36 +159,6 @@
   border-right: 0.9rem solid green;
 }
 
-.answer-line:hover #answer {
-  background-color: #f98700;
-  color: black;
-  border-top: #708fbf solid 0.1rem;
-  border-bottom: #708fbf solid 0.1rem;
-}
-
-.answer-line:hover #answer:before {
-  background-color: #f98700;
-  color: black;
-  border-top: #708fbf solid 0.1rem;
-  border-bottom: #708fbf solid 0.1rem;
-}
-
-.answer-line:hover .arrow-left-answer {
-  border-right: 1rem solid #708fbf;
-}
-
-.answer-line:hover .arrow-left-answer:before {
-  border-right: 0.9rem solid #f98700;
-}
-
-.answer-line:hover .arrow-right-answer {
-  border-left: 1rem solid #708fbf;
-}
-
-.answer-line:hover .arrow-right-answer:before {
-  border-left: 0.9rem solid #f98700;
-}
-
 #answers span {
   color: orange;
   margin-right: 5px;
@@ -197,5 +167,37 @@
 @media screen and (max-width: 450px) {
   #answers {
     font-size: 0.8rem;
+  }
+}
+
+@media screen and (min-width: 450px) {
+  .answer-line:hover:not(:focus) #answer {
+    background-color: #f98700;
+    color: black;
+    border-top: #708fbf solid 0.1rem;
+    border-bottom: #708fbf solid 0.1rem;
+  }
+
+  .answer-line:hover:not(:focus) #answer:before {
+    background-color: #f98700;
+    color: black;
+    border-top: #708fbf solid 0.1rem;
+    border-bottom: #708fbf solid 0.1rem;
+  }
+
+  .answer-line:hover .arrow-left-answer {
+    border-right: 1rem solid #708fbf;
+  }
+
+  .answer-line:hover .arrow-left-answer:before {
+    border-right: 0.9rem solid #f98700;
+  }
+
+  .answer-line:hover .arrow-right-answer {
+    border-left: 1rem solid #708fbf;
+  }
+
+  .answer-line:hover .arrow-right-answer:before {
+    border-left: 0.9rem solid #f98700;
   }
 }

@@ -94,7 +94,6 @@ export const Answers = props => {
               props.answerClicked(index);
             }}
             style={{
-              // instead of disabling the pointer-events, to this check in the onClick handler. If you're not supposed to do anything, then return right away
               pointerEvents:
                 (props.activated5050 &&
                   (index === props.answersToRemove[0] ||

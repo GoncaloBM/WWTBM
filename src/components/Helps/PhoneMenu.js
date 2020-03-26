@@ -46,7 +46,11 @@ export const PhoneMenu = props => {
                   className={phoneHelpState.HelperClicked ? "img-chosen" : ""}
                   src={phoneHelpState.HelpersImages[index]}
                   alt=""
-                  onClick={() => helperClick(index)}
+                  onClick={
+                    !phoneHelpState.HelperClicked
+                      ? () => helperClick(index)
+                      : null
+                  }
                 />
                 <div className="name-answer">
                   {phoneHelpState.HelperClicked

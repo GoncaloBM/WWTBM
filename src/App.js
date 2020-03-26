@@ -454,6 +454,7 @@ class App extends Component {
             <Question question={this.state.question} />
 
             <Answers
+              isMobile={this.state.isMobile}
               key={this.state.activeQuestion}
               questionAnswered={this.state.questionAnswered}
               answers={this.state.answers}
@@ -467,7 +468,7 @@ class App extends Component {
               activated5050={this.state.activated5050}
             />
 
-            {/* <div>Correct : {this.state.correctAnswer}</div> */}
+            <div>Correct : {this.state.correctAnswer}</div>
           </div>
 
           <GiveUpMessage
