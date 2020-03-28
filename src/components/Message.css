@@ -95,4 +95,12 @@
   .show-message {
     bottom: 20%;
   }
+
+  .message-screen {
+    width: 80%;
+  }
+
+  .message {
+    font-size: 2rem;
+  }
 }

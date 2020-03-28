@@ -92,7 +92,8 @@ class App extends Component {
       loosingNameInputHidden: true,
       counter0: 0,
       lost: false,
-      aboutMeToggle: false
+      aboutMeToggle: false,
+      win: false
     };
   };
 
@@ -265,14 +266,27 @@ class App extends Component {
   };
 
   getNextState = () => {
-    this.getQuestionAndAnswers();
-    this.setState({
-      activated5050: false,
-      messageHidden: true,
-      showingCorrectAnswer: !this.state.showingCorrectAnswer,
-      publicHelpActivated: false,
-      questionAnswered: false
-    });
+    if (this.state.activeQuestion > 14) {
+      this.setState(
+        {
+          ...this.state,
+          win: true,
+          drawerHidden: true
+        },
+        () => {
+          this.giveUp();
+        }
+      );
+    } else {
+      this.getQuestionAndAnswers();
+      this.setState({
+        activated5050: false,
+        messageHidden: true,
+        showingCorrectAnswer: !this.state.showingCorrectAnswer,
+        publicHelpActivated: false,
+        questionAnswered: false
+      });
+    }
   };
 
   click5050 = () => {
@@ -316,7 +330,7 @@ class App extends Component {
     this.setState({
       ...this.state,
       finalCount: this.state.counterTime,
-      giveUpPrompted: !this.state.giveUpPrompted,
+      giveUpPrompted: false,
       endGame: true,
       messageHidden: false,
       message: winAmount,
@@ -344,7 +358,8 @@ class App extends Component {
       "principal-screen",
       {
         "principal-screen-startGame": this.state.initialScreen,
-        "principal-screen-game": !this.state.initialScreen
+        "principal-screen-game": !this.state.initialScreen,
+        "win-game": !this.state.initialScreen && this.state.win
       },
       {
         "principal-screen-big": this.state.drawerHidden,
@@ -383,6 +398,7 @@ class App extends Component {
             startGame={this.state.gameStart}
             drawerHidden={this.state.drawerHidden}
             hideShowDrawer={this.hideShowDrawer}
+            win={this.state.win}
           />
 
           <LogoContext.Provider value={this.state}>

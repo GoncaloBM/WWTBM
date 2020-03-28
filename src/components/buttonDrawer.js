@@ -7,7 +7,7 @@ export const ButtonDrawer = props => {
   let barButton1 = classNames(
     "bar-button1",
     { "bar-button-hidden": !props.drawerHidden },
-    { "drawer-button-start": !props.drawerHidden }
+    { "drawer-button-start": !props.drawerHidden || props.win }
   );
 
   let barButton2 = classNames(

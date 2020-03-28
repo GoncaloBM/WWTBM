@@ -5,10 +5,14 @@ import "./Message.css";
 export const checkWinMessage = state => {
   let currentState = { ...state };
 
-  for (let i = 0; i < currentState.activeQuestion; i++) {
-    if (currentState.activeQuestion === i + 1) {
-      return currentState.questionAmount[i + 1];
+  if (currentState.activeQuestion < 15) {
+    for (let i = 0; i < currentState.activeQuestion; i++) {
+      if (currentState.activeQuestion === i + 1) {
+        return currentState.questionAmount[i + 1];
+      }
     }
+  } else if (currentState.activeQuestion > 14) {
+    return "You won 250 000€";
   }
 };
 

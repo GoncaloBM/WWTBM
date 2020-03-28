@@ -48,6 +48,15 @@ body {
 
 .principal-screen-game {
   background-image: url("https://cdn2.softswiss.net/spinia/b/quickfire/MGS_Millionaire.jpg");
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.win-game {
+  background-image: url('https://thumbs.gfycat.com/DefenselessSilverEasternglasslizard-size_restricted.gif');
+  background-color: transparent;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
